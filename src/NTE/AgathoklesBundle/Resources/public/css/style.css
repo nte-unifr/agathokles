@@ -1,0 +1,198 @@
+.main {
+    background-image: url("http://unifr.ch/images/background_main.gif");
+    background-repeat: repeat-y;
+    padding: 0 !important;
+    height: 100px;
+}
+
+@media (max-width: 991px) {
+    .main {background-image: none;}
+}
+.navbar {
+    background-color: #006699;
+    background-image: none;
+    background-repeat: repeat-x;
+    border: 0px solid #D4D4D4;
+    border-radius: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    min-height: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #FFFFFF;
+    filter: none;
+    margin-bottom: 0px;
+}
+.navbar a {
+    color: #FFFFFF;
+}
+.navbar .nav > li > a, .navbar .nav > li > a:hover {
+    color: #FFFFFF;
+    text-shadow: 0 0px 0 #FFFFFF;
+//    border: 0 1px 0 1px solid #FFFFFF;
+    padding: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.navbar .brand {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+    margin-left: -10px;
+    padding: 5px 10px;
+    text-shadow: 0 0px 0 #FFFFFF;
+    text-decoration: none;
+    width: 190px;
+}
+
+.navbar-brand {
+    height: 32px;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.sans-bord {
+    padding: 0;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body > .container {
+/*    border-color: #FFFFFF #CCCCCC #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    */
+}
+.box001 {
+    margin-left: -10px;
+}
+.annexes {
+    float: left;
+    width: 30%;
+}
+.clear {
+    clear: both;
+}
+h1 {
+    font-size: 22px;
+    font-weight: bold;
+}
+#gallery a img {
+    height: 50px;
+    margin: 0 0 10px 0;
+}
+
+#address2 .txt {
+    background-color: #FFFFFF;
+    bottom: 0;
+    color: #565656;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    line-height: 14px;
+    padding-bottom: 16px;
+    padding-right: 12px;
+    padding-top: 34px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    text-decoration: none;
+}
+
+#identity #address2 a {
+    color: #565656;
+    text-decoration: none;
+}
+
+#webpage2 {
+    text-align: left;
+}
+
+a.btn {
+    text-decoration: none;
+    color: #ffffff !important;
+}
+
+.row33 .row div {
+    margin-top: 15px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+fieldset {
+    margin-top: 10px !important;
+}
+
+legend {
+    margin-bottom: 10px;
+}
+
+nav a, nav span {
+    margin: 5px;
+}
+
+.ui-slider-range, .panel-heading {
+    margin-top: 0 !important;
+}
+
+/*a.liste pre:hover {
+    text-decoration: none;
+    color: #FFF;
+}*/
+
+#map2 {
+    height:200px;
+    border: 0px solid;
+    border-top: 0;
+    margin-bottom: 15px;
+}
+
+#map3 {
+    height: 150px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-top: 0px !important;
+}
+
+.panel-default {
+    border-color: #999;
+}
+
+.panel-default > .panel-heading {
+    background-color: #006699;
+    border-color: #006699;
+    color: #fff;
+}
+
+body {
+    padding: 0 !important; /* à cause modale */
+}
+
+@media print {
+    .dl-horizontal dt {
+        clear: left;
+        display: block;
+        float: left;
+        overflow: visible;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: normal;
+        width: 100px;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 120px;
+    }
+}

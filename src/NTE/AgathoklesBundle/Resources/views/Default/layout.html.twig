@@ -1,0 +1,111 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/layout.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>{{ titre|striptags }} - Agathokles - Université de Fribourg</title>
+    <link rel="shortcut icon" href="{{ asset('bundles/nteagathokles/images/favicon.png') }}" type="image/x-icon" />
+    <meta name="keywords" lang="fr" content="universit&eacute;, formation, suisse, fribourg, recherche, &eacute;tudes" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/bootstrap.min.css') }}" type="text/css" media="all" />
+
+        <link href="{{ asset('bundles/nteagathokles/css/unifr.101.css') }}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/js/jquery-ui-1.11.2/jquery-ui.min.css') }}" type="text/css" />
+
+        <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/skin.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/style.css') }}" type="text/css" media="screen" />
+
+        <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/js/leafletjs/leaflet.css') }}" />
+        <style>
+            #map { height: 100%; }
+            body { max-height: 100%; }
+        </style>
+    {% endblock %}
+
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jquery-2.1.1.min.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jquery-ui-1.11.2/jquery-ui.min.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/agathokles.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+    </head>
+
+    <body class="fill">
+
+        <div class="container hidden-print">
+            <div id="webpage2">
+                <!-- start:identite -->
+                <div id="identity" class="hidden-xs">
+                    <div class="bandeau">
+                        <a href="http://www.unifr.ch"><img class="bandeau-faculty" border="0" src="{{ asset('bundles/nteagathokles/img/bandeau_unifr_universite.jpg') }}" alt="Université de Fribourg | Universität Freiburg"></a>
+                        <div id="address2">
+                            <div class="txt">
+                                <a href="{{ path('home') }}">AGATHOKLES</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end:identite -->
+            </div>
+        </div>
+
+                <!-- start:navig 2 -->
+        <div class="container-fluid sans-bord">
+            <nav class="navbar navbar-default sans-bord" role="navigation">
+              <div class="container">
+              <div class="container">
+
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand brand" href="{{ path('home') }}">Agathokles</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                    <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Timbres</a></li>
+                    <li><a href="{{ path('recherche') }}">Recherche</a></li>
+                    <li><a href="{{ path('faq') }}">FAQ</a></li>
+                    <li><a href="{{ path('credits') }}">Crédits</a></li>
+                    <li><a href="{{ path('contact') }}">Contact</a></li>
+                  </ul>
+
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://unifr.ch">Unifr</a></li>
+                    <li><a href="http://nte.unifr.ch">Centre NTE</a></li>
+                  </ul>
+                </div>
+              </div>
+              </div>
+            </nav>
+        </div>
+                <!-- end:navig 2 -->
+
+        {% block agathokles_content %}
+        {% endblock %}
+
+
+        {% block footer %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" align="center">
+                    <p align="center">
+                    <br /><br /><br /><br />
+                    Conception et réalisation : N. Badoud &amp; <a href="http://www.unifr.ch/nte/">Centre NTE</a> - Université de Fribourg - Suisse
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+    </body>
+</html>

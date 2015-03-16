@@ -1,0 +1,59 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Lieu/show.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block agathokles_content -%}
+
+<div class="container-fluid">
+    <div class="row">
+        <div id="map2"></div>
+        <script src="{{ asset('bundles/nteagathokles/js//leafletjs/leaflet.js') }}" type="text/javascript"></script>
+        <script type="text/javascript">
+            var lat;
+            var lng;
+            var marker;
+
+            var amphoreIcon = L.icon({
+                iconUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}images/marker_amphore.png',
+                iconRetinaUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}images/marker_amphore-2x.png',
+                shadowUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor:   [12, 40],
+                popupAnchor:  [1, -45],
+            });
+
+            var map = L.map('map2', {attributionControl: true, zoomControl:false}).setView([{{ entity.lat }}, {{ entity.lng }}], 5);
+            map.dragging.disable();
+
+            L.tileLayer('{{ asset('bundles/nteagathokles/maps') }}/{z}/{x}/{y}.png', {
+                maxZoom: 5,
+                minZoom: 5,
+                attribution: 'Carte: OpenStreetMap MapQuest, données <strong>Agathokles/<a href="http://www.unifr.ch">UniFR</a></strong>',
+            }).addTo(map);
+
+            $( document ).ready(function() {
+                marker = L.marker([{{ entity.lat }}, {{ entity.lng }}], {icon : amphoreIcon}).addTo(map);
+            });
+        </script>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <h1>Les timbres amphoriques de {{ titre }}</h1>
+            <div class="row">
+            {% for fiche in entity.fiches %}
+                {% if fiche.public %}
+
+                    {% include 'NTEAgathoklesBundle:Default:elt_liste_fiche.html.twig' with {'fiche': fiche, 'form': 'lieu', 'lieu_id': entity.id, 'page': null, 'loop': loop } only %}
+
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

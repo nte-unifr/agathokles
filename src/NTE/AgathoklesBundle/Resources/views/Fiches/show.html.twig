@@ -1,0 +1,134 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Fiches</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Codetype</th>
+                <td>{{ entity.codeType }}</td>
+            </tr>
+            <tr>
+                <th>Codetypenonid</th>
+                <td>{{ entity.codeTypeNonId }}</td>
+            </tr>
+            <tr>
+                <th>Autrelegende</th>
+                <td>{{ entity.autreLegende }}</td>
+            </tr>
+            <tr>
+                <th>Codematrice</th>
+                <td>{{ entity.codeMatrice }}</td>
+            </tr>
+            <tr>
+                <th>Legende</th>
+                <td>{{ entity.legende }}</td>
+            </tr>
+            <tr>
+                <th>Bouton</th>
+                <td>{{ entity.bouton }}</td>
+            </tr>
+            <tr>
+                <th>Grenetis</th>
+                <td>{{ entity.grenetis }}</td>
+            </tr>
+            <tr>
+                <th>Ombilic</th>
+                <td>{{ entity.ombilic }}</td>
+            </tr>
+            <tr>
+                <th>Legendetournante</th>
+                <td>{{ entity.legendeTournante }}</td>
+            </tr>
+            <tr>
+                <th>Lettreretrograde</th>
+                <td>{{ entity.lettreRetrograde }}</td>
+            </tr>
+            <tr>
+                <th>Lettrelunaire</th>
+                <td>{{ entity.lettreLunaire }}</td>
+            </tr>
+            <tr>
+                <th>Epi</th>
+                <td>{{ entity.epi }}</td>
+            </tr>
+            <tr>
+                <th>Para</th>
+                <td>{{ entity.para }}</td>
+            </tr>
+            <tr>
+                <th>Iereus</th>
+                <td>{{ entity.iereus }}</td>
+            </tr>
+            <tr>
+                <th>Metoikos</th>
+                <td>{{ entity.metoikos }}</td>
+            </tr>
+            <tr>
+                <th>Meis</th>
+                <td>{{ entity.meis }}</td>
+            </tr>
+            <tr>
+                <th>Ete</th>
+                <td>{{ entity.ete }}</td>
+            </tr>
+            <tr>
+                <th>Particulariteorthographique</th>
+                <td>{{ entity.particulariteOrthographique }}</td>
+            </tr>
+            <tr>
+                <th>Retrogravure</th>
+                <td>{{ entity.retrogravure }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ entity.numero }}</td>
+            </tr>
+            <tr>
+                <th>Referencebibliographique</th>
+                <td>{{ entity.referenceBibliographique }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ entity.date }}</td>
+            </tr>
+            <tr>
+                <th>Remarques</th>
+                <td>{{ entity.remarques }}</td>
+            </tr>
+            <tr>
+                <th>Public</th>
+                <td>{{ entity.public }}</td>
+            </tr>
+            <tr>
+                <th>Publication</th>
+                <td>{{ entity.publication }}</td>
+            </tr>
+            <tr>
+                <th>Creation_date</th>
+                <td>{{ entity.creationdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Modification_date</th>
+                <td>{{ entity.modificationdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Montrer_auteur</th>
+                <td>{{ entity.montrerauteur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('fiches') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

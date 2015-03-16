@@ -1,0 +1,206 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Fiches/recherche_form.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block agathokles_content %}
+
+<script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/selectToUISlider.jQuery.js') }}"></script>
+
+<link href="{{ asset('bundles/nteagathokles/css/ui.slider.extras.css') }}" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(function() {
+  $('select#recherche_fiches_date, select#recherche_fiches_dateto').selectToUISlider(
+    {
+      labels: 10
+    }
+  );
+});
+
+</script>
+<style>.ui-slider {margin-top: 10px; margin-bottom: 30px;}
+table.results {
+  font-family:arial;
+  background-color: #CDCDCD;
+  margin:20px 0pt 0px;
+  font-size: 8pt;
+  width: 100%;
+  text-align: left;
+  border: 2px solid #CDCDCD;
+}
+table.results thead tr th, table.results tfoot tr th {
+  background-color: #F0F6F9;
+  border: 1px solid #CDCDCD;
+  font-size: 8pt;
+  padding: 4px;
+}
+table.results thead tr .header {
+  background-image: url(bg.gif);
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+}
+table.results tbody td {
+  color: #3D3D3D;
+  padding: 4px;
+  background-color: #FFF;
+  vertical-align: top;
+}
+/*FJ*/
+table.results tbody tr div {
+  color: #3D3D3D;
+  padding: 0px;
+  background-color: lightgray;
+  vertical-align: top;
+}
+
+@media print {
+  table.results tbody tr div {
+    color: #3D3D3D;
+    padding: 0px;
+    background-color: lightgray;
+    vertical-align: top;
+  }
+}
+
+h2 {
+  color: gray;
+}
+
+#label_handle_recherche_fiches_datefrom, #label_handle_recherche_fiches_dateto {
+    width: 40px;
+//    float: left;
+    display: inline;
+}
+
+#recherche_fiches_date, #recherche_fiches_dateto {
+    width: 40%;
+//    float: left;
+    margin-right: 10px;
+    display: inline;
+}
+
+.ui-slider {
+    clear: both;
+}
+
+.navy {
+    margin-bottom: 7px;
+}
+
+.navy strong {
+    color: navy;
+}
+</style>
+
+<p><br /></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-10">
+
+          <form method="post" {{ form_enctype(form) }}>
+
+            <div align="left">
+              <img src="{{ asset('bundles/nteagathokles/images/icons/document_search.png') }}" alt="chercher une fiche">
+              <div style="float: right;">Nombre total de fiches: {{ nb_fiches }}</div>
+            </div>
+            <div align="center">
+              <h1>Moteur de recherche</h1>
+              <strong>Standard</strong> - <a href="{{ path('rechercheavancee') }}">Avancé</a>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>RECHERCHE PAR DATE</strong><br /><br />
+                    {{ form_label(form.date) }}
+                    {{ form_widget(form.date, { 'attr': {'class': 'form-control'} }) }}
+
+                    {{ form_label(form.dateto) }}
+                    {{ form_widget(form.dateto, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+                <div class="col-md-6">
+                    <p>&nbsp;</p>
+                    <strong>RECHERCHE PAR MOTS</strong>
+                    {{ form_widget(form.codeType, { 'attr': {'class': 'col-md-12 form-control'} }) }}<br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>FABRICANT</strong>
+                    {{ form_widget(form.fabricant, { 'attr': {'class': 'col-md-11 form-control'} }) }}
+                </div>
+                <div class="col-md-6">
+                    <strong>EPONYME</strong>
+                    {{ form_widget(form.eponyme, { 'attr': {'class': 'col-md-11 form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>MOIS</strong>
+                    {{ form_widget(form.mois, { 'attr': {'class': 'col-md-11 form-control'} }) }}
+                </div>
+                <div class="col-md-6">
+                    <strong>EMBLEME</strong>
+                    {{ form_widget(form.embleme, { 'attr': {'class': 'col-md-11 form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>FORME</strong>
+                    {{ form_widget(form.forme, { 'attr': {'class': 'col-md-11 form-control'} }) }}
+                </div>
+            </div>
+
+            {{ form_widget(form._token) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="Recherche" class="btn btn-primary" />
+                </div>
+                <div class="col-md-6">
+                    <div class="buttonImage" style="width:150px;margin:10px 10px;"onclick="resetQuery();">
+                      <a href="{{ path('effacer_requete') }}" style="text-decoration: none;"><img src="{{ asset('bundles/nteagathokles/images/clear.png') }}"> Effacer requête</a>
+                    </div>
+                </div>
+            </div>
+          </form>
+
+    {% if fiches != null %}
+            <div>
+                <p><strong>Nb de résultats: {{ fiches|length }}</strong></p>
+                {% for fiche in fiches %}
+
+                    {% include 'NTEAgathoklesBundle:Default:elt_liste_fiche.html.twig' with {'fiche': fiche, 'form': 'n', 'page': null, 'loop': loop } only %}
+
+                {% endfor %}
+
+    {% else %}
+      {% if resultat %}
+                  <div class="col-md-12">
+                    <div class="well">
+                        <h3>Aucune fiche trouvée</h3>
+                    </div>
+                  </div>
+      {% endif %}
+            </div>
+          </div>
+    {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

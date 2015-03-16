@@ -1,0 +1,26 @@
+#NTEAgathoklesBundle
+agathokles_fiches:
+    resource: "@NTEAgathoklesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+recherche:
+    pattern: /recherche
+
+contact:
+    pattern: /contact
+
+faq:
+    pattern: /faq
+
+credits:
+    pattern: /credits
+
+fiche:
+    pattern: /fiche/{id}
+
+print:
+    pattern: /print/{id}
+
+home:
+    pattern: /

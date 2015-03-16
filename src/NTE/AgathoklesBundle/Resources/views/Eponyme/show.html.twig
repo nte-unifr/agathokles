@@ -1,0 +1,38 @@
+{% extends "NTEAgathoklesBundle:Default:index.html.twig" %}
+
+
+{% block agathokles_sideblock %}
+{% endblock %}
+
+{% block agathokles_content %}
+
+<p><br /></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 id="title">Liste des timbres amphoriques</h1>
+                    <h2 id="title">Eponyme : {{ entity.nom }}</h2>
+                    <br />
+                </div>
+            </div>
+
+        {% for fiche in fiches %}
+            {% include 'NTEAgathoklesBundle:Default:elt_liste_fiche.html.twig' with {'fiche': fiche, 'form': 'liste', 'page': null, 'loop': null } only %}
+        {% endfor %}
+
+        </div>
+
+        {% if pager and pager.haveToPaginate %}
+        <div class="col-md-offset-2 col-md-10">
+            <hr />{{ pagerfanta(pager, 'my_view_1', {'routeName': 'eponyme_show', 'routeParams' : { 'id': entity.id } }) }}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

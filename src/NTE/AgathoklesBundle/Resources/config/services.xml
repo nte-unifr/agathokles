@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+<!--        <parameter key="security.acl.user_permission.map.class">NTE\AgathoklesBundle\Security\Acl\Permission\AdminPermissionMap</parameter>-->
+        <parameter key="security.acl.fiche_voter.class">NTE\AgathoklesBundle\Security\Authorization\Voter\FicheAclVoter</parameter>
+    </parameters>
+
+    <services>
+
+<!--        <service id="security.acl.user_permission.map" class="%security.acl.user_permission.map.class%" public="false"></service>-->
+        <service id="security.acl.voter.fiche_permissions" class="%security.acl.fiche_voter.class%" public="false">
+            <tag name="monolog.logger" channel="security" />
+            <argument type="service" id="security.acl.provider" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.security_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.permission.map" />
+            <argument type="service" id="logger" on-invalid="null" />
+            <tag name="security.voter" priority="255" />
+        </service>
+
+        <service id="nte.agathokles.admin.fiches" class="NTE\AgathoklesBundle\Admin\FichesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Timbres amphoriques" label="Fiches" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Fiches</argument>
+            <argument>NTEAgathoklesBundle:FichesCRUD</argument>
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="nte.agathokles.admin.cadres" class="NTE\AgathoklesBundle\Admin\CadresAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Cadres" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Cadre</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.categories" class="NTE\AgathoklesBundle\Admin\CategoriesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Catégories" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Categorie</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.emblemes" class="NTE\AgathoklesBundle\Admin\EmblemesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Emblèmes" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Embleme</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.eponymes" class="NTE\AgathoklesBundle\Admin\EponymesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Eponymes" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Eponyme</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.EthniqueDemotiques" class="NTE\AgathoklesBundle\Admin\EthniqueDemotiquesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Ethnique ou Démotique" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\EthniqueDemotique</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fabricant" class="NTE\AgathoklesBundle\Admin\FabricantAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Fabricant" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Fabricant</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.formes" class="NTE\AgathoklesBundle\Admin\FormesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Formes" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Forme</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.lieux" class="NTE\AgathoklesBundle\Admin\LieuxAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Lieux" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Lieu</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.mois" class="NTE\AgathoklesBundle\Admin\MoisAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Mois" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Mois</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.positions" class="NTE\AgathoklesBundle\Admin\PositionsAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Positions" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Position</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.separations" class="NTE\AgathoklesBundle\Admin\SeparationsAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Séparations" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Separation</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.pages" class="NTE\AgathoklesBundle\Admin\PagesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Site" label="Pages" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Pages</argument>
+            <argument />
+        </service>
+
+        <service id="twig.extension.text" class="Twig_Extensions_Extension_Text">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="twig.extension.debug" class="Twig_Extensions_Extension_Debug">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="nte.agathokles.admin.fichesimages" class="NTE\AgathoklesBundle\Admin\FichesImagesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Images" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesImages</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichesprincipales" class="NTE\AgathoklesBundle\Admin\FichesPrincipalesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Principales" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesPrincipales</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichessecondaires" class="NTE\AgathoklesBundle\Admin\FichesSecondairesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Secondaires" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesSecondaires</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichescomplementaires" class="NTE\AgathoklesBundle\Admin\FichesComplementairesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Complementaires" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesComplementaires</argument>
+            <argument />
+        </service>
+
+    </services>
+</container>

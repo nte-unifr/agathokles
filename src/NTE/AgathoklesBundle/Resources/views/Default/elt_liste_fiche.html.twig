@@ -1,0 +1,36 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/elt_liste_fiche.html.twig #}
+
+
+{% if lieu_id is not defined %}
+    {% set lieu_id = null %}
+{% endif %}
+
+<div class="col-sm-6">
+  <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">
+              <a href="{{ path('fiche', { 'id': fiche.id, 'form': form, 'lieu_id': lieu_id, 'page': page }) }}" class="liste">
+                  Fiche n°{{ fiche.id }} : {{ fiche.codeType }}
+              </a>
+          </h3>
+      </div>
+
+      <div class="panel-body">
+          <div class="col-sm-12">
+          {% if fiche.images.0 is defined %}
+              <a href="{{ path('fiche', { 'id': fiche.id, 'form': form, 'lieu_id': lieu_id, 'page': page }) }}" class="liste">
+                <img src="{% path fiche.images.0.media, 'ppt' %}" border="0" class="img-thumbnail">
+              </a>
+          {% endif %}
+          </div>
+
+          <div class="col-sm-12">
+          {% if fiche.legende %}
+              <a href="{{ path('fiche', { 'id': fiche.id, 'form': form, 'lieu_id': lieu_id, 'page': page }) }}" class="liste">
+                  <pre align="justify"><strong>{{ fiche.legende }}</strong></pre>
+              </a>
+          {% endif %}
+          </div>
+      </div>
+  </div>
+</div>

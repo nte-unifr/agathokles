@@ -1,0 +1,49 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/fiche.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+        <script src='{{ asset('bundles/nteagathokles/js/jquery.elevateZoom-3.0.3.min.js') }}'></script>
+{% endblock %}
+
+{% block agathokles_sideblock %}
+{% endblock %}
+
+{% block agathokles_content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+
+            <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jstorage.js') }}"></script>
+            <script>
+                displayList();
+
+                function popwindow(url, id) {
+                    if (id == 'image_principale') {
+                        var height = document.getElementById(id).height * 3;
+                        var width = document.getElementById(id).width * 3;
+                    } else {
+                        var height = document.getElementById(id).height * 6;
+                        var width = document.getElementById(id).width * 6;
+                    }
+                    window.open(url,'Illustration','height='+height+',width='+width);
+                }
+
+                function change_img(ppt, original, i) {
+                    $('#img_ppt'+i).attr('href', ppt);
+                    $('#img_original'+i).attr('href', original);
+                    $('#img_ppt'+i).attr('onclick', "popwindow('" + ppt + "', 'image_principale'+i);return false;");
+                    $('#img_original'+i).attr('onclick', "popwindow('" + original + "', 'image_principale'+i);return false;");
+                }
+            </script>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Lieu/index.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block agathokles_content -%}
+<div class="container">
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+    <h1>Lieu list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Lng</th>
+                <th>Lat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('lieu_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.nom }}</td>
+                <td>{{ entity.lng }}</td>
+                <td>{{ entity.lat }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('lieu_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

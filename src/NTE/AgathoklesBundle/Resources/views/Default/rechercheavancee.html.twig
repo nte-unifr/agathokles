@@ -1,0 +1,505 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/rechercheavancee.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block agathokles_content %}
+
+<script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/selectToUISlider.jQuery.js') }}"></script>
+
+<link href="{{ asset('bundles/nteagathokles/css/ui.slider.extras.css') }}" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(function() {
+  $('select#rechercheavancee_date, select#rechercheavancee_dateto').selectToUISlider(
+    {
+      labels: 10
+    }
+  );
+});
+</script>
+
+<style>
+    .ui-slider {margin-top: 10px !important; margin-bottom: 30px; display: block;}
+    table.results {
+      font-family:arial;
+      background-color: #CDCDCD;
+      margin:20px 0pt 0px;
+      font-size: 8pt;
+      width: 100%;
+      text-align: left;
+      border: 2px solid #CDCDCD;
+    }
+    table.results thead tr th, table.results tfoot tr th {
+      background-color: #F0F6F9;
+      border: 1px solid #CDCDCD;
+      font-size: 8pt;
+      padding: 4px;
+    }
+    table.results thead tr .header {
+      background-image: url(bg.gif);
+      background-repeat: no-repeat;
+      background-position: center right;
+      cursor: pointer;
+    }
+    table.results tbody td {
+      color: #3D3D3D;
+      padding: 4px;
+      background-color: #FFF;
+      vertical-align: top;
+    }
+    /*FJ*/
+    table.results tbody tr div {
+      color: #3D3D3D;
+      padding: 0px;
+      background-color: lightgray;
+      vertical-align: top;
+    }
+
+    @media print {
+      table.results tbody tr div {
+        color: #3D3D3D;
+        padding: 0px;
+        background-color: lightgray;
+        vertical-align: top;
+      }
+    }
+
+    #label_handle_rechercheavancee_date, #label_handle_rechercheavancee_dateto {
+        width: 40px;
+        float: left;
+    }
+
+    #rechercheavancee_date, #rechercheavancee_dateto {
+        width: 260px;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .ui-slider {
+        clear: both;
+    }
+
+    .navy {
+        margin-bottom: 7px;
+    }
+
+    .navy strong {
+        color: navy;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 5px;
+    }
+</style>
+
+<p><br /></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-10">
+
+            <div class="row">
+
+        <img src="{{ asset('bundles/nteagathokles/images/icons/document_search.png') }}" alt="chercher une fiche">
+        <div align="center">
+            <h1>Moteur de recherche</h1>
+            <a href="{{ path('recherche') }}">Standard</a>&nbsp;|&nbsp;<strong>Avancé</strong>
+        </div>
+
+        <script type="text/javascript">
+        var cat = function(id, value) {
+          select = '<select class="form-control" name="categorie_'+(id)+'" style="width:100%">';
+          {% for cat in categories %}
+          select = select + '<option value="{{ cat.id }}"';
+          if(value == '{{cat.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ cat.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var fab = function(id, value) {
+          select = '<select class="form-control" name="fabricant_'+(id)+'" style="width:100%">';
+          {% for fab in fabricants %}
+          select = select + '<option value="{{ fab.id }}"';
+          if(value == '{{fab.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ fab.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var lieu = function(id, value) {
+          select = '<select class="form-control" name="lieuDeDecouverte_'+(id)+'" style="width:100%">';
+          {% for lieu in lieux %}
+          select = select + '<option value="{{ lieu.id }}"';
+          if(value == '{{lieu.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ lieu.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var emb = function(id, value) {
+          select = '<select class="form-control" name="embleme_'+(id)+'" style="width:100%">';
+          {% for emb in emblemes %}
+          select = select + '<option value="{{ emb.id }}"';
+          if(value == '{{emb.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ emb.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var epo = function(id, value) {
+          select = '<select class="form-control" name="eponyme_'+(id)+'" style="width:100%">';
+          {% for epo in eponymes %}
+          select = select + '<option value="{{ epo.id }}"';
+          if(value == '{{epo.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ epo.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var mois = function(id, value) {
+          select = '<select class="form-control" name="mois_'+(id)+'" style="width:100%">';
+          {% for m in mois %}
+          select = select + '<option value="{{ m.id }}"';
+          if(value == '{{m.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ m.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+        var forme = function(id, value) {
+          select = '<select class="form-control" name="forme_'+(id)+'" style="width:100%">';
+          {% for forme in formes %}
+          select = select + '<option value="{{ forme.id }}"';
+          if(value == '{{forme.id}}') {
+            select = select + ' selected="selected"';
+          }
+          select = select + '>{{ forme.nom }}</option>';
+          {% endfor %}
+          select = select + '</select>';
+          return select;
+        }
+
+
+
+        function deleteEntry(id) {
+          var elements = document.getElementById('menuType0').getElementsByTagName('tr');
+          //when we eliminate the first operator, remove the operand of the second operator
+          if (elements[1].id == id) {
+            var op = document.getElementById("logic_" + elements[2].id.substring(5));
+            op.parentNode.removeChild(op);
+          }
+          //remove node
+          var entry = document.getElementById(id);
+          entry.parentNode.removeChild(entry);
+          //do not allow to eliminate the last element: hide the button!
+          checkVisibility();
+        }
+
+        function checkVisibility() {
+          var elements = document.getElementById('menuType0').getElementsByTagName('tr');
+          var numberOfElements = 0;
+          for (var e = 0; e < elements.length; e++)
+            if (elements[e] != '')
+              numberOfElements++;
+            if (elements.length == 2) {
+              var lastID = elements[1].id.substring(5);
+              document.getElementById("image" + lastID).style.visibility = "hidden";
+            }else{
+              var id;
+              for (var e = 1; e < elements.length; e++) {
+                id = elements[e].id.substring(5);
+                document.getElementById("image" + id).style.visibility = "visible";
+              }
+            }
+          }
+
+          function createEntry() {
+            var elements = document.getElementById('menuType0').getElementsByTagName('tr');
+            var id = 0;
+            if (elements.length > 1) {
+              id = parseInt(elements[elements.length - 1].id.substring(5)) + 1;
+            }
+            var entry = document.createElement('tr');
+            entry.id = "entry" + id;
+            entry.style.verticalAlign="top";
+          //logical operator
+          var logic = document.createElement('td');
+          entry.appendChild(logic);
+          if (elements.length > 1) {
+            var logicMenu = createSelect('logic_' + id, ["Et", "Ou", "Sauf"], null, null);
+            logicMenu.name = 'logic_' + id;
+            logic.appendChild(logicMenu);
+          }
+          //category
+          var category = document.createElement('td');
+          entry.appendChild(category);
+          category.appendChild(createSelect('cat' + id, ["Fiche n°", "Code Type", "Catégorie", "Fabricant", "Lieu", "Emblème", "Eponyme", "Mois", "Forme", "Légende", "Autre légende", "Remarques"], "keywordCell" + id));
+          //field
+          var field = document.createElement('td');
+          field.id = "keywordCell" + id;
+          entry.appendChild(field);
+          var input = document.createElement('input');
+          input.className = "form-control";
+          input.name = "id_cat" + id;
+          input.style.width="100%";
+          input.type = "text";
+          field.appendChild(input);
+          //remove
+          var remove = document.createElement('td');
+          entry.appendChild(remove);
+          var image = document.createElement('img');
+          image.id = "image" + id;
+          remove.align = "right";
+          remove.appendChild(image);
+          image.src = "{{ asset('bundles/nteagathokles/images/micro_delete.png') }}";
+          image.className = "buttonImage";
+          image.onclick = function() {
+            deleteEntry(entry.id);
+          };
+          //append new entry
+          document.getElementById('menuType0').appendChild(entry);
+          checkVisibility();
+        }
+
+        function updateKeywordField(type, id, parentId) {
+          var node = document.getElementById(parentId);
+          var txt = false;
+          switch(type) {
+            case "Catégorie":
+              node.innerHTML = cat(id);
+              break;
+            case "Fabricant":
+              node.innerHTML = fab(id);
+              break;
+            case "Lieu":
+              node.innerHTML = lieu(id);
+              break;
+            case "Emblème":
+              node.innerHTML = emb(id);
+              break;
+            case "Eponyme":
+              node.innerHTML = epo(id);
+              break;
+            case "Mois":
+              node.innerHTML = mois(id);
+              break;
+            case "Forme":
+              node.innerHTML = forme(id);
+              break;
+            case "Fiche n°":
+              type = 'id';
+              txt = true;
+              break;
+            case "Code Type":
+              type = 'codeType';
+              txt = true;
+              break;
+            case "Légende":
+              type = 'legende';
+              txt = true;
+              break;
+            case "Autre légende":
+              type = 'autreLegende';
+              txt = true;
+              break;
+            case "Remarques":
+              type = 'remarques';
+              txt = true;
+              break;
+            default:
+              type = 'lieu';
+              txt = true;
+          }
+          if ( txt ) {
+            document.getElementById(parentId).innerHTML = '<input class="form-control" type="text" name="' + type + "_" + id + '" style="width:100%;">';
+          }
+        }
+
+        function createSelect(id, values, target) {
+          var select = document.createElement('select');
+          select.className = "form-control";
+          select.id = id;
+          select.size=1;
+          select.style.width="100%";
+          if (target != null) {
+            select.onchange = function() {
+              updateKeywordField(select.options[select.selectedIndex].value, id, target);
+            };
+          }
+          var option;
+          for (var i = 0; i < values.length; i++) {
+            option = document.createElement('option');
+            if (i == 0)
+              option.selected = "selected";
+            option.innerHTML = values[i];
+            select.appendChild(option);
+          }
+          return select;
+        }
+
+        function resetQuery() {
+          var elements = document.getElementById('menuType0').getElementsByTagName('tr');
+          createEntry();
+          for (var i = elements.length; i > 0; i--) {
+            deleteEntry(elements[1].id);
+          }
+        }
+        </script>
+
+        <form method="post" action="{{ path('rechercheavancee') }}">
+          <table  style="width:100%" align="center" cellspacing="3px" cellpadding="3px">
+            <tr>
+              <td class="searchByLabel"><h2>Composez vos critères de recherche</h2></td>
+            </tr>
+            <tr>
+              <td>
+                <div id="container0">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_label(form.date) }}
+                            {{ form_widget(form.date, { 'attr': {'class': 'form-control'} }) }}
+
+                            {{ form_label(form.dateto) }}
+                            {{ form_widget(form.dateto, { 'attr': {'class': 'form-control'} }) }}
+                        </div>
+                    </div>
+
+                  <table style="width:100%;" cellspacing="5px" id="menuType0">
+                    <tr>
+                      <td class="searchBySecondLevelLabel" style="width:15%;">Crit&egrave;re</td>
+                      <td class="searchBySecondLevelLabel" style="width:40%;">Chercher dans</td>
+                      <td class="searchBySecondLevelLabel" style="width:40%;">Mot-clé</td>
+                      <td class="searchBySecondLevelLabel" style="width:5%;"></td>
+                    </tr>
+                {% set count = 0 %}
+                {% for k,v in rechercheavancee_data %}
+                    {% set rank = count // 6 %}
+                    {% if count is odd %}
+                        {% set nextrank = rank + 1 %}
+                        {% set logic = '<select id="logic_' ~ nextrank ~ '" class="form-control" size="1" style="width: 100%;" name="logic_' ~ nextrank ~ '"><option' %}
+                        {% if attribute(v, 'value') == 'Ou' %}
+                            {% set logic = logic ~ ' selected="selected"' %}
+                        {% endif %}
+                        {% set logic = logic ~ '>Ou</option><option' %}
+                        {% if attribute(v, 'value') == 'Et' %}
+                            {% set logic = logic ~ ' selected="selected"' %}
+                        {% endif %}
+                        {% set logic = logic ~ '>Et</option><option' %}
+                        {% if attribute(v, 'value') == 'Sauf' %}
+                            {% set logic = logic ~ ' selected="selected"' %}
+                        {% endif %}
+                        {% set logic = logic ~ '>Sauf</option></select>' %}
+                    {% else %}
+                    <tr id="entry{{ rank }}" style="vertical-align: top;">
+                        <td>
+                            {% if count != 0 %}
+                                {{ logic|raw }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <select id="cat{{ rank }}" class="form-control" size="1" style="width: 100%;" onchange="updateKeywordField(options[selectedIndex].value, 'cat{{ rank }}', 'keywordCell{{ rank }}' );">
+                                <option {% if (attribute(v, 'field') == 'id' ) %} selected="selected"{% endif %}>Fiche n°</option>
+                                <option {% if (attribute(v, 'field') == 'categorie' ) %} selected="selected"{% endif %}>Catégorie</option>
+                                <option {% if (attribute(v, 'field') == 'fabricant' ) %} selected="selected"{% endif %}>Fabricant</option>
+                                <option {% if (attribute(v, 'field') == 'lieuDeDecouverte' ) %} selected="selected"{% endif %}>Lieu</option>
+                                <option {% if (attribute(v, 'field') == 'embleme' ) %} selected="selected"{% endif %}>Emblème</option>
+                                <option {% if (attribute(v, 'field') == 'eponyme' ) %} selected="selected"{% endif %}>Eponyme</option>
+                                <option {% if (attribute(v, 'field') == 'mois' ) %} selected="selected"{% endif %}>Mois</option>
+                                <option {% if (attribute(v, 'field') == 'forme' ) %} selected="selected"{% endif %}>Forme</option>
+                                <option {% if (attribute(v, 'field') == 'forme' ) %} selected="selected"{% endif %}>Légende</option>
+                                <option {% if (attribute(v, 'field') == 'forme' ) %} selected="selected"{% endif %}>Autre légende</option>
+                                <option {% if (attribute(v, 'field') == 'forme' ) %} selected="selected"{% endif %}>Code Type</option>
+                                <option {% if (attribute(v, 'field') == 'forme' ) %} selected="selected"{% endif %}>Remarques</option>
+                            </select>
+                        </td>
+                        <td id="keywordCell{{ rank }}">
+                            {% if ( attribute(v, 'field') == 'categorie' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = cat('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'fabricant' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = fab('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'lieuDeDecouverte' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = lieu('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'embleme' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = emb('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'eponyme' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = epo('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'mois' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = mois('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% elseif ( attribute(v, 'field') == 'forme' ) %}
+                                <script type="text/javascript"> document.getElementById('keywordCell{{ rank }}').innerHTML = forme('cat{{ rank }}', {{ attribute(v, 'value') }});</script>
+                            {% else %}
+                            <input class="form-control" type="text" name="{{ attribute(v, 'field') }}_cat{{ rank }}" style="width: 100%;" value="{{ attribute(v, 'value') }}">
+                            {% endif %}
+                        </td>
+                        <td align="right">
+                            <img id="image{{ rank }}" class="buttonImage" src="{{ asset('bundles/nteagathokles/images/micro_delete.png') }}" style="visibility: visible;" onclick="deleteEntry('entry{{ rank }}');">
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% set count = count + 3 %}
+                {% endfor %}
+                  </table>
+                  <table style="width:100%;">
+                    <tr>
+                      <td width="20%">
+                        <div class="buttonImage" style="width:150px;margin:10px 10px;"onclick="createEntry();">
+                          <img src="{{ asset('bundles/nteagathokles/images/mini_add.png') }}"> Ajouter crit&egrave;re
+                        </div>
+                      </td>
+                      <td width="20%">
+                        <div class="buttonImage" style="width:150px;margin:10px 10px;"onclick="resetQuery();">
+                          <img src="{{ asset('bundles/nteagathokles/images/clear.png') }}"> Effacer requête
+                        </div>
+                      </td>
+                      <td width="60%" align="right">
+                        <input class="btn btn-primary btn-small" value="Chercher" type="submit" name="searchEntry" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+        {% if rechercheavancee_data|length == 0 %}<script type="text/javascript">createEntry();</script>{% endif %}
+    </div>
+
+            {% if fiches|length > 0 %}
+
+            <div class="row">
+                <h1>Résultats de la recherche avancée</h1>
+                <p><strong>Nb de résultats: {{ fiches|length }}</strong></p>
+                {% for fiche in fiches %}
+
+                    {% include 'NTEAgathoklesBundle:Default:elt_liste_fiche.html.twig' with {'fiche': fiche, 'form': 'a', 'page': null, 'loop': loop } only %}
+
+                {% endfor %}
+
+            {% else %}
+              <div class="col-md-12">
+                <div class="well">
+                    <h3>Aucune fiche trouvée</h3>
+                </div>
+              </div>
+            {% endif %}
+            </div>
+    </div>
+</div>
+{% endblock %}

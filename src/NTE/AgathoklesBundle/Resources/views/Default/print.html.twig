@@ -1,0 +1,380 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/print.html.twig #}
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>{{ fiche.codeType|striptags }}</title>
+
+    <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/bootstrap.min.css') }}" type="text/css" media="all" />
+    <link href="{{ asset('bundles/nteagathokles/css/unifr.101.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/skin.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/style.css') }}" type="text/css" media="screen" />
+
+    <style type="text/css" media="screen">
+        .annexes {
+            float: left;
+            width: 30%;
+        }
+        .clear {
+            clear: both;
+        }
+        h2 {
+            font-family: "Trebuchet MS",Trebuchet,Tahoma,Verdana,sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: -15px;
+        }
+<!--        h1, h2, strong {-->
+<!--            line-height: 40px;-->
+<!--        }-->
+<!--        p {-->
+<!--            margin: -10px 0;-->
+<!--        }-->
+
+            @media print {
+                .dl-horizontal dt {
+                    clear: left;
+                    display: block;
+                    float: left;
+                    overflow: visible;
+                    text-align: right;
+                    text-overflow: ellipsis;
+                    white-space: normal;
+                    width: 100px;
+                }
+
+                .dl-horizontal dd {
+                    margin-left: 120px;
+                }
+
+                .clear{
+                    clear: both;
+                }
+            }
+
+            .clear{
+                clear: both;
+            }
+    </style>
+
+</head>
+<body style="width: 90%; margin: auto;">
+
+    <div class="row">
+        <div class="row">
+            <h1 id="title">Fiche n°{{ fiche.id }} : {{ fiche.codeType|raw }}</h1>
+            <br />
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-6">
+                <p></strong>Illustration</strong></p>
+                    {% if fiche.images.0 is defined %}
+                        {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.codeType, 'id': 'image_principale', 'with': '100%', 'class': 'img-thumbnail'} %}
+                    {% endif %}
+                    <br /><br />
+                    {% if 0 and fiche.images|length > 1 %}
+                    <div id="gallery" style="width=500px; float:left;">
+                        {% for annexe in fiche.images %}
+                        <img src="{% path annexe.media, 'small' %}">
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+            </div>
+            <div class="col-sm-12 col-sm-6">
+                <p></strong>Légende</strong></p>
+                <p>
+                    {% if fiche.legende %}
+                        <pre class="bg-primary"><strong>{{ fiche.legende|raw }}</strong></pre>
+                    {% else %}
+                        Aucune légende
+                    {% endif %}
+                </p>
+
+                {% if fiche.lieuDeDecouverte %}
+                <div id="map33"></div>
+                <script src="{{ asset('bundles/nteagathokles/js//leafletjs/leaflet.js') }}" type="text/javascript"></script>
+                <script type="text/javascript">
+                    var lat;
+                    var lng;
+                    var marker;
+
+                    var amphoreIcon = L.icon({
+                        iconUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}images/marker_amphore.png',
+                        iconRetinaUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}marker_amphore-2x.png',
+                        shadowUrl: '{{ asset('bundles/nteagathokles/js/leafletjs/') }}images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor:   [12, 40],
+                        popupAnchor:  [1, -45],
+                    });
+
+                    var map = L.map('map3', {attributionControl: true, zoomControl:false}).setView([{{ fiche.lieuDeDecouverte.lat }}, {{ fiche.lieuDeDecouverte.lng }}], 5);
+                    map.dragging.disable();
+                    map.setMaxBounds([[59.689926, -9.239258], [25.363882, 46.538086]]);
+
+                    L.tileLayer('{{ asset('bundles/nteagathokles/maps') }}/{z}/{x}/{y}.png', {
+                        maxZoom: 5,
+                        minZoom: 5,
+                        attribution: 'Carte: OpenStreetMap MapQuest, données <strong>Agathokles/<a href="http://www.unifr.ch">UniFR</a></strong>',
+                    }).addTo(map);
+
+                    $( document ).ready(function() {
+                        marker = L.marker([{{ fiche.lieuDeDecouverte.lat }}, {{ fiche.lieuDeDecouverte.lng }}], {icon : amphoreIcon}).addTo(map);
+                        marker.on("click", function() {
+                            window.open("{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}", target="_parent");
+                            }
+                        );
+                    });
+                </script>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-5">
+                <legend>Timbres</legend>
+                <dl class="dl-horizontal">
+                    <dt>Numéro</dt>
+                    <dd>
+                        {{ fiche.numero }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Référence<br /> bibliographique</dt>
+                    <dd>
+                        {{ fiche.referenceBibliographique }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Lieu de découverte</dt>
+                    <dd>
+                    {% if fiche.lieuDeDecouverte %}
+                        {{ fiche.lieuDeDecouverte }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    {% endif %}
+                    </dd>
+                </dl>
+                <legend>Type</legend>
+                <dl class="dl-horizontal">
+                    <dt>Catégorie</dt>
+                    <dd>
+                    {% if fiche.categorie %}
+                        {{ fiche.categorie.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Fabricant</dt>
+                    <dd>
+                    {% if fiche.fabricant %}
+                        {{ fiche.fabricant.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Éponyme</dt>
+                    <dd>
+                    {% if fiche.eponyme %}
+                        {{ fiche.eponyme.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Mois</dt>
+                    <dd>
+                    {% if fiche.mois %}
+                        {{ fiche.mois.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Autre légende</dt>
+                    <dd>
+                    {{ fiche.autrelegende }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Forme</dt>
+                    <dd>
+                    {% if fiche.forme %}
+                        {{ fiche.forme.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Emblème</dt>
+                    <dd>
+                    {% if fiche.embleme %}
+                        {{ fiche.embleme.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <legend>Association</legend>
+                <dl class="dl-horizontal col-sm-offset-1">
+                    <strong>Matrices secondaires</strong>
+                    <p>
+                    {% for matrice in fiche.matriceSecondaire %}
+                        {{ matrice.fiche.codeType }}
+                    {% endfor %}
+                    </p>
+                </dl>
+                <dl class="dl-horizontal col-sm-offset-1">
+                    <strong>Matrice complémentaires</strong>
+                    <p>
+                    {% for matrice in fiche.matriceComplementaire %}
+                        {{ matrice.fiche.codeType }}
+                    {% endfor %}
+                    </p>
+                </dl>
+                <legend>Divers</legend>
+                <dl class="dl-horizontal">
+                    <dt>Date</dt>
+                    <dd>
+                        {{ fiche.date }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Remarques</dt>
+                    <dd>
+                        {{ fiche.remarques|raw }}
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <legend>Matrice</legend>
+                <dl class="dl-horizontal">
+                    <dt>Position</dt>
+                    <dd>
+                    {% if fiche.position %}
+                        {{ fiche.position }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Cadre</dt>
+                    <dd>
+                    {% if fiche.cadre %}
+                        {{ fiche.cadre.nom }}
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Bouton</dt>
+                    <dd>
+                        {{ fiche.bouton ? '<span class="glyphicon glyphicon-ok text-success" title="oui" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Grenetis</dt>
+                    <dd>
+                        {{ fiche.grenetis ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Ombilic</dt>
+                    <dd>
+                        {{ fiche.ombilic ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Séparation</dt>
+                    <dd>
+                        {{ fiche.separation }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Légende tournante</dt>
+                    <dd>
+                        {{ fiche.legendeTournante ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Lettre rétrograde</dt>
+                    <dd>
+                        {{ fiche.lettreRetrograde }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Lettre lunaire</dt>
+                    <dd>
+                        {{ fiche.lettreLunaire }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>ἐπί omis</dt>
+                    <dd>
+                        {{ fiche.epi ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>παρὰ</dt>
+                    <dd>
+                        {{ fiche.para ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>titre (ἰερεύς/ΕΙ) </dt>
+                    <dd>
+                        {{ fiche.iereus ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>μέτοικος </dt>
+                    <dd>
+                        {{ fiche.metoikos ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>μέτοικος </dt>
+                    <dd>
+                        {{ fiche.metoikos ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>μείς </dt>
+                    <dd>
+                        {{ fiche.meis ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>ἐτῆ</dt>
+                    <dd>
+                        {{ fiche.ete }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Particularité<br /> orthographique</dt>
+                    <dd>
+                        {{ fiche.particulariteOrthographique }}
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Retrogravure</dt>
+                    <dd>
+                        {{ fiche.retrogravure ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    <br><br><hr />
+    <a href="{{ path('fiche', { 'id': fiche.id }) }}">{{ url('fiche', { 'id': fiche.id }) }}</a>
+    <br><br>
+</body>

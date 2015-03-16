@@ -1,0 +1,22 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Default/page.html.twig #}
+
+{% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
+
+{% block agathokles_content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+
+            <h1>{% if page.title is defined %}{{ page.title }}{% endif %}</h1>
+
+            {% if page.introduction is defined %}<p>{{ page.introduction|raw }}</p>{% endif %}
+
+            {% if page.text is defined %}<p>{{ page.text|raw }}</p>{% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

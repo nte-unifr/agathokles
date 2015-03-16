@@ -1,0 +1,18 @@
+services:
+    nte_agathokles.admin.fiches:
+        class: NTE\AgathoklesBundle\Admin\FichesAdmin
+        arguments: [~, NTE\AgathoklesBundle\Entity\Fiches, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Fiches}
+
+    nte_agathokles.admin.fabricant:
+        class: NTE\AgathoklesBundle\Admin\FabricantAdmin
+        arguments: [~, NTE\AgathoklesBundle\Entity\Fabricant, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Fabricant}
+
+    nte_agathokles.admin.mois:
+        class: NTE\AgathoklesBundle\Admin\MoisAdmin
+        arguments: [~, NTE\AgathoklesBundle\Entity\Mois, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Mois}
