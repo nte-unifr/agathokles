@@ -104,6 +104,13 @@ class Fiches
     private $embleme;
 
     /**
+     * @var string $designation
+     *
+     * @ORM\Column(name="designation", type="string", nullable=true)
+     */
+    private $designation;
+
+    /**
      * @var string $codeMatrice
      *
      * @ORM\Column(name="codeMatrice", type="string", length=255, nullable=true)
@@ -1188,6 +1195,29 @@ class Fiches
     public function getEmbleme()
     {
         return $this->embleme;
+    }
+
+    /**
+     * Set designation
+     *
+     * @param string $designation
+     * @return Fiches
+     */
+    public function setDesignation($designation)
+    {
+        $this->designation = $designation;
+
+        return $this;
+    }
+
+    /**
+     * Get designation
+     *
+     * @return string
+     */
+    public function getDesignation()
+    {
+        return $this->designation;
     }
 
     /**
