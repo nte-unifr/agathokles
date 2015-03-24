@@ -19,8 +19,9 @@ function changeCateg( categ ) {
         $(".autreLegendeID").parents(".form-group").show();
         $(".formeID").parents(".form-group").show();
         $(".emblemeID").parents(".form-group").show();
+        $(".designationID").parents(".form-group").hide();
 
-        $(".positionID").parents(".form-group").show();
+        $(".positionID").parents(".form-group").hide();
         $(".cadreID").parents(".form-group").show();
         $(".boutonID").parents(".form-group").show();
         $(".grenetisID").parents(".form-group").show();
@@ -50,6 +51,7 @@ function changeCateg( categ ) {
         $(".moisID").parents(".form-group").hide();
         $(".autreLegendeID").parents(".form-group").hide();
         $(".formeID").parents(".form-group").show();
+        $(".designationID").parents(".form-group").show();
 
         $(".cadreID").parents(".form-group").hide();
         $(".boutonID").parents(".form-group").hide();
@@ -78,8 +80,9 @@ function changeCateg( categ ) {
         $(".positionID").parents(".form-group").show();
     }
     if( COMPLEMENTAIRE == categ ) {
-        changeCateg(2);
+        changeCateg(SECONDAIRE);
         $(".emblemeID").parents(".form-group").hide();
         $(".positionID").parents(".form-group").hide();
+        $(".designationID").parents(".form-group").hide();
     }
 }
