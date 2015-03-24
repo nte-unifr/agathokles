@@ -8,7 +8,11 @@ $( document ).ready(function() {
 });
 
 function changeCateg( categ ) {
-    if( 1 == categ ) {
+    var PRINCIPAL = 1;
+    var SECONDAIRE = 2;
+    var COMPLEMENTAIRE = 3;
+
+    if( PRINCIPAL == categ ) {
         $(".fabricantID").parents(".form-group").show();
         $(".eponymeID").parents(".form-group").show();
         $(".moisID").parents(".form-group").show();
@@ -40,7 +44,7 @@ function changeCateg( categ ) {
 
         $(".dateID").parents(".col-md-6").show();
     }
-    if( 2 == categ ) {
+    if( SECONDAIRE == categ ) {
         $(".fabricantID").parents(".form-group").hide();
         $(".eponymeID").parents(".form-group").hide();
         $(".moisID").parents(".form-group").hide();
@@ -73,7 +77,7 @@ function changeCateg( categ ) {
         $(".emblemeID").parents(".form-group").show();
         $(".positionID").parents(".form-group").show();
     }
-    if( 3 == categ ) {
+    if( COMPLEMENTAIRE == categ ) {
         changeCateg(2);
         $(".emblemeID").parents(".form-group").hide();
         $(".positionID").parents(".form-group").hide();
