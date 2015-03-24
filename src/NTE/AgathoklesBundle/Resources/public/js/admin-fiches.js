@@ -49,7 +49,7 @@ function changeCateg( categ ) {
         $(".eponymeID").parents(".form-group").hide();
         $(".moisID").parents(".form-group").hide();
         $(".autreLegendeID").parents(".form-group").hide();
-        $(".formeID").parents(".form-group").hide();
+        $(".formeID").parents(".form-group").show();
 
         $(".cadreID").parents(".form-group").hide();
         $(".boutonID").parents(".form-group").hide();
