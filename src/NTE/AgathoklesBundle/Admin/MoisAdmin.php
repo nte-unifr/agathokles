@@ -68,4 +68,16 @@ class MoisAdmin extends Admin
             ->add('numero')
         ;
     }
+
+    /**
+     * Default Datagrid values
+     *
+     * @var array
+     */
+    protected $datagridValues = array(
+        '_page' => 1,               // display the first page (default = 1)
+        '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
+        '_sort_by' => 'nom'         // name of the ordered field
+        // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
+    );
 }
