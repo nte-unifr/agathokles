@@ -150,7 +150,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1 id="title">Fiche n°{{ fiche.id }} : {{ fiche.codeType|raw }}</h1>
+            <h1 id="title">Fiche n°{{ fiche.id }} : </h1>
             <br />
         </div>
     </div>
@@ -189,7 +189,7 @@
                     {% if fiche.images.0 is defined %}
 
                         {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
-                        {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.codeType, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
+                        {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
 
                     <p>
                         <br />

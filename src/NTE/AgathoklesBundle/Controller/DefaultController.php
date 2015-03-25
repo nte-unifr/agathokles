@@ -413,7 +413,7 @@ class DefaultController extends Controller
         }
 
         return array(
-            'titre' => $fiche->getCodeType(),
+            'titre' => $fiche->__toString(),
             'fiche' => $fiche,
             'similaires' => $similaires,
             'c' => count($fiche->getfichesassociees()),

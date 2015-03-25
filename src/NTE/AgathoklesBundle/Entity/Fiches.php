@@ -33,20 +33,6 @@ class Fiches
     private $categorie;
 
     /**
-     * @var string $codeType
-     *
-     * @ORM\Column(name="codeType", type="string", length=255, nullable=true)
-     */
-    private $codeType;
-
-    /**
-     * @var boolean $codeTypeNonId
-     *
-     * @ORM\Column(name="codeTypeNonId", type="boolean", length=255, nullable=true)
-     */
-    private $codeTypeNonId = false;
-
-    /**
      * @var Fabricant
      *
      * @ORM\ManyToOne(targetEntity="Fabricant")
@@ -109,13 +95,6 @@ class Fiches
      * @ORM\Column(name="designation", type="string", nullable=true)
      */
     private $designation;
-
-    /**
-     * @var string $codeMatrice
-     *
-     * @ORM\Column(name="codeMatrice", type="string", length=255, nullable=true)
-     */
-    private $codeMatrice;
 
     /**
      * @var string $legende
@@ -398,7 +377,7 @@ class Fiches
 
     public function __toString()
     {
-        return (string)($this->getId() . " " . $this->getCodeType());
+        return (string)($this->getId() . " ");
     }
 
     /**
@@ -692,29 +671,6 @@ class Fiches
     }
 
     /**
-     * Set codeType
-     *
-     * @param string $codeType
-     * @return Fiches
-     */
-    public function setCodeType($codeType)
-    {
-        $this->codeType = $codeType;
-
-        return $this;
-    }
-
-    /**
-     * Get codeType
-     *
-     * @return string
-     */
-    public function getCodeType()
-    {
-        return $this->codeType;
-    }
-
-    /**
      * Set mois
      *
      * @param string $mois
@@ -735,29 +691,6 @@ class Fiches
     public function getMois()
     {
         return $this->mois;
-    }
-
-    /**
-     * Set codeMatrice
-     *
-     * @param string $codeMatrice
-     * @return Fiches
-     */
-    public function setCodeMatrice($codeMatrice)
-    {
-        $this->codeMatrice = $codeMatrice;
-
-        return $this;
-    }
-
-    /**
-     * Get codeMatrice
-     *
-     * @return string
-     */
-    public function getCodeMatrice()
-    {
-        return $this->codeMatrice;
     }
 
     /**
@@ -1579,29 +1512,6 @@ class Fiches
     public function getEthniqueDemotique()
     {
         return $this->ethniqueDemotique;
-    }
-
-    /**
-     * Set codeTypeNonId
-     *
-     * @param boolean $codeTypeNonId
-     * @return Fiches
-     */
-    public function setCodeTypeNonId($codeTypeNonId)
-    {
-        $this->codeTypeNonId = $codeTypeNonId;
-
-        return $this;
-    }
-
-    /**
-     * Get codeTypeNonId
-     *
-     * @return boolean
-     */
-    public function getCodeTypeNonId()
-    {
-        return $this->codeTypeNonId;
     }
 
     /**
