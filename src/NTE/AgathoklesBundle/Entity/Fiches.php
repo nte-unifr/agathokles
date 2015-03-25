@@ -373,7 +373,19 @@ class Fiches
      */
     private $montrer_auteur = false;
 
+    /**
+     * @var integer $typeNumero
+     *
+     * @ORM\Column(name="typeNumero", type="integer")
+     */
+    private $typeNumero;
 
+    /**
+     * @var integer $matriceNumero
+     *
+     * @ORM\Column(name="matriceNumero", type="integer")
+     */
+    private $matriceNumero;
 
     public function __toString()
     {
@@ -1614,5 +1626,51 @@ class Fiches
     public function getMatriceComplementaire()
     {
         return $this->matriceComplementaire;
+    }
+
+    /**
+     * Set typeNumero
+     *
+     * @param integer $typeNumero
+     * @return Fiches
+     */
+    public function setTypeNumero($typeNumero)
+    {
+        $this->typeNumero = $typeNumero;
+
+        return $this;
+    }
+
+    /**
+     * Get typeNumero
+     *
+     * @return integer 
+     */
+    public function getTypeNumero()
+    {
+        return $this->typeNumero;
+    }
+
+    /**
+     * Set matriceNumero
+     *
+     * @param integer $matriceNumero
+     * @return Fiches
+     */
+    public function setMatriceNumero($matriceNumero)
+    {
+        $this->matriceNumero = $matriceNumero;
+
+        return $this;
+    }
+
+    /**
+     * Get matriceNumero
+     *
+     * @return integer 
+     */
+    public function getMatriceNumero()
+    {
+        return $this->matriceNumero;
     }
 }
