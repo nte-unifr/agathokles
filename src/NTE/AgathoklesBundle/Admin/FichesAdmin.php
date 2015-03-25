@@ -41,7 +41,6 @@ class FichesAdmin extends Admin
             ->add('public')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
@@ -145,68 +144,6 @@ class FichesAdmin extends Admin
                     ->add('publication')
                     ->add('montrer_auteur')
                 ->end()
-            ->end()
-        ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->with('Fiche', array('class' => 'col-md-6'))
-                ->add('id')
-            ->end()
-            ->with('Catégorie', array('class' => 'col-md-6'))
-                ->add('categorie')
-            ->end()
-            ->with('Type', array('class' => 'col-md-6'))
-                ->add('codeType')
-                ->add('fabricant')
-                ->add('eponyme')
-                ->add('mois')
-                ->add('autreLegende')
-                ->add('forme')
-                ->add('embleme')
-            ->end()
-            ->with('Matrice', array('class' => 'col-md-6'))
-                ->add('codeMatrice')
-                ->add('legende', 'html')
-                ->add('bouton')
-                ->add('grenetis')
-                ->add('ombilic')
-                ->add('legendeTournante')
-                ->add('lettreRetrograde')
-                ->add('lettreLunaire')
-                ->add('epi')
-                ->add('para')
-                ->add('iereus')
-                ->add('metoikos')
-                ->add('meis')
-                ->add('ete')
-                ->add('particulariteOrthographique')
-                ->add('retrogravure')
-            ->end()
-            ->with('Timbres', array('class' => 'col-md-6'))
-                ->add('numero')
-                ->add('referenceBibliographique')
-                ->add('lieuDeDecouverte')
-            ->end()
-            ->with('Association', array('class' => 'col-md-6'))
-            ->end()
-            ->with('Date', array('class' => 'col-md-6'))
-                ->add('date')
-            ->end()
-            ->with('Remarques', array('class' => 'col-md-6'))
-                ->add('remarques', 'html')
-            ->end()
-            ->with('Divers', array('class' => 'col-md-6'))
-                ->add('public')
-                ->add('publication')
-                ->add('montrer_auteur')
-                ->add('creation_date')
-                ->add('modification_date')
             ->end()
         ;
     }
