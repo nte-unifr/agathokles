@@ -109,7 +109,7 @@
         </service>
 
         <service id="nte.agathokles.admin.pages" class="NTE\AgathoklesBundle\Admin\PagesAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Site" label="Pages" />
+            <tag name="sonata.admin" manager_type="orm" group="Contenu" label="Pages" />
             <argument />
             <argument>NTE\AgathoklesBundle\Entity\Pages</argument>
             <argument />
@@ -121,34 +121,6 @@
 
         <service id="twig.extension.debug" class="Twig_Extensions_Extension_Debug">
             <tag name="twig.extension" />
-        </service>
-
-        <service id="nte.agathokles.admin.fichesimages" class="NTE\AgathoklesBundle\Admin\FichesImagesAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Images" />
-            <argument />
-            <argument>NTE\AgathoklesBundle\Entity\FichesImages</argument>
-            <argument />
-        </service>
-
-        <service id="nte.agathokles.admin.fichesprincipales" class="NTE\AgathoklesBundle\Admin\FichesPrincipalesAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Principales" />
-            <argument />
-            <argument>NTE\AgathoklesBundle\Entity\FichesPrincipales</argument>
-            <argument />
-        </service>
-
-        <service id="nte.agathokles.admin.fichessecondaires" class="NTE\AgathoklesBundle\Admin\FichesSecondairesAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Secondaires" />
-            <argument />
-            <argument>NTE\AgathoklesBundle\Entity\FichesSecondaires</argument>
-            <argument />
-        </service>
-
-        <service id="nte.agathokles.admin.fichescomplementaires" class="NTE\AgathoklesBundle\Admin\FichesComplementairesAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Complementaires" />
-            <argument />
-            <argument>NTE\AgathoklesBundle\Entity\FichesComplementaires</argument>
-            <argument />
         </service>
 
     </services>
