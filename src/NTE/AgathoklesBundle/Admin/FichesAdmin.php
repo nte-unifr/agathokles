@@ -16,9 +16,9 @@ class FichesAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('forme')
-            ->add('fabricant')
             ->add('eponyme')
+            ->add('fabricant')
+            ->add('forme')
             ->add('mois')
             ->add('embleme')
             ->add('categorie')
@@ -32,9 +32,11 @@ class FichesAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('forme')
-            ->add('fabricant')
             ->add('eponyme')
+            ->add('fabricant')
+            ->add('typeNumero', null, array('label' => 'Tx'))
+            ->add('matriceNumero', null, array('label' => 'My'))
+            ->add('forme')
             ->add('mois')
             ->add('embleme')
             ->add('categorie')
@@ -61,6 +63,7 @@ class FichesAdmin extends Admin
             ->end()
             ->tab('Type')
                 ->with('Type', array('class' => 'col-md-6'))
+                    ->add('typeNumero', null, array('required' => true, 'label' => 'Type numéro (Tx)'))
                     ->add('forme', 'sonata_type_model', array('required' => true, 'attr' => array('class' => 'formeID')))
                     ->add('fabricant', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'fabricantID')))
                     ->add('eponyme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'eponymeID')))
@@ -83,13 +86,12 @@ class FichesAdmin extends Admin
                     ->add('separation', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'separationID')))
                 ->end()
                 ->setHelps(array(
-                    'codeMatrice'  => 'Repris de Code Type.',
-                    'codeType'  => 'Si la case <strong>Code Type Non Identifé</strong> ci-dessous est laissée vide, le <strong>Code Type</strong> est généré automatiquement sur la base des champs suivants : <strong>Fabricant, Eponyme, Mois, Autre Légende,  Forme  et Emblème</strong>.',
                     'categorie' => 'Le choix de la catégorie va afficher ou masquer des champs.',
                 ))
             ->end()
             ->tab('Matrice')
                 ->with('Matrice', array('class' => 'col-md-6'))
+                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro (My)'))
                     ->add('cadre', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'cadreID')))
                     ->add('bouton', null, array('attr' => array('class' => 'col-md-3 boutonID')))
                     ->add('grenetis', null, array('attr' => array('class' => 'col-md-3 grenetisID')))
