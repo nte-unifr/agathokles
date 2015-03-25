@@ -123,5 +123,33 @@
             <tag name="twig.extension" />
         </service>
 
+        <service id="nte.agathokles.admin.fichesimages" class="NTE\AgathoklesBundle\Admin\FichesImagesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Images" show_in_dashboard="false" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesImages</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichesprincipales" class="NTE\AgathoklesBundle\Admin\FichesPrincipalesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Principales" show_in_dashboard="false" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesPrincipales</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichessecondaires" class="NTE\AgathoklesBundle\Admin\FichesSecondairesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Secondaires" show_in_dashboard="false" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesSecondaires</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.fichescomplementaires" class="NTE\AgathoklesBundle\Admin\FichesComplementairesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Divers" label="Fiches Complementaires" show_in_dashboard="false" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\FichesComplementaires</argument>
+            <argument />
+        </service>
+
     </services>
 </container>
