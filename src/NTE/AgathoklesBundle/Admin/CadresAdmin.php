@@ -15,18 +15,6 @@ use NTE\AgathoklesBundle\Entity\Cadre;
 class CadresAdmin extends Admin
 {
     /**
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
-     *
-     * @return void
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('nom')
-        ;
-    }
-
-    /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
      *
      * @return void

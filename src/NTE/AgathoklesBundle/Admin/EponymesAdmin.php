@@ -15,18 +15,6 @@ use NTE\AgathoklesBundle\Entity\Eponyme;
 class EponymesAdmin extends Admin
 {
     /**
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
-     *
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('nom')
-            ->add('date')
-        ;
-    }
-
-    /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
      *
      * @return void
@@ -53,7 +41,6 @@ class EponymesAdmin extends Admin
             ->add('date')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )

@@ -33,7 +33,6 @@ class MoisAdmin extends Admin
             ->add('numero')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
@@ -54,18 +53,6 @@ class MoisAdmin extends Admin
                     'numero'  => 'utilisé pour le tri dans les listes déroulantes de l\'interface publique (expl.: formulaire de recherche)',
                 ))
             ->end()
-        ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('nom')
-            ->add('numero')
         ;
     }
 

@@ -15,19 +15,6 @@ use NTE\AgathoklesBundle\Entity\Categorie;
 class CategoriesAdmin extends Admin
 {
     /**
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
-     *
-     * @return void
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('nom')
-            ->add('numero')
-        ;
-    }
-
-    /**
     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
     *
     * @return void

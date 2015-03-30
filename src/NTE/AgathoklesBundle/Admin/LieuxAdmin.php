@@ -15,21 +15,6 @@ use NTE\AgathoklesBundle\Entity\Lieu;
 class LieuxAdmin extends Admin
 {
     /**
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
-     *
-     * @return void
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('nom')
-            ->add('lat')
-            ->add('lng')
-            ->add('fiches')
-        ;
-    }
-
-    /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
      *
      * @return void
@@ -116,7 +101,6 @@ class LieuxAdmin extends Admin
             ->addidentifier('nom')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )

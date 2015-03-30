@@ -15,18 +15,6 @@ use NTE\AgathoklesBundle\Entity\EthniqueDemotique;
 class EthniqueDemotiquesAdmin extends Admin
 {
     /**
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
-     *
-     * @return void
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('nom')
-        ;
-    }
-
-    /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
      *
      * @return void
@@ -51,7 +39,6 @@ class EthniqueDemotiquesAdmin extends Admin
             ->addIdentifier('nom')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'view' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
