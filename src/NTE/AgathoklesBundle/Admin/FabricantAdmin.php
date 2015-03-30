@@ -10,18 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class FabricantAdmin extends Admin
 {
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('id')
-            ->add('nom')
-            ->add('date')
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param ListMapper $listMapper
      */
@@ -39,6 +28,19 @@ class FabricantAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('nom')
+            ->add('date')
+        ;
+    }
+
+    // FORM FIELDS
     /**
      * @param FormMapper $formMapper
      */
@@ -50,6 +52,7 @@ class FabricantAdmin extends Admin
         ;
     }
 
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

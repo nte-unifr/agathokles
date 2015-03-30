@@ -14,22 +14,7 @@ use NTE\AgathoklesBundle\Entity\Pages;
 
 class PagesAdmin extends Admin
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => null,
-        ));
-    }
-
-    protected function configureDatagridFilters(DatagridMapper $datagrid)
-    {
-        $datagrid
-            ->add('title', null, array('label' => 'Titre'))
-            ->add('introduction')
-            ->add('text', null, array('label' => 'Texte'))
-        ;
-    }
-
+    // LIST FIELDS
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -45,6 +30,17 @@ class PagesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
+    protected function configureDatagridFilters(DatagridMapper $datagrid)
+    {
+        $datagrid
+            ->add('title', null, array('label' => 'Titre'))
+            ->add('introduction')
+            ->add('text', null, array('label' => 'Texte'))
+        ;
+    }
+
+    // FORM FIELDS
     /**
      * Create and Edit
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -62,6 +58,14 @@ class PagesAdmin extends Admin
                 ->add('text', null, array('label' => 'Titre', 'attr' => array('class' => 'ckeditor')))
             ->end()
         ;
+    }
+
+    // DEFAULT DATA ORGANISATION
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => null,
+        ));
     }
 
     /**

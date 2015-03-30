@@ -14,24 +14,7 @@ use NTE\AgathoklesBundle\Entity\Categorie;
 
 class CategoriesAdmin extends Admin
 {
-    /**
-    * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
-    *
-    * @return void
-    */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('Catégorie', array('class' => 'col-md-6'))
-                ->add('nom')
-                ->add('numero')
-                ->setHelps(array(
-                    'numero'  => 'utilisé pour le tri dans les listes déroulantes de l\'interface publique (expl.: formulaire de recherche)',
-                ))
-            ->end()
-        ;
-    }
-
+    // LIST FIELDS
     /**
     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
     *
@@ -51,6 +34,7 @@ class CategoriesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
     /**
     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
     *
@@ -64,6 +48,26 @@ class CategoriesAdmin extends Admin
         ;
     }
 
+    // FORM FIELDS
+    /**
+    * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+    *
+    * @return void
+    */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Catégorie', array('class' => 'col-md-6'))
+                ->add('nom')
+                ->add('numero')
+                ->setHelps(array(
+                    'numero'  => 'utilisé pour le tri dans les listes déroulantes de l\'interface publique (expl.: formulaire de recherche)',
+                ))
+            ->end()
+        ;
+    }
+
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

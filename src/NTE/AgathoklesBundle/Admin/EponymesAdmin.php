@@ -14,21 +14,7 @@ use NTE\AgathoklesBundle\Entity\Eponyme;
 
 class EponymesAdmin extends Admin
 {
-    /**
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
-     *
-     * @return void
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('Eponyme')
-                ->add('nom')
-                ->add('date')
-            ->end()
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      *
@@ -48,6 +34,7 @@ class EponymesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
     /**
      * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      *
@@ -61,6 +48,23 @@ class EponymesAdmin extends Admin
         ;
     }
 
+    // FORM FIELDS
+    /**
+     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Eponyme')
+                ->add('nom')
+                ->add('date')
+            ->end()
+        ;
+    }
+
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

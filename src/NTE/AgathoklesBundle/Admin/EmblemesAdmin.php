@@ -14,20 +14,7 @@ use NTE\AgathoklesBundle\Entity\Embleme;
 
 class EmblemesAdmin extends Admin
 {
-    /**
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
-     *
-     * @return void
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('Emblème', array('class' => 'col-md-6'))
-                ->add('nom')
-            ->end()
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      *
@@ -46,6 +33,7 @@ class EmblemesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
     /**
      * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      *
@@ -58,6 +46,22 @@ class EmblemesAdmin extends Admin
         ;
     }
 
+    // FORM FIELDS
+    /**
+     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Emblème', array('class' => 'col-md-6'))
+                ->add('nom')
+            ->end()
+        ;
+    }
+
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

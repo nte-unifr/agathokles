@@ -10,21 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class FichesAdmin extends Admin
 {
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('eponyme')
-            ->add('fabricant')
-            ->add('forme')
-            ->add('mois')
-            ->add('embleme')
-            ->add('categorie')
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param ListMapper $listMapper
      */
@@ -50,6 +36,23 @@ class FichesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('eponyme')
+            ->add('fabricant')
+            ->add('forme')
+            ->add('mois')
+            ->add('embleme')
+            ->add('categorie')
+        ;
+    }
+
+    // FORM FIELDS
     /**
      * @param FormMapper $formMapper
      */

@@ -10,26 +10,14 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class MoisAdmin extends Admin
 {
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('id')
-            ->add('nom')
-            ->add('numero')
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('nom')
+            ->addIdentifier('nom')
             ->add('numero')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -40,6 +28,19 @@ class MoisAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('nom')
+            ->add('numero')
+        ;
+    }
+
+    // FORM FIELDS
     /**
      * @param FormMapper $formMapper
      */
@@ -56,6 +57,7 @@ class MoisAdmin extends Admin
         ;
     }
 
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

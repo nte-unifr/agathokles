@@ -14,20 +14,7 @@ use NTE\AgathoklesBundle\Entity\EthniqueDemotique;
 
 class EthniqueDemotiquesAdmin extends Admin
 {
-    /**
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
-     *
-     * @return void
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('Ethnique ou Démotique')
-                ->add('nom')
-            ->end()
-        ;
-    }
-
+    // LIST FIELDS
     /**
      * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      *
@@ -46,6 +33,7 @@ class EthniqueDemotiquesAdmin extends Admin
         ;
     }
 
+    // LIST FILTERS
     /**
      * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      *
@@ -58,6 +46,22 @@ class EthniqueDemotiquesAdmin extends Admin
         ;
     }
 
+    // FORM FIELDS
+    /**
+     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Ethnique ou Démotique')
+                ->add('nom')
+            ->end()
+        ;
+    }
+
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *

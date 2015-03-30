@@ -14,6 +14,39 @@ use NTE\AgathoklesBundle\Entity\Lieu;
 
 class LieuxAdmin extends Admin
 {
+    // LIST FIELDS
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     *
+     * @return void
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addidentifier('nom')
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
+        ;
+    }
+
+    // LIST FILTERS
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     *
+     * @return void
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('nom')
+        ;
+    }
+
+    // FORM FIELDS
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
      *
@@ -90,36 +123,7 @@ class LieuxAdmin extends Admin
         ;
     }
 
-    /**
-     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
-     *
-     * @return void
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->addidentifier('nom')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
-        ;
-    }
-
-    /**
-     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
-     *
-     * @return void
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('nom')
-        ;
-    }
-
+    // DEFAULT DATA ORGANISATION
     /**
      * Default Datagrid values
      *
