@@ -84,23 +84,6 @@ class DefaultController extends Controller
                     ->orderBy( 'f.id', 'DESC' );
 
                 $fiches = $query->getQuery()->getResult();
-
-                foreach($fiches as $fiche) {
-
-                    $string = strip_tags($fiche->getCodeType());
-
-                    $retval = $string;
-
-                    $array = explode(" ", $string);
-
-                    if (count($array) <= 20) {
-                        $retval = $string;
-                    } else {
-                        array_splice($array, 20);
-                        $retval = implode(" ", $array)." ...";
-                    }
-                    $fiche->setCodeType($retval);
-                }
             }
         }
 
@@ -123,35 +106,6 @@ class DefaultController extends Controller
 
                 $query
                     ->andWhere( 'f.public = true' );
-
-                if ( $data->getCodeType() != '' ) {
-                    // plusieurs mots clés
-                    $keywords = explode(' ', $data->getCodeType());
-
-                    $tmp = print_r(explode('AND', $data->getCodeType()), true);
-
-                    $i = 1;
-                    foreach($keywords as $keyword) {
-                        $query
-                            ->andWhere( 'f.codeType LIKE :codeType_'.$i.' OR f.legende LIKE :legende_'.$i
-                                        .' OR f.autreLegende LIKE :autreLegende_'.$i.' OR f.lettreRetrograde LIKE :lettreRetrograde_'.$i
-                                        .' OR f.lettreLunaire LIKE :lettreLunaire_'.$i.' OR f.epi LIKE :epi_'.$i
-                                        .' OR f.numero LIKE :numero_'.$i.' OR f.referenceBibliographique LIKE :referenceBibliographique_'.$i
-                                        .' OR f.date LIKE :date_'.$i.' OR f.remarques LIKE :remarques_'.$i )
-                                ->setParameter('codeType_'.$i, '%'.$keyword.'%')
-                                ->setParameter('legende_'.$i, '%'.$keyword.'%')
-                                ->setParameter('autreLegende_'.$i, '%'.$keyword.'%')
-                                ->setParameter('lettreRetrograde_'.$i, '%'.$keyword.'%')
-                                ->setParameter('lettreLunaire_'.$i, '%'.$keyword.'%')
-                                ->setParameter('epi_'.$i, '%'.$keyword.'%')
-                                ->setParameter('numero_'.$i, '%'.$keyword.'%')
-                                ->setParameter('referenceBibliographique_'.$i, '%'.$keyword.'%')
-                                ->setParameter('date_'.$i, '%'.$keyword.'%')
-                                ->setParameter('remarques_'.$i, '%'.$keyword.'%');
-                        $i++;
-                    }
-
-                }
 
                 if ( $data->getFabricant() != '' ) {
                     $query
@@ -444,7 +398,7 @@ class DefaultController extends Controller
         $fiches = $query->getQuery()->getResult();
 
         foreach( $fiches as $fiche ) {
-            $output .= $fiche->getId() . ', titre : ' . $fiche->getCodeType() . '<br />';
+            $output .= $fiche->getId() . ', titre : <br />';
         }
 
         $response = new Response('<html><body><h1>Importation données CSV : </h1>'.$output.'</body></html>');
@@ -506,7 +460,7 @@ class DefaultController extends Controller
         $similaires = $query->getQuery()->getResult();
 
         return array(
-            'titre' => $fiche->getCodeType(),
+            'titre' => '',
             'fiche' => $fiche,
             'similaires' => $similaires,
             'c' => count($fiche->getfichesassociees()),

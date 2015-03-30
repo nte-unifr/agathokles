@@ -407,28 +407,6 @@ class Fiches
     public function preUpdate()
     {
         $this->modification_date = new \DateTime('now');
-
-        if ( !$this->getCodeTypeNonId() ) {
-            $this->getFabricant() != null ? $fabricant = $this->getFabricant() . ", " : $fabricant = "";
-            $this->getEponyme() != null ? $eponyme = $this->getEponyme() . ", " : $eponyme = "";
-            $this->getMois() != null ? $mois = $this->getMois() . ", " : $mois = "";
-            $this->getAutreLegende() != null ? $legende = $this->getAutreLegende() . ", " : $legende = "";
-            $this->getForme() != null ? $forme = $this->getForme() . ", " : $forme = "";
-            $this->getEmbleme() != null ? $embleme = $this->getEmbleme() : $embleme = "";
-
-            $this->codeType = $fabricant . $eponyme . $mois . $legende . $forme . $embleme;
-        } else {
-            $this->codeType = "non identifié";
-        }
-
-        $this->codeMatrice = $this->codeType;
-
-        if ( $this->getEponyme() && '' != $this->getEponyme()->getDate() ) {
-            $this->date = $this->getEponyme()->getDate();
-        } elseif ( $this->getFabricant() && '' != $this->getFabricant()->getDate() ) {
-            $this->date = $this->getFabricant()->getDate();
-        }
-
         //See also FichesListener.php
     }
 
@@ -1644,7 +1622,7 @@ class Fiches
     /**
      * Get typeNumero
      *
-     * @return integer 
+     * @return integer
      */
     public function getTypeNumero()
     {
@@ -1667,7 +1645,7 @@ class Fiches
     /**
      * Get matriceNumero
      *
-     * @return integer 
+     * @return integer
      */
     public function getMatriceNumero()
     {

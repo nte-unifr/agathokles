@@ -27,12 +27,6 @@ class SearchFiches extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('codeType',      'text', array(
-            'required' => false,
-            'label' => 'Titre'
-        ));
-
-
         $dropdown_opts = array(
             'empty_value' => '----------- Choisissez une option -----------',
             'empty_data'  => null,

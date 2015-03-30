@@ -347,7 +347,7 @@
                     <dt>Matrices<br /> secondaires</dt>
                     <dd>
                     {% for matrice in fiche.matriceSecondaire %}
-                        <p><a href="{{ path('fiche', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.fiche.codeType }}</a></p>
+                        <p><a href="{{ path('fiche', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.fiche.id }}</a></p>
                     {% endfor %}
                     </dd>
                 </dl>
@@ -355,7 +355,7 @@
                     <dt>Matrice<br /> complémentaires</dt>
                     <dd>
                     {% for matrice in fiche.matriceComplementaire %}
-                        <p><a href="{{ path('fiche', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.fiche.codeType }}</a></p>
+                        <p><a href="{{ path('fiche', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.fiche.id }}</a></p>
                     {% endfor %}
                     </dd>
                 </dl>

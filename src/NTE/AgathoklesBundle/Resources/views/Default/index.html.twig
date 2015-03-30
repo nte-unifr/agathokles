@@ -75,7 +75,7 @@
 
                 {% for pt in lieux %}
                 marker = L.marker([{{ pt.lat }}, {{ pt.lng }}], {icon : amphoreIcon});
-                marker.bindPopup("<h3>{{ pt.nom }} <sup><span class=\"badge\">{{ pt.fiches|length }}</span></sup></h3>{% for timbre in pt.fiches|slice(0, 5) %}<a href=\"{{ path('fiche', { 'id': timbre.id }) }}\"><span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span> {{ timbre.codeType }}</a><br />{% endfor %}<br /><br /><a href=\"{{ path('lieu_show', { 'id': pt.id }) }}\" class=\"btn btn-primary\">Voir tous les timbres de ce lieu</a>.<br /><br />");
+                marker.bindPopup("<h3>{{ pt.nom }} <sup><span class=\"badge\">{{ pt.fiches|length }}</span></sup></h3>{% for timbre in pt.fiches|slice(0, 5) %}<a href=\"{{ path('fiche', { 'id': timbre.id }) }}\"><span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a><br />{% endfor %}<br /><br /><a href=\"{{ path('lieu_show', { 'id': pt.id }) }}\" class=\"btn btn-primary\">Voir tous les timbres de ce lieu</a>.<br /><br />");
                 //marker.addTo(map);
                 markers.addLayer(marker);
                 {% endfor %}
