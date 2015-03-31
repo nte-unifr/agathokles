@@ -79,7 +79,7 @@ function displayBasket() {
     }
     content_mail = localStorage.getItem('jStorage');
     // version imprimable
-    content += '<div class="col-md-6"><form method="post" action="'+ document.URL.split("/fiche/")[0] +'/print_panier"><textarea id="form_message" style="display: none;" name="form[message]">'+ content_mail +'</textarea><input type="submit" value="Version imprimable du panier" class="btn btn-primary"></form></div></div>';
+    content += '</div>';
     content += "</div>";
     document.getElementById("panier-body").innerHTML = content;
     document.getElementById("form_message").innerHTML = content_mail;
