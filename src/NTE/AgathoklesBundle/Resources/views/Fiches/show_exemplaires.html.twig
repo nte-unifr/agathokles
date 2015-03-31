@@ -1,16 +1,17 @@
-<legend>Exemplaires</legend>
-
-<ul>
-    <li>
-        {% if fiche.numero %}
-            E{{fiche.numero}}.&nbsp;
-        {% endif %}
-        {% if fiche.referenceBibliographique %}
-            {{fiche.referenceBibliographique}}.&nbsp;
-        {% endif %}
-        {% if fiche.lieuDeDecouverte %}
-            <a href="{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}">{{ fiche.lieuDeDecouverte }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a>.&nbsp;
-        {% endif %}
-        {{fiche.remarques|striptags|raw}}
-    </li>
-</ul>
+{% if fiche.numero or fiche.referenceBibliographique or fiche.lieuDeDecouverte or fiche.remarques %}
+    <legend>Exemplaires</legend>
+    <ul>
+        <li>
+            {% if fiche.numero %}
+                E{{fiche.numero}}.&nbsp;
+            {% endif %}
+            {% if fiche.referenceBibliographique %}
+                {{fiche.referenceBibliographique}}.&nbsp;
+            {% endif %}
+            {% if fiche.lieuDeDecouverte %}
+                <a href="{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}">{{ fiche.lieuDeDecouverte }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a>.&nbsp;
+            {% endif %}
+            {{fiche.remarques|striptags|raw}}
+        </li>
+    </ul>
+{% endif %}
