@@ -42,11 +42,6 @@
                 <div id="identity" class="hidden-xs">
                     <div class="bandeau">
                         <a href="http://www.unifr.ch"><img class="bandeau-faculty" border="0" src="{{ asset('bundles/nteagathokles/img/bandeau_unifr_universite.jpg') }}" alt="Université de Fribourg | Universität Freiburg"></a>
-                        <div id="address2">
-                            <div class="txt">
-                                <a href="{{ path('home') }}">AGATHOKLES</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- end:identite -->
@@ -72,16 +67,23 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                     <li><a href="{{ path('home') }}">Accueil</a></li>
-                    <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Timbres</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Timbres <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Eponymes</a></li>
+                            <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Fabricants</a></li>
+                            <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Bi-nominaux</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('nte_agathokles_default_ficheliste') }}">Amphores</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ path('recherche') }}">Recherche</a></li>
-                    <li><a href="{{ path('faq') }}">FAQ</a></li>
-                    <li><a href="{{ path('credits') }}">Crédits</a></li>
-                    <li><a href="{{ path('contact') }}">Contact</a></li>
                   </ul>
 
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://unifr.ch">Unifr</a></li>
-                    <li><a href="http://nte.unifr.ch">Centre NTE</a></li>
+                      <li><a href="{{ path('faq') }}">FAQ</a></li>
+                      <li><a href="{{ path('credits') }}">Crédits</a></li>
+                      <li><a href="{{ path('contact') }}">Contact</a></li>
                   </ul>
                 </div>
               </div>
