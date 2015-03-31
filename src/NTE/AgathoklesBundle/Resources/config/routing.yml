@@ -7,15 +7,6 @@ agathokles_fiches:
 recherche:
     pattern: /recherche
 
-contact:
-    pattern: /contact
-
-faq:
-    pattern: /faq
-
-credits:
-    pattern: /credits
-
 fiche:
     pattern: /fiche/{id}
 

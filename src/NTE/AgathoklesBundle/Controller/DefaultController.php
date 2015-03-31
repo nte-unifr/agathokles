@@ -468,56 +468,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '3' );
-        return $this->render('NTEAgathoklesBundle:Default:page.html.twig',
-            array(
-                'titre' => 'Contact',
-                'page'  => $page,
-            )
-        );
-    }
-
-    /**
-     * @Route("/faq")
-     * @Template()
-     */
-    public function faqAction()
-    {
-        $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '2' );
-        return $this->render('NTEAgathoklesBundle:Default:page.html.twig',
-            array(
-                'titre' => 'FAQ',
-                'page'  => $page,
-            )
-        );
-    }
-
-    /**
-     * @Route("/credits")
-     * @Template()
-     */
-    public function creditsAction()
-    {
-        $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '4' );
-        return $this->render('NTEAgathoklesBundle:Default:page.html.twig',
-            array(
-                'titre' => 'Crédits',
-                'page'  => $page,
-            )
-        );
-    }
-
-
-
-    /**
      * @Route("/email")
      * @Template()
      */
