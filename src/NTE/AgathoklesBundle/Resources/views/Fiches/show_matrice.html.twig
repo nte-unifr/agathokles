@@ -1,0 +1,82 @@
+<legend>Matrice</legend>
+
+{% if fiche.cadre %}
+    <dl class="dl-horizontal">
+        <dt>Cadre</dt>
+        <dd>
+            {{ fiche.cadre.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.bouton %}
+    <dl class="dl-horizontal">
+        <dt>Bouton</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.grenetis %}
+    <dl class="dl-horizontal">
+        <dt>Grenetis</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.ombilic %}
+    <dl class="dl-horizontal">
+        <dt>Ombilic</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.legendeTournante %}
+    <dl class="dl-horizontal">
+        <dt>Légende tournante</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.lettreRetrograde %}
+    <dl class="dl-horizontal">
+        <dt>Lettre rétrograde</dt>
+        <dd>
+            {{ fiche.lettreRetrograde }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.lettreLunaire %}
+    <dl class="dl-horizontal">
+        <dt>Lettre lunaire</dt>
+        <dd>
+            {{ fiche.lettreLunaire|e }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.particulariteOrthographique %}
+    <dl class="dl-horizontal">
+        <dt>Particularité<br>orthographique</dt>
+        <dd>
+            {{ fiche.particulariteOrthographique }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.retrogravure %}
+    <dl class="dl-horizontal">
+        <dt>Retrogravure</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}

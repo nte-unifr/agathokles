@@ -161,333 +161,118 @@
         </div>
     {% endif %}
 
-        <div class="row">
-            <div class="col-md-7">
-                <p><dt>Illustration</dt></p>
-                <script>
-                    function popwindow(url, id) {
-                        if (id == 'image_principale') {
-                            var height = document.getElementById(id).height * 3;
-                            var width = document.getElementById(id).width * 3;
-                        } else {
-                            var height = document.getElementById(id).height * 6;
-                            var width = document.getElementById(id).width * 6;
-                        }
-                        window.open(url,'Illustration','height='+height+',width='+width);
+    <div class="row">
+        <div class="col-md-7 col-sm-6">
+            <p><legend>Illustration</legend></p>
+            <script>
+                function popwindow(url, id) {
+                    if (id == 'image_principale') {
+                        var height = document.getElementById(id).height * 3;
+                        var width = document.getElementById(id).width * 3;
+                    } else {
+                        var height = document.getElementById(id).height * 6;
+                        var width = document.getElementById(id).width * 6;
                     }
+                    window.open(url,'Illustration','height='+height+',width='+width);
+                }
 
-                    function change_img(ppt, original) {
-                        $('#img_ppt').attr('href', ppt);
-                        $('#img_original').attr('href', original);
-                        $('#img_ppt').attr('onclick', "popwindow('" + ppt + "', 'image_principale');return false;");
-                        $('#img_original').attr('onclick', "popwindow('" + original + "', 'image_principale');return false;");
-                    }
-                </script>
-                    {% if fiche.images.0 is defined %}
+                function change_img(ppt, original) {
+                    $('#img_ppt').attr('href', ppt);
+                    $('#img_original').attr('href', original);
+                    $('#img_ppt').attr('onclick', "popwindow('" + ppt + "', 'image_principale');return false;");
+                    $('#img_original').attr('onclick', "popwindow('" + original + "', 'image_principale');return false;");
+                }
+            </script>
+                {% if fiche.images.0 is defined %}
 
-                        {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
-                        {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
+                    {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
+                    {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
 
-                    <p>
-                        <br />
-                        <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PPT</a>
-                        &nbsp;
-                        <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Original</a>
-                    </p>
-                    {% endif %}
-                    {% if fiche.images|length > 1 %}
-                    <div id="gallery" style="width=500px;">
-                        {% for annexe in fiche.images %}
-                        <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <script>
-                        $("#image_principale").elevateZoom({
-                            gallery : "gallery",
-                            galleryActiveClass: "active",
-                            cursor: "crosshair",
-                            zoomWindowFadeIn: 500,
-                            zoomWindowFadeOut: 750,
-                            zoomWindowPosition: 5,
-                            responsive: true,
-                            scrollZoom : true,
-                        });
-
-                        $("#select").change(function(e){
-                            var currentValue = $("#select").val();
-                            if(currentValue == 0){
-                                smallImage = "{% path fiche.image, 'small' %}";
-                                largeImage = "{% path fiche.image, 'big' %}";
-                            }
-                            {% for annexe in fiche.images %}
-                            if(currentValue == {{ loop.index }}){
-                                smallImage = "{% path annexe.media, 'small' %}";
-                                largeImage = "{% path annexe.media, 'big' %}";
-                            }
-                            {% endfor %}
-                            // Example of using Active Gallery
-                            $('#gallery a').removeClass('active').eq(currentValue-1).addClass('active');
-
-                            var ez =   $('#image_principale').data('elevateZoom');
-
-                            ez.swaptheimage(smallImage, largeImage);
-
-                        });
-
-                    </script>
-            </div>
-            <div class="col-md-5">
-                <p><dt>Légende</dt></p>
                 <p>
-                    {% if fiche.legende %}
-                        <pre class="bg-primary"><strong><div id="legende">{{ fiche.legende|raw }}</div></strong></pre>
-                    {% else %}
-                        Aucune légende
-                    {% endif %}
+                    <br />
+                    <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PPT</a>
+                    &nbsp;
+                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Original</a>
                 </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-5">
-                <legend>Timbres</legend>
-                <dl class="dl-horizontal">
-                    <dt>Numéro</dt>
-                    <dd>
-                        {{ fiche.numero }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Référence<br /> bibliographique</dt>
-                    <dd>
-                        {{ fiche.referenceBibliographique }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Lieu de découverte</dt>
-                    <dd>
-                    {% if fiche.lieuDeDecouverte %}
-                        <a href="{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}">{{ fiche.lieuDeDecouverte }}</a> <a href="{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a>
-                    {% endif %}
-                    </dd>
-                </dl>
-                <legend>Type</legend>
-                <dl class="dl-horizontal">
-                    <dt>Catégorie</dt>
-                    <dd id="categorie">
-                    {% if fiche.categorie %}
-                        {{ fiche.categorie.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Fabricant</dt>
-                    <dd id="fabricant">
-                    {% if fiche.fabricant %}
-                        {{ fiche.fabricant.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Éponyme</dt>
-                    <dd>
-                    {% if fiche.eponyme %}
-                        {{ fiche.eponyme.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Mois</dt>
-                    <dd>
-                    {% if fiche.mois %}
-                        {{ fiche.mois.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Autre légende</dt>
-                    <dd>
-                    {{ fiche.autrelegende }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Forme</dt>
-                    <dd>
-                    {% if fiche.forme %}
-                        {{ fiche.forme.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Emblème</dt>
-                    <dd>
-                    {% if fiche.embleme %}
-                        {{ fiche.embleme.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <legend>Association</legend>
-                <dl class="dl-horizontal">
-                    <dt>Matrices<br /> secondaires</dt>
-                    <dd>
-                    {% for matrice in fiche.matriceSecondaire %}
-                        <p><a href="{{ path('fiche', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.fiche.id }}</a></p>
+                {% endif %}
+                {% if fiche.images|length > 1 %}
+                <div id="gallery" style="width=500px;">
+                    {% for annexe in fiche.images %}
+                    <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
                     {% endfor %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Matrice<br /> complémentaires</dt>
-                    <dd>
-                    {% for matrice in fiche.matriceComplementaire %}
-                        <p><a href="{{ path('fiche', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.fiche.id }}</a></p>
-                    {% endfor %}
-                    </dd>
-                </dl>
-                <legend>Divers</legend>
-                <dl class="dl-horizontal">
-                    <dt>Date</dt>
-                    <dd id="date">
-                        {{ fiche.date }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Remarques</dt>
-                    <dd>
-                        {{ fiche.remarques|raw }}
-                    </dd>
-                </dl>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1">
-                <legend>Matrice</legend>
-                <dl class="dl-horizontal">
-                    <dt>Position</dt>
-                    <dd>
-                    {% if fiche.position %}
-                        {{ fiche.position }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Cadre</dt>
-                    <dd>
-                    {% if fiche.cadre %}
-                        {{ fiche.cadre.nom }}
-                    {% else %}
-                        Inconnu
-                    {% endif %}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Bouton</dt>
-                    <dd>
-                        {{ fiche.bouton ? '<span class="glyphicon glyphicon-ok text-success" title="oui" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Grenetis</dt>
-                    <dd>
-                        {{ fiche.grenetis ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Ombilic</dt>
-                    <dd>
-                        {{ fiche.ombilic ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Séparation</dt>
-                    <dd>
-                        {{ fiche.separation }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Légende tournante</dt>
-                    <dd>
-                        {{ fiche.legendeTournante ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Lettre rétrograde</dt>
-                    <dd>
-                        {{ fiche.lettreRetrograde }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Lettre lunaire</dt>
-                    <dd>
-                        {{ fiche.lettreLunaire|e }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>&#7952;&#960;&#943; omis</dt>
-                    <dd>
-                        {{ fiche.epi ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>&#960;&#945;&#961;&#8048;</dt>
-                    <dd>
-                        {{ fiche.para ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>titre (&#7984;&#949;&#961;&#949;&#973;&#962;/ΕΙ) </dt>
-                    <dd>
-                        {{ fiche.iereus ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>&#956;&#941;&#964;&#959;&#953;&#954;&#959;&#962; </dt>
-                    <dd>
-                        {{ fiche.metoikos ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>&#956;&#949;&#943;&#962; </dt>
-                    <dd>
-                        {{ fiche.meis ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>&#7952;&#964;&#8134;</dt>
-                    <dd>
-                        {{ fiche.ete }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Particularité<br /> orthographique</dt>
-                    <dd>
-                        {{ fiche.particulariteOrthographique }}
-                    </dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Retrogravure</dt>
-                    <dd>
-                        {{ fiche.retrogravure ? '<span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>' : '-' }}
-                    </dd>
-                </dl>
-            </div>
+                </div>
+                {% endif %}
+                <script>
+                    $("#image_principale").elevateZoom({
+                        gallery : "gallery",
+                        galleryActiveClass: "active",
+                        cursor: "crosshair",
+                        zoomWindowFadeIn: 500,
+                        zoomWindowFadeOut: 750,
+                        zoomWindowPosition: 1,
+                        responsive: true,
+                        scrollZoom : true,
+                    });
+
+                    $("#select").change(function(e){
+                        var currentValue = $("#select").val();
+                        if(currentValue == 0){
+                            smallImage = "{% path fiche.image, 'small' %}";
+                            largeImage = "{% path fiche.image, 'big' %}";
+                        }
+                        {% for annexe in fiche.images %}
+                        if(currentValue == {{ loop.index }}){
+                            smallImage = "{% path annexe.media, 'small' %}";
+                            largeImage = "{% path annexe.media, 'big' %}";
+                        }
+                        {% endfor %}
+                        // Example of using Active Gallery
+                        $('#gallery a').removeClass('active').eq(currentValue-1).addClass('active');
+
+                        var ez =   $('#image_principale').data('elevateZoom');
+
+                        ez.swaptheimage(smallImage, largeImage);
+
+                    });
+
+                </script>
         </div>
-
-
+        <div class="col-md-5 col-sm-6">
+            <p><legend>Légende</legend></p>
+            <p>
+                {% if fiche.legende %}
+                    <pre class="bg-primary"><strong><div id="legende">{{ fiche.legende|raw }}</div></strong></pre>
+                {% else %}
+                    Aucune légende
+                {% endif %}
+            </p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {% include "NTEAgathoklesBundle:Fiches:show_type.html.twig" %}
+        </div>
+        <div class="col-sm-6">
+            {% include "NTEAgathoklesBundle:Fiches:show_matrice.html.twig" %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            {% include "NTEAgathoklesBundle:Fiches:show_exemplaires.html.twig" %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {% include "NTEAgathoklesBundle:Fiches:show_associations.html.twig" %}
+        </div>
+        <div class="col-sm-6">
+            {% include "NTEAgathoklesBundle:Fiches:show_date.html.twig" %}
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}

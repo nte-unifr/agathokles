@@ -1,0 +1,38 @@
+<legend>Associations</legend>
+
+{% if fiche.matricePrincipale|length > 0 %}
+    <dl class="dl-horizontal">
+        <dt>Matrice<br> principale</dt>
+        <dd>
+            {% for matrice in fiche.matricePrincipale %}
+                <p><a href="{{ path('fiche', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.id }}</a></p>
+            {% endfor %}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.matriceSecondaire|length > 0 %}
+    <dl class="dl-horizontal">
+        <dt>Matrice<br> secondaire</dt>
+        <dd>
+            {% for matrice in fiche.matriceSecondaire %}
+                <p><a href="{{ path('fiche', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.id }}</a></p>
+            {% endfor %}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.matriceComplementaire|length > 0 %}
+    <dl class="dl-horizontal">
+        <dt>Matrice<br> complémentaire</dt>
+        <dd>
+            {% for matrice in fiche.matriceComplementaire %}
+                <p><a href="{{ path('fiche', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.id }}</a></p>
+            {% endfor %}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if (fiche.matricePrincipale|length <= 0) and (fiche.matriceSecondaire|length <= 0) and (fiche.matriceComplementaire|length <= 0) %}
+    <p>Aucune association</p>
+{% endif %}

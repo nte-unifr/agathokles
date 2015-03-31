@@ -1,0 +1,127 @@
+<legend>Type</legend>
+
+{% if fiche.forme %}
+    <dl class="dl-horizontal">
+        <dt>Forme</dt>
+        <dd>
+            {{ fiche.forme.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.fabricant %}
+    <dl class="dl-horizontal">
+        <dt>Fabricant</dt>
+        <dd id="fabricant">
+            {{ fiche.fabricant.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.eponyme %}
+    <dl class="dl-horizontal">
+        <dt>Éponyme</dt>
+        <dd>
+            {{ fiche.eponyme.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.mois %}
+    <dl class="dl-horizontal">
+        <dt>Mois</dt>
+        <dd>
+            {{ fiche.mois.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.embleme %}
+    <dl class="dl-horizontal">
+        <dt>Emblème</dt>
+        <dd>
+            {{ fiche.embleme.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.epi %}
+    <dl class="dl-horizontal">
+        <dt>&#7952;&#960;&#943; omis</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.para %}
+    <dl class="dl-horizontal">
+        <dt>&#960;&#945;&#961;&#8048;</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.iereus %}
+    <dl class="dl-horizontal">
+        <dt>titre (&#7984;&#949;&#961;&#949;&#973;&#962;/ΕΙ)</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.metoikos %}
+    <dl class="dl-horizontal">
+        <dt>&#956;&#941;&#964;&#959;&#953;&#954;&#959;&#962;</dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.meis %}
+    <dl class="dl-horizontal">
+        <dt>&#956;&#949;&#943;&#962; </dt>
+        <dd>
+            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.ete %}
+    <dl class="dl-horizontal">
+        <dt>&#7952;&#964;&#8134;</dt>
+        <dd>
+            {{ fiche.ete }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.ethniqueDemotique %}
+    <dl class="dl-horizontal">
+        <dt>Ethnique<br>démotique</dt>
+        <dd>
+            {{ fiche.ethniqueDemotique.nom }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.separation %}
+    <dl class="dl-horizontal">
+        <dt>Séparation</dt>
+        <dd>
+            {{ fiche.separation }}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if fiche.position %}
+    <dl class="dl-horizontal">
+        <dt>Position</dt>
+        <dd>
+            {{ fiche.position }}
+        </dd>
+    </dl>
+{% endif %}
