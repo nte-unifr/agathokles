@@ -55,6 +55,15 @@
     color: #ffffff;
 }
 
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    color: #fff;
+    background: #337ab7;
+}
+
+.navbar-default .navbar-nav>li>a:focus {
+    color: #fff !important;
+}
+
 .sans-bord {
     padding: 0;
 }
@@ -116,11 +125,6 @@ h1 {
 
 #webpage2 {
     text-align: left;
-}
-
-a.btn {
-    text-decoration: none;
-    color: #ffffff !important;
 }
 
 .row33 .row div {
@@ -195,4 +199,8 @@ body {
     .dl-horizontal dd {
         margin-left: 120px;
     }
+}
+
+.bottom-spacer {
+    margin-top: 100px;
 }
