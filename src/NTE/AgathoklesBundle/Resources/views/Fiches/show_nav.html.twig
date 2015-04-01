@@ -1,0 +1,40 @@
+{% if fiche.id in recherche %}
+    <div class="hidden-print btn-group" role="group" aria-label="...">
+        {% if lieu_id is not defined %}
+            {% set lieu_id = app.request.get('lieu_id') %}
+        {% endif %}
+
+        {% if(prev) %}
+            <a href="{{ path('fiche', { 'id': prev, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Résultat précédent
+            </a>
+        {% else %}
+            <a href="#" class="btn btn-default" disabled="disabled">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Résultat précédent
+            </a>
+        {% endif %}
+
+        {% if(recherche) %}
+            {% if nav_type == 'a' %}
+                {% set back_path = path('rechercheavancee') %}
+            {% elseif 'lieu' == nav_type %}
+                {% set back_path = path('lieu_show', { 'id': lieu_id, 'page': page }) %}
+            {% elseif 'liste' == nav_type %}
+                {% set back_path = path('nte_agathokles_default_ficheliste', { 'page': page }) %}
+            {% else %}
+                {% set back_path = path('recherche') %}
+            {% endif %}
+            <a href="{{ back_path }}" class="btn btn-default"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Retour au résultats</a>
+        {% endif %}
+
+        {% if(next) %}
+            <a href="{{ path('fiche', { 'id': next, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}" class="btn btn-default">
+                Résultat suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        {% else %}
+            <a href="#" class="btn btn-default" disabled="disabled">
+                Résultat suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
