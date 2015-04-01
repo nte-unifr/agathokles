@@ -54,36 +54,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-            <div class="hidden-print">
-                {% if fiche.id in recherche %}
-                    {% if lieu_id is not defined %}
-                        {% set lieu_id = app.request.get('lieu_id') %}
-                    {% endif %}
-                    {% if(prev) %}
-                    <a href="{{ path('fiche', { 'id': prev, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}">
-                        <<< r&eacute;sultat pr&eacute;c&eacute;dent
-                    </a>
-                    {% else %}
-                        <span style="color:#aaa"><<< r&eacute;sultat pr&eacute;c&eacute;dent</span>
-                    {% endif %}
-
-                    {% if(recherche) %}
-                    &nbsp; {% if nav_type == 'a' %}<a href="{{ path('rechercheavancee') }}">{% elseif 'lieu' == nav_type %}<a href="{{ path('lieu_show', { 'id': lieu_id, 'page': page }) }}">{% elseif 'liste' == nav_type %}<a href="{{ path('nte_agathokles_default_ficheliste', { 'page': page }) }}">{% else %}<a href="{{ path('recherche') }}">{% endif %}<strong>Retour aux r&eacute;sultats</strong></a> &nbsp;
-                    {% endif %}
-
-                    {% if(next) %}
-                    <a href="{{ path('fiche', { 'id': next, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}">
-                         r&eacute;sultat suivant >>>
-                    </a>
-                    {% else %}
-                        <span style="color:#aaa">r&eacute;sultat suivant >>></span>
-                    {% endif %}
-                {% endif %}
-            </div>
-
-
+        <div class="col-sm-12 text-center">
+            {% include "NTEAgathoklesBundle:Fiches:show_nav.html.twig" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/jstorage.js') }}"></script>
             <div style="float: right; text-align: right;" class="droite hidden-print">
@@ -165,10 +141,13 @@
 
     <div class="row">
         <div class="col-sm-6">
-            {% include "NTEAgathoklesBundle:Fiches:show_type.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show_illustration.html.twig" %}
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5 col-sm-offset-1">
+            {% include "NTEAgathoklesBundle:Fiches:show_type.html.twig" %}
             {% include "NTEAgathoklesBundle:Fiches:show_matrice.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show_associations.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show_date.html.twig" %}
         </div>
     </div>
 
@@ -178,12 +157,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            {% include "NTEAgathoklesBundle:Fiches:show_associations.html.twig" %}
-        </div>
-        <div class="col-sm-6">
-            {% include "NTEAgathoklesBundle:Fiches:show_date.html.twig" %}
+    <div class="row bottom-spacer">
+        <div class="col-sm-12 text-center">
+            {% include "NTEAgathoklesBundle:Fiches:show_nav.html.twig" %}
         </div>
     </div>
 
