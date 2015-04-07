@@ -18,25 +18,6 @@ class LieuController extends Controller
 {
 
     /**
-     * Lists all Lieu entities.
-     *
-     * @Route("/", name="lieu")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NTEAgathoklesBundle:Lieu')->findAll();
-
-        return array(
-            'titre'     => 'Lieux',
-            'entities'  => $entities,
-        );
-    }
-
-    /**
      * Finds and displays a Lieu entity.
      *
      * @Route("/{id}", name="lieu_show")
