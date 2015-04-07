@@ -387,6 +387,27 @@ class Fiches
      */
     private $matriceNumero;
 
+    /**
+     * @var boolean $fabIdInc
+     *
+     * @ORM\Column(name="fabIdInc", type="boolean", nullable=true)
+     */
+    private $fabIdInc = false;
+
+    /**
+     * @var boolean $epoIdInc
+     *
+     * @ORM\Column(name="epoIdInc", type="boolean", nullable=true)
+     */
+    private $epoIdInc = false;
+
+    /**
+     * @var boolean $moisIdInc
+     *
+     * @ORM\Column(name="moisIdInc", type="boolean", nullable=true)
+     */
+    private $moisIdInc = false;
+
     public function __toString()
     {
         return (string)($this->getId() . " ");
@@ -1650,5 +1671,74 @@ class Fiches
     public function getMatriceNumero()
     {
         return $this->matriceNumero;
+    }
+
+    /**
+     * Set fabIdInc
+     *
+     * @param boolean $fabIdInc
+     * @return Fiches
+     */
+    public function setFabIdInc($fabIdInc)
+    {
+        $this->fabIdInc = $fabIdInc;
+
+        return $this;
+    }
+
+    /**
+     * Get fabIdInc
+     *
+     * @return boolean 
+     */
+    public function getFabIdInc()
+    {
+        return $this->fabIdInc;
+    }
+
+    /**
+     * Set epoIdInc
+     *
+     * @param boolean $epoIdInc
+     * @return Fiches
+     */
+    public function setEpoIdInc($epoIdInc)
+    {
+        $this->epoIdInc = $epoIdInc;
+
+        return $this;
+    }
+
+    /**
+     * Get epoIdInc
+     *
+     * @return boolean 
+     */
+    public function getEpoIdInc()
+    {
+        return $this->epoIdInc;
+    }
+
+    /**
+     * Set moisIdInc
+     *
+     * @param boolean $moisIdInc
+     * @return Fiches
+     */
+    public function setMoisIdInc($moisIdInc)
+    {
+        $this->moisIdInc = $moisIdInc;
+
+        return $this;
+    }
+
+    /**
+     * Get moisIdInc
+     *
+     * @return boolean 
+     */
+    public function getMoisIdInc()
+    {
+        return $this->moisIdInc;
     }
 }

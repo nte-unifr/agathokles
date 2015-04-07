@@ -16,6 +16,9 @@ function changeCateg( categ ) {
         $(".fabricantID").parents(".form-group").show();
         $(".eponymeID").parents(".form-group").show();
         $(".moisID").parents(".form-group").show();
+        $(".fabIdIncID").parents(".form-group").show();
+        $(".epoIdIncID").parents(".form-group").show();
+        $(".moisIdIncID").parents(".form-group").show();
         $(".autreLegendeID").parents(".form-group").show();
         $(".formeID").parents(".form-group").show();
         $(".emblemeID").parents(".form-group").show();
@@ -49,6 +52,9 @@ function changeCateg( categ ) {
         $(".fabricantID").parents(".form-group").hide();
         $(".eponymeID").parents(".form-group").hide();
         $(".moisID").parents(".form-group").hide();
+        $(".fabIdIncID").parents(".form-group").hide();
+        $(".epoIdIncID").parents(".form-group").hide();
+        $(".moisIdIncID").parents(".form-group").hide();
         $(".autreLegendeID").parents(".form-group").hide();
         $(".formeID").parents(".form-group").show();
         $(".designationID").parents(".form-group").show();

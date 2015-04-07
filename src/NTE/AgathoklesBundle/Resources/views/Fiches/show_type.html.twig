@@ -14,6 +14,7 @@
         <dt>Fabricant</dt>
         <dd id="fabricant">
             {{ fiche.fabricant.nom }}
+            {% if fiche.fabIdInc %}(?){% endif %}
         </dd>
     </dl>
 {% endif %}
@@ -23,6 +24,7 @@
         <dt>Éponyme</dt>
         <dd>
             {{ fiche.eponyme.nom }}
+            {% if fiche.epoIdInc %}(?){% endif %}
         </dd>
     </dl>
 {% endif %}
@@ -32,6 +34,7 @@
         <dt>Mois</dt>
         <dd>
             {{ fiche.mois.nom }}
+            {% if fiche.moisIdInc %}(?){% endif %}
         </dd>
     </dl>
 {% endif %}
