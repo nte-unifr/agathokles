@@ -10,7 +10,7 @@
       <div class="panel-heading">
           <h3 class="panel-title">
               <a href="{{ path('fiche', { 'id': fiche.id, 'form': form, 'lieu_id': lieu_id, 'page': page }) }}" class="liste">
-                  {{ fiche.eponyme }} / {{ fiche.fabricant }} - T{{ fiche.typeNumero }} - M{{ fiche.matriceNumero }}
+                  {% include "NTEAgathoklesBundle:Fiches:designation.html.twig" %}
               </a>
           </h3>
       </div>
