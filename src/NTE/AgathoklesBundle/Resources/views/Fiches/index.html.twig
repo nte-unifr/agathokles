@@ -1,3 +1,5 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Fiches/index.html.twig #}
+
 {% extends "NTEAgathoklesBundle:Default:index.html.twig" %}
 
 
@@ -6,44 +8,31 @@
 
 {% block agathokles_content %}
 
-<p><br /></p>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 id="title">Liste des timbres amphoriques</h1>
-                    <br />
+    <div id="fiches" class="container">
+        <div class="page-header">
+          <h1>Timbres <small>Liste des timbres amphoriques</small></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="nav nav-pills nav-stacked">
+                  <li role="presentation" {% if status["all"] %}class="active"{% endif %}><a href="{{ path('timbres') }}">Tous les timbres</a></li>
+                  <li role="presentation" {% if status["epo"] %}class="active"{% endif %}><a href="{{ path('timbres_eponymes') }}">Eponymes</a></li>
+                  <li role="presentation" {% if status["fab"] %}class="active"{% endif %}><a href="{{ path('timbres_fabricants') }}">Fabricants</a></li>
+                  <li role="presentation" {% if status["bin"] %}class="active"{% endif %}><a href="{{ path('timbres_binominaux') }}">Bi-nominaux</a></li>
+                  <li role="presentation" {% if status["amp"] %}class="active"{% endif %}><a href="{{ path('timbres', {'tag': 'amp'}) }}">Amphores</a></li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <p class="lead">
+                    Affichage de {{ fichesQty }} timbres sur un total de {{ allQty }}.
+                </p>
+                <div class="row js-masonry" data-masonry-options='{ "itemSelector": ".fiche" }'>
+                    {% for fiche in fiches %}
+                        {% include 'NTEAgathoklesBundle:Fiches:fiche.html.twig' %}
+                    {% endfor %}
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 id="title">Par eponymes</h2>
-                </div>
-            </div>
-
-        {% for eponyme in eponymes %}
-            <div class="col-md-3">
-                <a href="{{ path('eponyme_show', { 'id': eponyme.id }) }}">{{ eponyme.nom }}</a>
-            </div>
-        {% endfor %}
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 id="title">Par fabricants</h2>
-                </div>
-            </div>
-
-        {% for fabricant in fabricants %}
-            <div class="col-md-3">
-                <a href="{{ path('fabricant_show', { 'id': fabricant.id }) }}">{{ fabricant.nom }}</a>
-            </div>
-        {% endfor %}
-
+        </div>
     </div>
-</div>
+
 {% endblock %}

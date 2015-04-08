@@ -1,0 +1,49 @@
+{% extends "NTEAgathoklesBundle:Default:index.html.twig" %}
+
+
+{% block agathokles_sideblock %}
+{% endblock %}
+
+{% block agathokles_content %}
+
+<p><br /></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 id="title">Liste des timbres amphoriques</h1>
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 id="title">Par eponymes</h2>
+                </div>
+            </div>
+
+        {% for eponyme in eponymes %}
+            <div class="col-md-3">
+                <a href="{{ path('eponyme_show', { 'id': eponyme.id }) }}">{{ eponyme.nom }}</a>
+            </div>
+        {% endfor %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 id="title">Par fabricants</h2>
+                </div>
+            </div>
+
+        {% for fabricant in fabricants %}
+            <div class="col-md-3">
+                <a href="{{ path('fabricant_show', { 'id': fabricant.id }) }}">{{ fabricant.nom }}</a>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
