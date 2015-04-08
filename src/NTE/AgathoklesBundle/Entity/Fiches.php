@@ -1689,7 +1689,7 @@ class Fiches
     /**
      * Get fabIdInc
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFabIdInc()
     {
@@ -1712,7 +1712,7 @@ class Fiches
     /**
      * Get epoIdInc
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEpoIdInc()
     {
@@ -1735,7 +1735,7 @@ class Fiches
     /**
      * Get moisIdInc
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMoisIdInc()
     {
