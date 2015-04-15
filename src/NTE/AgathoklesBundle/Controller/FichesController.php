@@ -8,6 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use NTE\AgathoklesBundle\Entity\Fiches;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Symfony\Component\HttpFoundation\Request;
+use NTE\AgathoklesBundle\Form\Filter\FichesFilterType;
 
 /**
  * Fiches controller.
@@ -16,6 +23,7 @@ use NTE\AgathoklesBundle\Entity\Fiches;
  */
 class FichesController extends Controller
 {
+    const MAX_ITEMS_PER_PAGE = 12;
 
     /**
      * Lists all Fiches entities.
@@ -24,24 +32,35 @@ class FichesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         # Used to display the active left menu
         $status = "all";
+        # Filter form
+        $form = $this->get('form.factory')->create(new FichesFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
+        // initialize a query builder
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->orderBy( 'f.id', 'ASC' );
 
-        $fiches = $fichesRepository->findAll();
-        $fichesQty = count($fiches);
+        // if filters have been set
+        if ($this->get('request')->query->has($form->getName())) {
+            // bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+        }
 
         return array(
             'titre'     => 'Liste des timbres amphoriques',
-            'fiches'    => $fiches,
-            'fichesQty' => $fichesQty,
-            'allQty'    => $fichesQty,
             'subtitle'  => 'Tous les timbres amphoriques',
             'status'    => $status,
+            'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
+            'all'       => $this->findAllCounted(),
+            'form'      => $form->createView(),
         );
     }
 
@@ -52,27 +71,36 @@ class FichesController extends Controller
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
-    public function eponymesAction()
+    public function eponymesAction(Request $request)
     {
         # Used to display the active left menu
         $status = "epo";
+        # Filter form
+        $form = $this->get('form.factory')->create(new FichesFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        // initialize a query builder
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.eponyme is not NULL')
+            ->orderBy( 'f.id', 'ASC' );
 
-        $criteria->where($criteria->expr()->neq('eponyme', null));
-        $fiches = $fichesRepository->matching($criteria);
-        $fichesQty = count($fiches);
-        $allQty = count($fichesRepository->findAll());
+        // if filters have been set
+        if ($this->get('request')->query->has($form->getName())) {
+            // bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+        }
 
         return array(
             'titre'     => 'Liste des timbres amphoriques',
-            'fiches'    => $fiches,
-            'fichesQty' => $fichesQty,
-            'allQty'    => $allQty,
             'subtitle'  => 'Tous les timbres comportant un eponyme',
             'status'    => $status,
+            'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
+            'all'       => $this->findAllCounted(),
+            'form'      => $form->createView(),
         );
     }
 
@@ -83,27 +111,36 @@ class FichesController extends Controller
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
-    public function fabricantsAction()
+    public function fabricantsAction(Request $request)
     {
         # Used to display the active left menu
         $status = "fab";
+        # Filter form
+        $form = $this->get('form.factory')->create(new FichesFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        // initialize a query builder
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.fabricant is not NULL')
+            ->orderBy( 'f.id', 'ASC' );
 
-        $criteria->where($criteria->expr()->neq('fabricant', null));
-        $fiches = $fichesRepository->matching($criteria);
-        $fichesQty = count($fiches);
-        $allQty = count($fichesRepository->findAll());
+        // if filters have been set
+        if ($this->get('request')->query->has($form->getName())) {
+            // bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+        }
 
         return array(
             'titre'     => 'Liste des timbres amphoriques',
-            'fiches'    => $fiches,
-            'fichesQty' => $fichesQty,
-            'allQty'    => $allQty,
             'subtitle'  => 'Tous les timbres comportant un fabricant',
             'status'    => $status,
+            'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
+            'all'       => $this->findAllCounted(),
+            'form'      => $form->createView(),
         );
     }
 
@@ -114,28 +151,37 @@ class FichesController extends Controller
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
-    public function binominauxAction()
+    public function binominauxAction(Request $request)
     {
         # Used to display the active left menu
         $status = "bin";
+        # Filter form
+        $form = $this->get('form.factory')->create(new FichesFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        // initialize a query builder
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.eponyme is not NULL')
+            ->andWhere('f.fabricant is not NULL')
+            ->orderBy( 'f.id', 'ASC' );
 
-        $criteria->where($criteria->expr()->neq('eponyme', null));
-        $criteria->andWhere($criteria->expr()->neq('fabricant', null));
-        $fiches = $fichesRepository->matching($criteria);
-        $fichesQty = count($fiches);
-        $allQty = count($fichesRepository->findAll());
+        // if filters have been set
+        if ($this->get('request')->query->has($form->getName())) {
+            // bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+        }
 
         return array(
             'titre'     => 'Liste des timbres amphoriques',
-            'fiches'    => $fiches,
-            'fichesQty' => $fichesQty,
-            'allQty'    => $allQty,
             'subtitle'  => 'Tous les timbres comportant un eponyme et un fabricant',
             'status'    => $status,
+            'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
+            'all'       => $this->findAllCounted(),
+            'form'      => $form->createView(),
         );
     }
 
@@ -146,33 +192,85 @@ class FichesController extends Controller
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
-    public function amphoresAction()
+    public function amphoresAction(Request $request)
     {
-
-    }
         # Used to display the active left menu
         $status = "amp";
+        # Filter form
+        $form = $this->get('form.factory')->create(new FichesFilterType());
+        # Array to stock the ids of fiches to display
+        $allIds = array();
 
-    /**
-     * Lists epo and fab
-     *
-     * @Route("/list", name="list")
-     * @Method("GET")
-     * @Template()
-     */
-    public function listAction()
-    {
         $em = $this->getDoctrine()->getManager();
+        $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
 
-        $eponymes = $em->getRepository('NTEAgathoklesBundle:Eponyme')->findAll();
+        $fichesPrincipales = $em->getRepository('NTEAgathoklesBundle:FichesPrincipales')->findAll();
+        $fichesSecondaires = $em->getRepository('NTEAgathoklesBundle:FichesSecondaires')->findAll();
+        $fichesComplementaires = $em->getRepository('NTEAgathoklesBundle:FichesComplementaires')->findAll();
 
-        $fabricants = $em->getRepository('NTEAgathoklesBundle:Fabricant')->findAll();
+        // Get all fiches from matrice principale (wrongly named fiche principale)
+        foreach($fichesPrincipales as $fichePrincipale) {
+            $ficheId = $fichePrincipale->getFiche();
+            $fichePrincipaleId = $fichePrincipale->getFichePrincipale();
+
+            // Add the fiches only if both are primary, category 1
+            if($fichesRepository->find($ficheId)->isPrimary() && $fichesRepository->find($fichePrincipaleId)->isPrimary()) {
+                $allIds[] = $ficheId;
+                $allIds[] = $fichePrincipaleId;
+            }
+        }
+
+        // Get all fiches from matrice secondaire (wrongly named fiche secondaire)
+        foreach($fichesSecondaires as $ficheSecondaire) {
+            $ficheId = $ficheSecondaire->getFiche();
+            $ficheSecondaireId = $ficheSecondaire->getFicheSecondaire();
+
+            // Add the fiches only if both are primary, category 1
+            if($fichesRepository->find($ficheId)->isPrimary() && $fichesRepository->find($ficheSecondaireId)->isPrimary()) {
+                $allIds[] = $ficheId;
+                $allIds[] = $ficheSecondaireId;
+            }
+        }
+
+        // Get all fiches from matrice complementaire (wrongly named fiche complementaire)
+        foreach($fichesComplementaires as $ficheComplementaire) {
+            $ficheId = $ficheComplementaire->getFiche();
+            $ficheComplementaireId = $ficheComplementaire->getFicheComplementaire();
+
+            // Add the fiches only if both are primary, category 1
+            if($fichesRepository->find($ficheId)->isPrimary() && $fichesRepository->find($ficheComplementaireId)->isPrimary()) {
+                $allIds[] = $ficheId;
+                $allIds[] = $ficheComplementaireId;
+            }
+        }
+
+        // Remove duplicates
+        $uniqIds = array_unique($allIds);
+
+        // initialize a query builder
+        $qb = $em->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.id IN (:ids)')
+            ->orderBy( 'f.id', 'ASC' )
+            ->setParameter('ids', $uniqIds);
+
+        // if filters have been set
+        if ($this->get('request')->query->has($form->getName())) {
+            // bind values from the request
+            $form->submit($this->get('request')->query->get($form->getName()));
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+        }
 
         return array(
             'titre'     => 'Liste des timbres amphoriques',
-            'eponymes' => $eponymes,
-            'fabricants' => $fabricants,
             'subtitle'  => 'Tous les timbres prenant part aux associations de deux timbres principaux',
+            'status'    => $status,
+            'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
+            'all'       => $this->findAllCounted(),
+            'form'      => $form->createView(),
         );
     }
 
@@ -198,4 +296,34 @@ class FichesController extends Controller
         );
     }
 
+    /**
+     * Count all fiches
+     *
+     * @return int
+     */
+    public function findAllCounted()
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $em->createQuery('SELECT COUNT(f.id) FROM NTEAgathoklesBundle:Fiches f')
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Set the pager
+     *
+     */
+    public function setPager($qb, $maxPerPage, $request)
+    {
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($qb));
+        $pagerfanta->setMaxPerPage($maxPerPage);
+
+        $page = $request->get('page', 1);
+        try {
+			$pagerfanta->setCurrentPage($page);
+		} catch(NotValidCurrentPageException $e) {
+			throw new NotFoundHttpException();
+		}
+
+        return $pagerfanta;
+    }
 }
