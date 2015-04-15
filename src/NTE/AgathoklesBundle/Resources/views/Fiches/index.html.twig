@@ -15,11 +15,11 @@
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked">
-                  <li role="presentation" {% if status["all"] %}class="active"{% endif %}><a href="{{ path('timbres') }}">Tous les timbres</a></li>
-                  <li role="presentation" {% if status["epo"] %}class="active"{% endif %}><a href="{{ path('timbres_eponymes') }}">Eponymes</a></li>
-                  <li role="presentation" {% if status["fab"] %}class="active"{% endif %}><a href="{{ path('timbres_fabricants') }}">Fabricants</a></li>
-                  <li role="presentation" {% if status["bin"] %}class="active"{% endif %}><a href="{{ path('timbres_binominaux') }}">Bi-nominaux</a></li>
-                  <li role="presentation" {% if status["amp"] %}class="active"{% endif %}><a href="{{ path('timbres', {'tag': 'amp'}) }}">Amphores</a></li>
+                  <li role="presentation" {% if status == "all" %}class="active"{% endif %}><a href="{{ path('timbres') }}">Tous les timbres</a></li>
+                  <li role="presentation" {% if status == "epo" %}class="active"{% endif %}><a href="{{ path('timbres_eponymes') }}">Eponymes</a></li>
+                  <li role="presentation" {% if status == "fab" %}class="active"{% endif %}><a href="{{ path('timbres_fabricants') }}">Fabricants</a></li>
+                  <li role="presentation" {% if status == "bin" %}class="active"{% endif %}><a href="{{ path('timbres_binominaux') }}">Bi-nominaux</a></li>
+                  <li role="presentation" {% if status == "amp" %}class="active"{% endif %}><a href="{{ path('timbres_amphores') }}">Amphores</a></li>
                 </ul>
             </div>
             <div class="col-md-10">

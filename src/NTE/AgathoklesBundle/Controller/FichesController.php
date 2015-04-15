@@ -26,7 +26,8 @@ class FichesController extends Controller
      */
     public function indexAction()
     {
-        $status = array("all" => true, "epo" => false, "fab" => false, "bin" => false, "amp" => false);
+        # Used to display the active left menu
+        $status = "all";
 
         $em = $this->getDoctrine()->getManager();
         $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
@@ -52,7 +53,8 @@ class FichesController extends Controller
      */
     public function eponymesAction()
     {
-        $status = array("all" => false, "epo" => true, "fab" => false, "bin" => false, "amp" => false);
+        # Used to display the active left menu
+        $status = "epo";
 
         $em = $this->getDoctrine()->getManager();
         $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
@@ -81,7 +83,8 @@ class FichesController extends Controller
      */
     public function fabricantsAction()
     {
-        $status = array("all" => false, "epo" => false, "fab" => true, "bin" => false, "amp" => false);
+        # Used to display the active left menu
+        $status = "fab";
 
         $em = $this->getDoctrine()->getManager();
         $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
@@ -110,7 +113,8 @@ class FichesController extends Controller
      */
     public function binominauxAction()
     {
-        $status = array("all" => false, "epo" => false, "fab" => false, "bin" => true, "amp" => false);
+        # Used to display the active left menu
+        $status = "bin";
 
         $em = $this->getDoctrine()->getManager();
         $fichesRepository = $em->getRepository('NTEAgathoklesBundle:Fiches');
@@ -140,9 +144,10 @@ class FichesController extends Controller
      */
     public function amphoresAction()
     {
-        $status = array("all" => false, "epo" => false, "fab" => false, "bin" => true, "amp" => false);
 
     }
+        # Used to display the active left menu
+        $status = "amp";
 
     /**
      * Lists epo and fab
