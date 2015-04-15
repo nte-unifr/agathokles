@@ -1,0 +1,10 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Fiches/index/form_row.html.twig #}
+
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+{% endblock %}

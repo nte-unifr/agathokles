@@ -1,0 +1,18 @@
+{# src/NTE/AgathoklesBundle/Resources/views/Fiches/index/filters.html.twig #}
+
+<div class="text-right">
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
+        Filtres <span class="caret"></span>
+    </a>
+</div>
+<div class="collapse" id="collapseFilters">
+    <div class="well">
+        <form class="form-horizontal" method="get" action="{{ path(app.request.attributes.get('_route'))}}">
+            {% form_theme form 'NTEAgathoklesBundle:Fiches:index/form_row.html.twig' %}
+            {{ form_rest(form) }}
+            <div class="text-right">
+                <input type="submit" class="btn" name="submit-filter" value="Filtrer" />
+            </div>
+        </form>
+    </div>
+</div>
