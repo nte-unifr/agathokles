@@ -26,7 +26,8 @@
         "sonata-project/user-bundle": "~2.2",
         "sonata-project/intl-bundle": "2.2.x-dev",
         "pagerfanta/pagerfanta": "dev-master",
-        "white-october/pagerfanta-bundle": "dev-master"
+        "white-october/pagerfanta-bundle": "dev-master",
+        "lexik/form-filter-bundle": "~3.0"
     },
     "scripts": {
         "post-install-cmd": [

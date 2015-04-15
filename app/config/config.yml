@@ -27,6 +27,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -198,3 +201,6 @@ services:
 
 white_october_pagerfanta:
     default_view: my_view_1
+
+lexik_form_filter:
+    where_method: and
