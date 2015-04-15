@@ -23,14 +23,20 @@
                 </ul>
             </div>
             <div class="col-md-10">
+                {% include 'NTEAgathoklesBundle:Fiches:index/filters.html.twig' %}
                 <p class="lead">
-                    Affichage de {{ fichesQty }} timbres sur un total de {{ allQty }}.
+                    {{ pager|length }} timbres sur un total de {{ all }}.
                 </p>
                 <div class="row js-masonry" data-masonry-options='{ "itemSelector": ".fiche" }'>
-                    {% for fiche in fiches %}
+                    {% for fiche in pager.currentPageResults %}
                         {% include 'NTEAgathoklesBundle:Fiches:fiche.html.twig' %}
                     {% endfor %}
                 </div>
+                {% if pager and pager.haveToPaginate %}
+                    <div class="pagerfanta text-center">
+                        {{ pagerfanta(pager, 'twitter_bootstrap3') }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
