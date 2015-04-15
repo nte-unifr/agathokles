@@ -40,6 +40,7 @@ class FichesController extends Controller
             'fiches'    => $fiches,
             'fichesQty' => $fichesQty,
             'allQty'    => $fichesQty,
+            'subtitle'  => 'Tous les timbres amphoriques',
             'status'    => $status,
         );
     }
@@ -70,6 +71,7 @@ class FichesController extends Controller
             'fiches'    => $fiches,
             'fichesQty' => $fichesQty,
             'allQty'    => $allQty,
+            'subtitle'  => 'Tous les timbres comportant un eponyme',
             'status'    => $status,
         );
     }
@@ -100,6 +102,7 @@ class FichesController extends Controller
             'fiches'    => $fiches,
             'fichesQty' => $fichesQty,
             'allQty'    => $allQty,
+            'subtitle'  => 'Tous les timbres comportant un fabricant',
             'status'    => $status,
         );
     }
@@ -131,6 +134,7 @@ class FichesController extends Controller
             'fiches'    => $fiches,
             'fichesQty' => $fichesQty,
             'allQty'    => $allQty,
+            'subtitle'  => 'Tous les timbres comportant un eponyme et un fabricant',
             'status'    => $status,
         );
     }
@@ -168,6 +172,7 @@ class FichesController extends Controller
             'titre'     => 'Liste des timbres amphoriques',
             'eponymes' => $eponymes,
             'fabricants' => $fabricants,
+            'subtitle'  => 'Tous les timbres prenant part aux associations de deux timbres principaux',
         );
     }
 
