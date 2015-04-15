@@ -3,6 +3,7 @@
 namespace NTE\AgathoklesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NTE\AgathoklesBundle\Entity\Fiches
@@ -1740,5 +1741,15 @@ class Fiches
     public function getMoisIdInc()
     {
         return $this->moisIdInc;
+    }
+
+    /**
+     * Check if is primary
+     *
+     * @return boolean
+     */
+    public function isPrimary()
+    {
+        return $this->getCategorie()->getId() == 1;
     }
 }
