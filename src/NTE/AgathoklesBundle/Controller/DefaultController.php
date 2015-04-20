@@ -385,31 +385,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/allfiches")
-     * @Template()
-     */
-    public function allFicheAction()
-    {
-        $output = '';
-
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository( 'NTEAgathoklesBundle:Fiches' )->createQueryBuilder( 'f' )
-                     ->orderBy( 'f.id', 'ASC' );
-        $fiches = $query->getQuery()->getResult();
-
-        foreach( $fiches as $fiche ) {
-            $output .= $fiche->getId() . ', titre : <br />';
-        }
-
-        $response = new Response('<html><body><h1>Importation données CSV : </h1>'.$output.'</body></html>');
-
-        $response->setMaxAge(60);
-        $response->setSharedMaxAge(60);
-
-        return $response;
-    }
-
-    /**
      * @Route("/print_panier", name="print_panier")
      * @Template()
      */
