@@ -312,13 +312,6 @@ class Fiches
     private $public = false;
 
     /**
-     * @var boolean $publication
-     *
-     * @ORM\Column(name="publication", type="boolean", nullable=true)
-     */
-    private $publication = false;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $creation_date;
@@ -366,13 +359,6 @@ class Fiches
      * @ORM\ManyToOne(targetEntity="NTE\AgathoklesBundle\Entity\User")
      */
     private $editeur;
-
-    /**
-     * @var boolean $montrer_auteur
-     *
-     * @ORM\Column(name="montrer_auteur", type="boolean", nullable=true)
-     */
-    private $montrer_auteur = false;
 
     /**
      * @var integer $typeNumero
@@ -622,52 +608,6 @@ class Fiches
     public function getImages()
     {
         return $this->images;
-    }
-
-    /**
-     * Set montrer_auteur
-     *
-     * @param boolean $montrerAuteur
-     * @return Fiches
-     */
-    public function setMontrerAuteur($montrerAuteur)
-    {
-        $this->montrer_auteur = $montrerAuteur;
-
-        return $this;
-    }
-
-    /**
-     * Get montrer_auteur
-     *
-     * @return boolean
-     */
-    public function getMontrerAuteur()
-    {
-        return $this->montrer_auteur;
-    }
-
-    /**
-     * Set publication
-     *
-     * @param boolean $publication
-     * @return Fiches
-     */
-    public function setPublication($publication)
-    {
-        $this->publication = $publication;
-
-        return $this;
-    }
-
-    /**
-     * Get publication
-     *
-     * @return boolean
-     */
-    public function getPublication()
-    {
-        return $this->publication;
     }
 
     /**

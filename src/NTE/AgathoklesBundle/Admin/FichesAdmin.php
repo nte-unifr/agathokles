@@ -149,8 +149,6 @@ class FichesAdmin extends Admin
             ->tab('Publication')
                 ->with('Publication', array('class' => 'col-md-12'))
                     ->add('public')
-                    ->add('publication')
-                    ->add('montrer_auteur')
                 ->end()
             ->end()
         ;
