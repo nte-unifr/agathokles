@@ -8,7 +8,7 @@
             </h3>
         </div>
         {% if fiche.images.0 is defined %}
-            <a href="#" class="thumbnail">
+            <a href="{{ path('timbre', {'id': fiche.id}) }}" class="thumbnail">
                 <img src="{% path fiche.images.0.media, 'ppt' %}" alt="{{ fiche.id }}">
             </a>
         {% endif %}
