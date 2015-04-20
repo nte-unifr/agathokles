@@ -7,7 +7,7 @@
         <dt>Matrice<br> principale</dt>
         <dd>
             {% for matrice in fiche.matricePrincipale %}
-                <p><a href="{{ path('fiche', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }} - T{{ matrice.fichePrincipale.typeNumero }} - M{{ matrice.fichePrincipale.matriceNumero }}</a></p>
+                <p><a href="{{ path('timbre', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }} - T{{ matrice.fichePrincipale.typeNumero }} - M{{ matrice.fichePrincipale.matriceNumero }}</a></p>
             {% endfor %}
         </dd>
     </dl>
@@ -18,7 +18,7 @@
         <dt>Matrice<br> secondaire</dt>
         <dd>
             {% for matrice in fiche.matriceSecondaire %}
-                <p><a href="{{ path('fiche', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }} - T{{ matrice.ficheSecondaire.typeNumero }} - M{{ matrice.ficheSecondaire.matriceNumero }}</a></p>
+                <p><a href="{{ path('timbre', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }} - T{{ matrice.ficheSecondaire.typeNumero }} - M{{ matrice.ficheSecondaire.matriceNumero }}</a></p>
             {% endfor %}
         </dd>
     </dl>
@@ -29,7 +29,7 @@
         <dt>Matrice<br> complémentaire</dt>
         <dd>
             {% for matrice in fiche.matriceComplementaire %}
-                <p><a href="{{ path('fiche', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }} - T{{ matrice.ficheComplementaire.typeNumero }} - M{{ matrice.ficheComplementaire.matriceNumero }}</a></p>
+                <p><a href="{{ path('timbre', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }} - T{{ matrice.ficheComplementaire.typeNumero }} - M{{ matrice.ficheComplementaire.matriceNumero }}</a></p>
             {% endfor %}
         </dd>
     </dl>
