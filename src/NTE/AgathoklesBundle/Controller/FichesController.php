@@ -303,7 +303,8 @@ class FichesController extends Controller
 
         $entity = $em->getRepository('NTEAgathoklesBundle:Fiches')->find($id);
 
-        if (!$entity) {
+        // if fiche is null or not public, 404
+        if (!$entity or !$entity->getPublic()) {
             throw $this->createNotFoundException('Unable to find Fiches entity.');
         }
 
