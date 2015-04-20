@@ -411,7 +411,17 @@ class Fiches
 
     public function __toString()
     {
-        return (string)($this->getId() . " ");
+        $eponyme = "";
+        if ($this->getEponyme() != null) {
+            $eponyme = $this->getEponyme()->getNom() . " / ";
+        }
+
+        $fabricant = "";
+        if ($this->getFabricant() != null) {
+            $fabricant = $this->getFabricant()->getNom();
+        }
+
+        return $eponyme . $fabricant . " - T" . $this->getTypeNumero() . " - M" . $this->getMatriceNumero();
     }
 
     /**
