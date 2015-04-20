@@ -2,6 +2,13 @@
     margin-bottom: 10px;
 }
 
+#fiche .btn-back {
+    margin-bottom: 20px;
+}
+#fiche legend {
+    margin-top: 20px;
+}
+
 .bottom-spacer {
     margin-top: 100px;
 }
