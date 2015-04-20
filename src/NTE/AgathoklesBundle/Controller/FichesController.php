@@ -15,6 +15,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpFoundation\Request;
 use NTE\AgathoklesBundle\Form\Filter\FichesFilterType;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Fiches controller.
@@ -34,8 +35,8 @@ class FichesController extends Controller
      */
     public function indexAction(Request $request)
     {
-        # Used to display the active left menu
-        $status = "all";
+        # Used to display the active left menu and back from fiche view
+        $request->getSession()->set('timbres_subset', "all");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -43,6 +44,7 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.public = true')
             ->orderBy( 'f.id', 'ASC' );
 
         // if filters have been set
@@ -54,10 +56,12 @@ class FichesController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
         }
 
+        // set the params in session to use in fiche view
+        $request->getSession()->set('timbres_params', $request->query->all());
+
         return array(
             'titre'     => 'Liste des timbres amphoriques',
             'subtitle'  => 'Tous les timbres amphoriques',
-            'status'    => $status,
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -73,8 +77,8 @@ class FichesController extends Controller
      */
     public function eponymesAction(Request $request)
     {
-        # Used to display the active left menu
-        $status = "epo";
+        # Used to display the active left menu and back from fiche view
+        $request->getSession()->set('timbres_subset', "epo");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -82,7 +86,8 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
-            ->where('f.eponyme is not NULL')
+            ->where('f.public = true')
+            ->andWhere('f.eponyme is not NULL')
             ->orderBy( 'f.id', 'ASC' );
 
         // if filters have been set
@@ -94,10 +99,12 @@ class FichesController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
         }
 
+        // set the params in session to use in fiche view
+        $request->getSession()->set('timbres_params', $request->query->all());
+
         return array(
             'titre'     => 'Liste des timbres amphoriques',
             'subtitle'  => 'Tous les timbres comportant un eponyme',
-            'status'    => $status,
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -113,8 +120,8 @@ class FichesController extends Controller
      */
     public function fabricantsAction(Request $request)
     {
-        # Used to display the active left menu
-        $status = "fab";
+        # Used to display the active left menu and back from fiche view
+        $request->getSession()->set('timbres_subset', "fab");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -122,7 +129,8 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
-            ->where('f.fabricant is not NULL')
+            ->where('f.public = true')
+            ->andWhere('f.fabricant is not NULL')
             ->orderBy( 'f.id', 'ASC' );
 
         // if filters have been set
@@ -134,10 +142,12 @@ class FichesController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
         }
 
+        // set the params in session to use in fiche view
+        $request->getSession()->set('timbres_params', $request->query->all());
+
         return array(
             'titre'     => 'Liste des timbres amphoriques',
             'subtitle'  => 'Tous les timbres comportant un fabricant',
-            'status'    => $status,
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -153,8 +163,8 @@ class FichesController extends Controller
      */
     public function binominauxAction(Request $request)
     {
-        # Used to display the active left menu
-        $status = "bin";
+        # Used to display the active left menu and back from fiche view
+        $request->getSession()->set('timbres_subset', "bin");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -162,7 +172,8 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
-            ->where('f.eponyme is not NULL')
+            ->where('f.public = true')
+            ->andWhere('f.eponyme is not NULL')
             ->andWhere('f.fabricant is not NULL')
             ->orderBy( 'f.id', 'ASC' );
 
@@ -175,10 +186,12 @@ class FichesController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
         }
 
+        // set the params in session to use in fiche view
+        $request->getSession()->set('timbres_params', $request->query->all());
+
         return array(
             'titre'     => 'Liste des timbres amphoriques',
             'subtitle'  => 'Tous les timbres comportant un eponyme et un fabricant',
-            'status'    => $status,
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -194,8 +207,8 @@ class FichesController extends Controller
      */
     public function amphoresAction(Request $request)
     {
-        # Used to display the active left menu
-        $status = "amp";
+        # Used to display the active left menu and back from fiche view
+        $request->getSession()->set('timbres_subset', "amp");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
         # Array to stock the ids of fiches to display
@@ -251,7 +264,8 @@ class FichesController extends Controller
         $qb = $em->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
-            ->where('f.id IN (:ids)')
+            ->where('f.public = true')
+            ->andWhere('f.id IN (:ids)')
             ->orderBy( 'f.id', 'ASC' )
             ->setParameter('ids', $uniqIds);
 
@@ -264,10 +278,12 @@ class FichesController extends Controller
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
         }
 
+        // set the params in session to use in fiche view
+        $request->getSession()->set('timbres_params', $request->query->all());
+
         return array(
             'titre'     => 'Liste des timbres amphoriques',
             'subtitle'  => 'Tous les timbres prenant part aux associations de deux timbres principaux',
-            'status'    => $status,
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -277,11 +293,11 @@ class FichesController extends Controller
     /**
      * Finds and displays a Fiches entity.
      *
-     * @Route("/{id}", name="fiches_show")
+     * @Route("/{id}", name="timbre")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -292,7 +308,8 @@ class FichesController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
+            'titre'     => $entity->__toString(),
+            'fiche'     => $entity,
         );
     }
 
@@ -304,7 +321,7 @@ class FichesController extends Controller
     public function findAllCounted()
     {
         $em = $this->getDoctrine()->getManager();
-        return $em->createQuery('SELECT COUNT(f.id) FROM NTEAgathoklesBundle:Fiches f')
+        return $em->createQuery('SELECT COUNT(f.id) FROM NTEAgathoklesBundle:Fiches f WHERE f.public = true')
             ->getSingleScalarResult();
     }
 

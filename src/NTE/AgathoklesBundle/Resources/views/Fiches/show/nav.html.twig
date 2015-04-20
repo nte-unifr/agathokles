@@ -1,42 +1,19 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/nav.html.twig #}
 
-{% if fiche.id in recherche %}
-    <div class="hidden-print btn-group" role="group" aria-label="...">
-        {% if lieu_id is not defined %}
-            {% set lieu_id = app.request.get('lieu_id') %}
-        {% endif %}
+{% set timbres_subset = app.session.get('timbres_subset') %}
+{% set params = app.session.get('timbres_params') %}
+{% set back_path = path('timbres', params) %}
 
-        {% if(prev) %}
-            <a href="{{ path('fiche', { 'id': prev, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Résultat précédent
-            </a>
-        {% else %}
-            <a href="#" class="btn btn-default" disabled="disabled">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Résultat précédent
-            </a>
-        {% endif %}
-
-        {% if(recherche) %}
-            {% if nav_type == 'a' %}
-                {% set back_path = path('rechercheavancee') %}
-            {% elseif 'lieu' == nav_type %}
-                {% set back_path = path('lieu_show', { 'id': lieu_id, 'page': page }) %}
-            {% elseif 'liste' == nav_type %}
-                {% set back_path = path('nte_agathokles_default_ficheliste', { 'page': page }) %}
-            {% else %}
-                {% set back_path = path('recherche') %}
-            {% endif %}
-            <a href="{{ back_path }}" class="btn btn-default"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Retour aux résultats</a>
-        {% endif %}
-
-        {% if(next) %}
-            <a href="{{ path('fiche', { 'id': next, 'form': nav_type, 'page': page, 'lieu_id': lieu_id }) }}" class="btn btn-default">
-                Résultat suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </a>
-        {% else %}
-            <a href="#" class="btn btn-default" disabled="disabled">
-                Résultat suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </a>
-        {% endif %}
-    </div>
+{% if timbres_subset == "epo" %}
+    {% set back_path = path('timbres_eponymes', params) %}
+{% elseif timbres_subset == "fab" %}
+    {% set back_path = path('timbres_fabricants', params) %}
+{% elseif timbres_subset == "bin" %}
+    {% set back_path = path('timbres_binominaux', params) %}
+{% elseif timbres_subset == "amp" %}
+    {% set back_path = path('timbres_amphores', params) %}
 {% endif %}
+
+<a href="{{ back_path }}" class="btn btn-default btn-block btn-back">
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Retour à la liste
+</a>
