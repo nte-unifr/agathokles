@@ -107,7 +107,7 @@ class FichesAdmin extends Admin
                 ->end()
                 ->with('', array('class' => 'col-md-6'))
                     ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'legendeTournanteID')))
-                    ->add('lettreRetrograde', null, array('label' => 'Lettre rétrograde', 'attr' => array('class' => 'lettreRetrogradeID')))
+                    ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'legendeRetrogradeID')))
                     ->add('lettreLunaire', null, array('label' => 'Lettre lunaire', 'attr' => array('class' => 'lettreLunaireID')))
                     ->add('particulariteOrthographique', null, array('label' => 'Particularités orthographiques', 'attr' => array('class' => 'particulariteOrthographiqueID')))
                     ->add('retrogravure', null, array('label' => 'Rétrogravure', 'attr' => array('class' => 'retrogravureID')))

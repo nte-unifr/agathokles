@@ -168,11 +168,11 @@ class Fiches
     private $legendeTournante = false;
 
     /**
-     * @var string $lettreRetrograde
+     * @var string $legendeRetrograde
      *
-     * @ORM\Column(name="lettreRetrograde", type="string", nullable=true)
+     * @ORM\Column(name="legendeRetrograde", type="string", nullable=true)
      */
-    private $lettreRetrograde;
+    private $legendeRetrograde;
 
     /**
      * @var string $lettreLunaire
@@ -771,26 +771,26 @@ class Fiches
     }
 
     /**
-     * Set lettreRetrograde
+     * Set legendeRetrograde
      *
-     * @param string $lettreRetrograde
+     * @param string $legendeRetrograde
      * @return Fiches
      */
-    public function setLettreRetrograde($lettreRetrograde)
+    public function setLegendeRetrograde($legendeRetrograde)
     {
-        $this->lettreRetrograde = $lettreRetrograde;
+        $this->legendeRetrograde = $legendeRetrograde;
 
         return $this;
     }
 
     /**
-     * Get lettreRetrograde
+     * Get legendeRetrograde
      *
      * @return string
      */
-    public function getLettreRetrograde()
+    public function getLegendeRetrograde()
     {
-        return $this->lettreRetrograde;
+        return $this->legendeRetrograde;
     }
 
     /**

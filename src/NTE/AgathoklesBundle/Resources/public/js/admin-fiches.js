@@ -32,7 +32,7 @@ function changeCateg( categ ) {
         $(".separationID").parents(".form-group").show();
 
         $(".legendeTournanteID").parents(".form-group").show();
-        $(".lettreRetrogradeID").parents(".form-group").show();
+        $(".legendeRetrogradeID").parents(".form-group").show();
         $(".lettreLunaireID").parents(".form-group").show();
 
         $(".particulariteOrthographiqueID").parents(".form-group").show();
@@ -66,7 +66,7 @@ function changeCateg( categ ) {
         $(".separationID").parents(".form-group").hide();
 
         $(".legendeTournanteID").parents(".form-group").hide();
-        $(".lettreRetrogradeID").parents(".form-group").hide();
+        $(".legendeRetrogradeID").parents(".form-group").hide();
         $(".lettreLunaireID").parents(".form-group").hide();
 
         $(".particulariteOrthographiqueID").parents(".form-group").hide();
