@@ -4,6 +4,7 @@ namespace NTE\AgathoklesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * NTE\AgathoklesBundle\Entity\Fiches
@@ -402,6 +403,11 @@ class Fiches
      */
     private $moisIdInc = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Timbre", mappedBy="fiche", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $timbres;
+
     public function __toString()
     {
         $eponyme = "";
@@ -581,6 +587,7 @@ class Fiches
     {
         $this->fichesassociees = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->timbres = new ArrayCollection();
     }
 
     /**
@@ -1731,5 +1738,38 @@ class Fiches
     public function isPrimary()
     {
         return $this->getCategorie()->getId() == 1;
+    }
+
+    /**
+     * Add timbres
+     *
+     * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
+     * @return Fiches
+     */
+    public function addTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    {
+        $this->timbres[] = $timbres;
+
+        return $this;
+    }
+
+    /**
+     * Remove timbres
+     *
+     * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
+     */
+    public function removeTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    {
+        $this->timbres->removeElement($timbres);
+    }
+
+    /**
+     * Get timbres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimbres()
+    {
+        return $this->timbres;
     }
 }

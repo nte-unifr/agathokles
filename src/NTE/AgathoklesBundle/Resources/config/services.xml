@@ -34,6 +34,13 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="nte.agathokles.admin.timbre" class="NTE\AgathoklesBundle\Admin\TimbreAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Timbres amphoriques" label="Timbres" show_in_dashboard="false" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Timbre</argument>
+            <argument />
+        </service>
+
         <service id="nte.agathokles.admin.cadres" class="NTE\AgathoklesBundle\Admin\CadresAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Critères" label="Cadres" />
             <argument />

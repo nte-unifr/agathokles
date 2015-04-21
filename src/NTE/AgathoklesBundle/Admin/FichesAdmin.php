@@ -123,6 +123,21 @@ class FichesAdmin extends Admin
                     ->add('remarques', null, array('attr' => array('class' => 'ckeditor remarquesID')))
                 ->end()
             ->end()
+            ->tab('Timbres')
+                ->with('Timbres', array('class' => 'col-md-12'))
+                ->add('timbres', 'sonata_type_collection',
+                     array(
+                         'required' => false,
+                         'by_reference' => false
+                     ),
+                     array(
+                         'edit' => 'inline',
+                         'inline' => 'table',
+                         'allow_delete' => true
+                     )
+                )
+                ->end()
+            ->end()
             ->tab('Associations')
                 ->with('Associations', array('class' => 'col-md-12'))
                     ->add('matricePrincipale', 'sonata_type_collection', array('attr' => array('class' => 'matricePrincipaleID'),
@@ -191,6 +206,11 @@ class FichesAdmin extends Admin
         $results = $qb->getQuery()->getResult();
         $resultCount = count($results);
         $fiche->setTypeNumero($resultCount+1);
+
+        // Set the fiche in each timbre
+        foreach ($fiche->getTimbres() as $timbre) {
+            $timbre->setFiche($fiche);
+        }
     }
 
     public function preUpdate($fiche)
@@ -210,6 +230,11 @@ class FichesAdmin extends Admin
         }
         $fullname = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
         $fiche->setFullname($fullname);
+
+        // set the fiche in each timbre
+        foreach ($fiche->getTimbres() as $timbre) {
+            $timbre->setFiche($fiche);
+        }
     }
 
     public function setEntityManager(EntityManager $em)
