@@ -25,6 +25,9 @@
 
         <service id="nte.agathokles.admin.fiches" class="NTE\AgathoklesBundle\Admin\FichesAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Timbres amphoriques" label="Fiches" />
+            <call method="setEntityManager">
+              <argument type="service" id="doctrine.orm.entity_manager"/>
+            </call>
             <argument />
             <argument>NTE\AgathoklesBundle\Entity\Fiches</argument>
             <argument>NTEAgathoklesBundle:FichesCRUD</argument>

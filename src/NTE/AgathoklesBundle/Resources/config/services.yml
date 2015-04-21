@@ -2,6 +2,8 @@ services:
     nte_agathokles.admin.fiches:
         class: NTE\AgathoklesBundle\Admin\FichesAdmin
         arguments: [~, NTE\AgathoklesBundle\Entity\Fiches, SonataAdminBundle:CRUD]
+        calls:
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Fiches}
 

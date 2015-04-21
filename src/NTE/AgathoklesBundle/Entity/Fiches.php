@@ -365,14 +365,14 @@ class Fiches
      *
      * @ORM\Column(name="typeNumero", type="integer")
      */
-    private $typeNumero;
+    private $typeNumero = 1;
 
     /**
      * @var integer $matriceNumero
      *
      * @ORM\Column(name="matriceNumero", type="integer")
      */
-    private $matriceNumero;
+    private $matriceNumero = 1;
 
     /**
      * @var boolean $fabIdInc

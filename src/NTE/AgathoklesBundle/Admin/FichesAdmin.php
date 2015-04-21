@@ -7,9 +7,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityManager;
 
 class FichesAdmin extends Admin
 {
+    protected $em;
+
     // LIST FIELDS
     /**
      * @param ListMapper $listMapper
@@ -66,7 +69,6 @@ class FichesAdmin extends Admin
             ->end()
             ->tab('Type')
                 ->with('Type', array('class' => 'col-md-6'))
-                    ->add('typeNumero', null, array('required' => true, 'label' => 'Type numéro (Tx)'))
                     ->add('forme', 'sonata_type_model', array('required' => true, 'attr' => array('class' => 'formeID')))
                     ->add('fabricant', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'fabricantID')))
                     ->add('eponyme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'eponymeID')))
@@ -152,5 +154,31 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
         ;
+    }
+
+    public function prePersist($fiche)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->where('f.eponyme = :epo')
+            ->andWhere('f.fabricant = :fab')
+            ->andWhere('f.forme = :for')
+            ->andWhere('f.embleme = :emb')
+            ->andWhere('f.mois = :moi')
+            ->orderBy( 'f.id', 'ASC' )
+            ->setParameter('epo', $fiche->getEponyme())
+            ->setParameter('fab', $fiche->getFabricant())
+            ->setParameter('for', $fiche->getForme())
+            ->setParameter('emb', $fiche->getEmbleme())
+            ->setParameter('moi', $fiche->getMois());
+        $results = $qb->getQuery()->getResult();
+        $resultCount = count($results);
+        $fiche->setTypeNumero($resultCount+1);
+    }
+
+    public function setEntityManager(EntityManager $em)
+    {
+        $this->em = $em;
     }
 }
