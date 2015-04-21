@@ -24,6 +24,13 @@ class Fiches
     private $id;
 
     /**
+     * @var string $fullname
+     *
+     * @ORM\Column(name="fullname", type="string", nullable=true)
+     */
+    private $fullname;
+
+    /**
      * @var Categorie
      *
      * @ORM\ManyToOne(targetEntity="Categorie")
@@ -630,6 +637,29 @@ class Fiches
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set fullname
+     *
+     * @param string $fullname
+     * @return Fiches
+     */
+    public function setFullname($fullname)
+    {
+        $this->fullname = $fullname;
+
+        return $this;
+    }
+
+    /**
+     * Get fullname
+     *
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->fullname;
     }
 
     /**

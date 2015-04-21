@@ -195,7 +195,7 @@ class FichesAdmin extends Admin
 
     public function preUpdate($fiche)
     {
-        // Set designation to sort fiches
+        // Set fullname to sort fiches
         $spacer = "";
         $epo = "";
         $fab = "";
@@ -208,8 +208,8 @@ class FichesAdmin extends Admin
         if ($epo != "" && $fab != "") {
             $spacer = " / ";
         }
-        $designation = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
-        $fiche->setDesignation($designation);
+        $fullname = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
+        $fiche->setFullname($fullname);
     }
 
     public function setEntityManager(EntityManager $em)
