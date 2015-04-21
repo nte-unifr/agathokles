@@ -45,7 +45,7 @@ class FichesController extends Controller
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
             ->where('f.public = true')
-            ->orderBy( 'f.id', 'ASC' );
+            ->orderBy( 'f.designation', 'ASC' );
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -88,7 +88,7 @@ class FichesController extends Controller
             ->from('NTEAgathoklesBundle:Fiches', 'f')
             ->where('f.public = true')
             ->andWhere('f.eponyme is not NULL')
-            ->orderBy( 'f.id', 'ASC' );
+            ->orderBy( 'f.designation', 'ASC' );
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -131,7 +131,7 @@ class FichesController extends Controller
             ->from('NTEAgathoklesBundle:Fiches', 'f')
             ->where('f.public = true')
             ->andWhere('f.fabricant is not NULL')
-            ->orderBy( 'f.id', 'ASC' );
+            ->orderBy( 'f.designation', 'ASC' );
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -175,7 +175,7 @@ class FichesController extends Controller
             ->where('f.public = true')
             ->andWhere('f.eponyme is not NULL')
             ->andWhere('f.fabricant is not NULL')
-            ->orderBy( 'f.id', 'ASC' );
+            ->orderBy( 'f.designation', 'ASC' );
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -266,7 +266,7 @@ class FichesController extends Controller
             ->from('NTEAgathoklesBundle:Fiches', 'f')
             ->where('f.public = true')
             ->andWhere('f.id IN (:ids)')
-            ->orderBy( 'f.id', 'ASC' )
+            ->orderBy( 'f.designation', 'ASC' )
             ->setParameter('ids', $uniqIds);
 
         // if filters have been set

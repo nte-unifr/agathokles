@@ -156,8 +156,24 @@ class FichesAdmin extends Admin
         ;
     }
 
+    // DEFAULT DATA ORGANISATION
+    /**
+     * Default Datagrid values
+     *
+     * @var array
+     */
+    protected $datagridValues = array(
+        '_page' => 1,               // display the first page (default = 1)
+        '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
+        '_sort_by' => 'designation' // name of the ordered field
+        // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
+    );
+
+    // PRE OPERATIONS
+
     public function prePersist($fiche)
     {
+        // Count all occurences of the same eponyme, fabricant, forme, embleme and mois to update TypeNumero accordingly
         $qb = $this->em->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
@@ -175,6 +191,25 @@ class FichesAdmin extends Admin
         $results = $qb->getQuery()->getResult();
         $resultCount = count($results);
         $fiche->setTypeNumero($resultCount+1);
+    }
+
+    public function preUpdate($fiche)
+    {
+        // Set designation to sort fiches
+        $spacer = "";
+        $epo = "";
+        $fab = "";
+        if ($fiche->getEponyme() != null) {
+            $epo = $fiche->getEponyme()->getNom();
+        }
+        if ($fiche->getFabricant() != null) {
+            $fab = $fiche->getFabricant()->getNom();
+        }
+        if ($epo != "" && $fab != "") {
+            $spacer = " / ";
+        }
+        $designation = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
+        $fiche->setDesignation($designation);
     }
 
     public function setEntityManager(EntityManager $em)
