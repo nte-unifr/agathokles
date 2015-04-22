@@ -3,7 +3,10 @@
 {% extends "NTEAgathoklesBundle:Default:index.html.twig" %}
 
 
-{% block agathokles_sideblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.2.2/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
 {% endblock %}
 
 {% block agathokles_content %}

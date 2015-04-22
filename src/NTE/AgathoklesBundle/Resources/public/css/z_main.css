@@ -1,0 +1,24 @@
+/* -----------------------------------*/
+/* >>>>>>>>>>>>> General
+/* -----------------------------------*/
+.footer {
+    margin-top: 100px;
+}
+
+.bottom-spacer {
+    margin-top: 100px;
+}
+
+/* -----------------------------------*/
+/* >>>>>>>>>>>>> Fiches entity
+/* -----------------------------------*/
+#fiches .fiche {
+    margin-bottom: 10px;
+}
+
+#fiche .btn-back {
+    margin-bottom: 20px;
+}
+#fiche legend {
+    margin-top: 20px;
+}
