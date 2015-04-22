@@ -27,7 +27,7 @@
                 <p class="lead">
                     {{ pager|length }} timbres sur un total de {{ all }}.
                 </p>
-                <div class="row js-masonry" data-masonry-options='{ "itemSelector": ".fiche" }'>
+                <div id="fiches-masonry" class="row" data-masonry-options='{ "itemSelector": ".fiche" }'>
                     {% for fiche in pager.currentPageResults %}
                         {% include 'NTEAgathoklesBundle:Fiches:index/fiche.html.twig' %}
                     {% endfor %}

@@ -1,10 +1,8 @@
 $(function() {
-    if ($(".js-masonry").length) {
+    if ($("#fiches").length) {
+
         // initialize Masonry
-        var $container = $(".js-masonry").masonry();
-        // layout Masonry again after all images have loaded
-        $container.imagesLoaded( function() {
-          $container.masonry();
-        });
+        $("#fiches-masonry").masonry();
+
     }
 });
