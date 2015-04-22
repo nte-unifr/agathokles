@@ -1,19 +1,26 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/exemplaires.html.twig #}
 
-{% if fiche.numero or fiche.referenceBibliographique or fiche.lieuDeDecouverte or fiche.remarques %}
-    <legend>Exemplaires</legend>
+<legend>Exemplaires</legend>
+
+{% if fiche.timbres|length > 0 %}
     <ul>
-        <li>
-            {% if fiche.numero %}
-                E{{fiche.numero}}.&nbsp;
-            {% endif %}
-            {% if fiche.referenceBibliographique %}
-                {{fiche.referenceBibliographique}}.&nbsp;
-            {% endif %}
-            {% if fiche.lieuDeDecouverte %}
-                <a href="{{ path('lieu_show', { 'id': fiche.lieuDeDecouverte.id }) }}">{{ fiche.lieuDeDecouverte }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a>.&nbsp;
-            {% endif %}
-            {{fiche.remarques|striptags|raw}}
-        </li>
+        {% set counter = 1 %}
+        {% for timbre in fiche.timbres %}
+            <li>
+                E{{ counter }}.&nbsp;
+                {% if timbre.reference %}
+                    {{ timbre.reference }}.&nbsp;
+                {% endif %}
+                {% if timbre.lieu %}
+                    <a href="{{ path('lieu_show', { 'id': timbre.lieu.id }) }}">
+                        {{ timbre.lieu }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    </a>.&nbsp;
+                {% endif %}
+                {{ timbre.remarques | striptags | raw }}
+                {% set counter = counter+1 %}
+            </li>
+        {% endfor %}
     </ul>
+{% else %}
+    <p>Aucun exemplaire</p>
 {% endif %}
