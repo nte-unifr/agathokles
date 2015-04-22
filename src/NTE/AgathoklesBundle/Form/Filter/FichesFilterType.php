@@ -1,4 +1,5 @@
 <?php
+
 namespace NTE\AgathoklesBundle\Form\Filter;
 
 use Doctrine\ORM\Query\Expr;
@@ -20,6 +21,21 @@ class FichesFilterType extends AbstractType
         $builder->add('mois', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Mois", "empty_value" => "Tous" ]);
         $builder->add('embleme', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Embleme", "empty_value" => "Tous" ]);
         $builder->add('categorie', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Categorie", "empty_value" => "Tous" ]);
+
+        $builder->add('timbres', 'filter_collection_adapter', array(
+            'type'          => new TimbresFilterType(),
+            'add_shared'    => function (FilterBuilderExecuterInterface $qbe) {
+                $closure = function(QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+                    // add the join clause to the doctrine query builder
+                    // the where clause for the label and color fields will be added automatically with the right alias later by the Lexik\Filter\QueryBuilderUpdater
+                    $filterBuilder->leftJoin($alias . '.timbres', $joinAlias);
+                };
+
+                // then use the query builder executor to define the join, the join's alias and things to do on the doctrine query builder.
+                $qbe->addOnce($qbe->getAlias().'.timbres', 'opt', $closure);
+            },
+            'label'         => 'Lieu',
+        ));
     }
 
     public function getName()
