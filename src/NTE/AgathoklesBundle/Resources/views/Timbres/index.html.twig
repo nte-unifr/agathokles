@@ -2,9 +2,28 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href='//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
+    <style>
+        #map { position:absolute; top:120px; bottom:0; width:100%; }
+    </style>
+{% endblock %}
+
 {% block agathokles_content %}
 
-    <div class="container">
-        hello world
-    </div>
+    <div id='map'></div>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw';
+        var map = L.mapbox.map('map', 'examples.map-i86nkdio')
+            .setView([40, -74.50], 9);
+    </script>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
