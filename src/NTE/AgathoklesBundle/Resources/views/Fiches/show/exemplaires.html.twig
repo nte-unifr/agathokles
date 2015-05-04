@@ -12,7 +12,7 @@
                     {{ timbre.reference }}.&nbsp;
                 {% endif %}
                 {% if timbre.lieu %}
-                    <a href="{{ path('lieu_show', { 'id': timbre.lieu.id }) }}">
+                    <a href="/?lat={{ timbre.lieu.lat }}&lng={{ timbre.lieu.lng }}">
                         {{ timbre.lieu }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                     </a>.&nbsp;
                 {% endif %}

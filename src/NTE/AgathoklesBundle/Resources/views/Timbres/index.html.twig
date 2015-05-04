@@ -45,7 +45,22 @@
 
             // add markers to map
             map.addLayer(markers);
-            map.fitBounds(markers.getBounds());
+
+            // setview if asked else fitBounds
+            var lat = false;
+            var lng = false;
+            {% if app.request.query.get('lat') != "" %}
+                lat = {{ app.request.query.get('lat') }};
+            {% endif %}
+            {% if app.request.query.get('lng') != "" %}
+                lng = {{ app.request.query.get('lng') }};
+            {% endif %}
+            if (lat && lng) {
+                latLngAsked = L.latLng(lat, lng);
+                map.setView(latLngAsked, 10);
+            } else {
+                map.fitBounds(markers.getBounds());
+            }
 
             // define the click on clusters
             markers.on('clusterclick', function (a) {
