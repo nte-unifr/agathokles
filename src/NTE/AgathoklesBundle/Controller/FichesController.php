@@ -60,7 +60,7 @@ class FichesController extends Controller
         $request->getSession()->set('timbres_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres amphoriques',
+            'titre'     => 'Liste des timbres',
             'subtitle'  => 'Tous les timbres amphoriques',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
@@ -103,7 +103,7 @@ class FichesController extends Controller
         $request->getSession()->set('timbres_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres amphoriques',
+            'titre'     => 'Liste des timbres',
             'subtitle'  => 'Tous les timbres comportant un eponyme',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
@@ -146,7 +146,7 @@ class FichesController extends Controller
         $request->getSession()->set('timbres_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres amphoriques',
+            'titre'     => 'Liste des timbres',
             'subtitle'  => 'Tous les timbres comportant un fabricant',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
@@ -190,7 +190,7 @@ class FichesController extends Controller
         $request->getSession()->set('timbres_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres amphoriques',
+            'titre'     => 'Liste des timbres',
             'subtitle'  => 'Tous les timbres comportant un eponyme et un fabricant',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
@@ -282,7 +282,7 @@ class FichesController extends Controller
         $request->getSession()->set('timbres_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres amphoriques',
+            'titre'     => 'Liste des timbres',
             'subtitle'  => 'Tous les timbres prenant part aux associations de deux timbres principaux',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
