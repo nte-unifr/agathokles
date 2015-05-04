@@ -258,30 +258,6 @@ class Fiches
     private $retrogravure = false;
 
     /**
-     * @var integer $numero
-     *
-     * @ORM\Column(name="numero", type="integer", nullable=true)
-     */
-    private $numero;
-
-    /**
-     * @var string $referenceBibliographique
-     *
-     * @ORM\Column(name="referenceBibliographique", type="string", nullable=true)
-     */
-    private $referenceBibliographique;
-
-    /**
-     * @var Lieu
-     *
-     * @ORM\ManyToOne(targetEntity="Lieu")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lieu_id", referencedColumnName="id")
-     * })
-     */
-    private $lieuDeDecouverte;
-
-    /**
      * @ORM\OneToMany(targetEntity="FichesPrincipales", mappedBy="fiche", cascade={"persist"}, orphanRemoval=true)
      */
     private $matricePrincipale;
@@ -302,15 +278,6 @@ class Fiches
      * @ORM\Column(name="date", type="string", nullable=true)
      */
     private $date;
-
-    /**
-     * @var string $remarques
-     *
-     * @ORM\Column(name="remarques", type="text", nullable=true)
-     */
-    private $remarques;
-
-
 
     /**
      * @var boolean $public
@@ -900,52 +867,6 @@ class Fiches
     }
 
     /**
-     * Set numero
-     *
-     * @param integer $numero
-     * @return Fiches
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    /**
-     * Get numero
-     *
-     * @return integer
-     */
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
-     * Set referenceBibliographique
-     *
-     * @param string $referenceBibliographique
-     * @return Fiches
-     */
-    public function setReferenceBibliographique($referenceBibliographique)
-    {
-        $this->referenceBibliographique = $referenceBibliographique;
-
-        return $this;
-    }
-
-    /**
-     * Get referenceBibliographique
-     *
-     * @return string
-     */
-    public function getReferenceBibliographique()
-    {
-        return $this->referenceBibliographique;
-    }
-
-    /**
      * Set date
      *
      * @param string $date
@@ -966,29 +887,6 @@ class Fiches
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set remarques
-     *
-     * @param string $remarques
-     * @return Fiches
-     */
-    public function setRemarques($remarques)
-    {
-        $this->remarques = $remarques;
-
-        return $this;
-    }
-
-    /**
-     * Get remarques
-     *
-     * @return string
-     */
-    public function getRemarques()
-    {
-        return $this->remarques;
     }
 
     /**
@@ -1219,29 +1117,6 @@ class Fiches
     public function getSeparation()
     {
         return $this->separation;
-    }
-
-    /**
-     * Set lieuDeDecouverte
-     *
-     * @param \NTE\AgathoklesBundle\Entity\Lieu $lieuDeDecouverte
-     * @return Fiches
-     */
-    public function setLieuDeDecouverte(\NTE\AgathoklesBundle\Entity\Lieu $lieuDeDecouverte = null)
-    {
-        $this->lieuDeDecouverte = $lieuDeDecouverte;
-
-        return $this;
-    }
-
-    /**
-     * Get lieuDeDecouverte
-     *
-     * @return \NTE\AgathoklesBundle\Entity\Lieu
-     */
-    public function getLieuDeDecouverte()
-    {
-        return $this->lieuDeDecouverte;
     }
 
     /**
