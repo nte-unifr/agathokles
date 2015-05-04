@@ -48,6 +48,11 @@ class Lieu
      */
     protected $fiches;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Timbre", mappedBy="lieu")
+     */
+    protected $timbres;
+
 
 
     /**
@@ -199,5 +204,38 @@ class Lieu
     public function getLat()
     {
         return $this->lat;
+    }
+
+    /**
+     * Add timbres
+     *
+     * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
+     * @return Lieu
+     */
+    public function addTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    {
+        $this->timbres[] = $timbres;
+
+        return $this;
+    }
+
+    /**
+     * Remove timbres
+     *
+     * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
+     */
+    public function removeTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    {
+        $this->timbres->removeElement($timbres);
+    }
+
+    /**
+     * Get timbres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTimbres()
+    {
+        return $this->timbres;
     }
 }

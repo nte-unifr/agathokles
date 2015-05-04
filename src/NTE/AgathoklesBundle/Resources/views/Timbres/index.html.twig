@@ -5,23 +5,74 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js"></script>
+    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_timbres.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link href='//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
-    <style>
-        #map { position:absolute; top:120px; bottom:0; width:100%; }
-    </style>
+    <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/leaflet-markercluster/MarkerCluster.Default.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block agathokles_content %}
 
     <div id='map'></div>
     <script>
-        L.mapbox.accessToken = 'pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw';
-        var map = L.mapbox.map('map', 'examples.map-i86nkdio')
-            .setView([40, -74.50], 9);
+        $(function() {
+            var POPUP_OFFSET = new L.Point(0, -15);
+            var markers = new L.MarkerClusterGroup({ singleMarkerMode: true, spiderfyOnMaxZoom: false, zoomToBoundsOnClick: false });
+
+            // Populate markers
+            {% for timbre in timbres %}
+                {% set lieu = timbre.getLieu() %}
+                var title = "{{ lieu.getNom() }}";
+                var marker = L.marker(new L.LatLng({{ lieu.getLat() }}, {{ lieu.getLng() }}));
+                {% set timbresCount = lieu.getTimbres() | length %}
+                marker.bindPopup('<h3>{{ lieu.getNom() }}</h3><p>{{ timbresCount }} {% if timbresCount > 1 %}Timbres{% else %}Timbre{% endif %}</p><a href="/timbres/?filter_fiches%5Btimbres%5D%5B0%5D%5Blieu%5D={{ lieu.getId() }}" class="btn btn-primary">Consulter</a>', {offset: POPUP_OFFSET});
+                markers.addLayer(marker);
+            {% endfor %}
+
+            // init map
+            L.mapbox.accessToken = 'pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw';
+            var map = L.map('map').setView([35.69, 18.52], 4);
+            L.tileLayer('http://{s}.tiles.mapbox.com/v3/examples.map-i86nkdio/{z}/{x}/{y}.png', {
+                attribution: '<a href="https://www.mapbox.com/about/maps/">&copy; Mapbox &copy; OpenStreetMap</a> | <a href="https://www.mapbox.com/map-feedback/">Improve this map</a>',
+                minZoom: 3,
+                maxZoom: 18
+            }).addTo(map);
+
+            // add markers to map
+            map.addLayer(markers);
+            map.fitBounds(markers.getBounds());
+
+            // define the click on clusters
+            markers.on('clusterclick', function (a) {
+                // prepare vars
+                var children = a.layer.getAllChildMarkers();
+                var latLngRef = children[0].getLatLng();
+                var twins = true;
+
+                // iterate over each child to check if they have all the same latlng
+                $.each(children, function( index, child ) {
+                  if(!child.getLatLng().equals(latLngRef)) {
+                      twins = false;
+                  }
+                });
+
+                // if they have the same latlng, open popup of first, else zoomToBounds
+                if(twins) {
+                    customPopup = L.popup({offset: POPUP_OFFSET})
+                        .setLatLng(children[0].getLatLng())
+                        .setContent(children[0].getPopup().getContent())
+                        .openOn(map);
+                }
+                else {
+                    a.layer.zoomToBounds();
+                }
+            });
+        });
     </script>
 {% endblock %}
 

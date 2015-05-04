@@ -22,3 +22,14 @@
 #fiche legend {
     margin-top: 20px;
 }
+
+/* -----------------------------------*/
+/* >>>>>>>>>>>>> Timbres entity
+/* -----------------------------------*/
+.leaflet-container .btn {
+    color: #fff !important;
+}
+
+#map {
+    width: 100%;
+}

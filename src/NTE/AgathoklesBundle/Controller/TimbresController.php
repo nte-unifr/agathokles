@@ -12,7 +12,7 @@ use NTE\AgathoklesBundle\Entity\Lieu;
 /**
  * Timbres controller.
  *
- * @Route("/map")
+ * @Route("/")
  */
 class TimbresController extends Controller
 {
