@@ -12,16 +12,35 @@
 /* -----------------------------------*/
 /* >>>>>>>>>>>>> Fiches entity
 /* -----------------------------------*/
-#fiches .fiche {
-    margin-bottom: 10px;
-}
-
 #fiche .btn-back {
     margin-bottom: 20px;
 }
 #fiche legend {
     margin-top: 20px;
 }
+
+@media screen and (max-width: 480px){
+	#fiches-grid[data-columns]::before {
+		content: '1 .column.size-1of1';
+	}
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+	#fiches-grid[data-columns]::before {
+		content: '2 .column.size-1of2';
+	}
+}
+@media screen and (min-width: 769px) {
+	#fiches-grid[data-columns]::before {
+		content: '3 .column.size-1of3';
+	}
+}
+#fiches-grid .column {
+    float: left;
+    padding: 10px;
+}
+#fiches-grid .size-1of1 { width: 100%; }
+#fiches-grid .size-1of2 { width: 50%; }
+#fiches-grid .size-1of3 { width: 33.333%; }
 
 /* -----------------------------------*/
 /* >>>>>>>>>>>>> Timbres entity

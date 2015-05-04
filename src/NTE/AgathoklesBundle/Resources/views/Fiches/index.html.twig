@@ -5,7 +5,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.2.2/masonry.pkgd.min.js"></script>
     <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
 {% endblock %}
 
@@ -30,7 +29,7 @@
                 <p class="lead">
                     {{ pager|length }} timbres sur un total de {{ all }}.
                 </p>
-                <div id="fiches-masonry" class="row" data-masonry-options='{ "itemSelector": ".fiche" }'>
+                <div id="fiches-grid" class="row" data-columns>
                     {% for fiche in pager.currentPageResults %}
                         {% include 'NTEAgathoklesBundle:Fiches:index/fiche.html.twig' %}
                     {% endfor %}
@@ -44,4 +43,9 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/salvattore.min.js') }}"></script>
 {% endblock %}
