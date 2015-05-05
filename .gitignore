@@ -37,6 +37,3 @@
 
 # Composer PHAR
 /composer.phar
-
-# Specific map tiles
-/src/NTE/AgathoklesBundle/Resources/public/maps
