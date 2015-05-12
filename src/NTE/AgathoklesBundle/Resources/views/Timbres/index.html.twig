@@ -30,7 +30,7 @@
                 var title = "{{ lieu.getNom() }}";
                 var marker = L.marker(new L.LatLng({{ lieu.getLat() }}, {{ lieu.getLng() }}));
                 {% set timbresCount = lieu.getTimbres() | length %}
-                marker.bindPopup('<h3>{{ lieu.getNom() }}</h3><p>{{ timbresCount }} {% if timbresCount > 1 %}Timbres{% else %}Timbre{% endif %}</p><a href="/timbres/?filter_fiches%5Btimbres%5D%5B0%5D%5Blieu%5D={{ lieu.getId() }}" class="btn btn-primary">Consulter</a>', {offset: POPUP_OFFSET});
+                marker.bindPopup('<h3>{{ lieu.getNom() }}</h3><p>{{ timbresCount }} {% if timbresCount > 1 %}Timbres{% else %}Timbre{% endif %}</p><a href="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}" class="btn btn-primary">Consulter</a>', {offset: POPUP_OFFSET});
                 markers.addLayer(marker);
             {% endfor %}
 
