@@ -37,3 +37,11 @@
 
 # Composer PHAR
 /composer.phar
+
+# Capistrano
+/Capfile
+/Gemfile
+/Gemfile.lock
+/config/deploy/*
+/config/deploy.rb
+/lib/capistrano/*
