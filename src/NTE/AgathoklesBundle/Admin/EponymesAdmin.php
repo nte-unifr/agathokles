@@ -24,7 +24,9 @@ class EponymesAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nom')
-            ->add('date')
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -44,7 +46,9 @@ class EponymesAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
-            ->add('date')
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
         ;
     }
 
@@ -59,7 +63,9 @@ class EponymesAdmin extends Admin
         $formMapper
             ->with('Eponyme')
                 ->add('nom')
-                ->add('date')
+                ->add('datingStart', null, array('label' => 'Datation début'))
+                ->add('datingEnd', null, array('label' => 'Datation fin'))
+                ->add('approximative', null, array('label' => 'Circa', 'required' => false))
             ->end()
         ;
     }

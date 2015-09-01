@@ -29,11 +29,25 @@ class Eponyme
     private $nom;
 
     /**
-     * @var integer $date
+     * @var integer $datingStart
      *
-     * @ORM\Column(name="date", type="integer", length=4, nullable=true)
+     * @ORM\Column(name="dating_start", type="integer", length=4, nullable=true)
      */
-    private $date;
+    private $datingStart;
+
+    /**
+     * @var integer $datingEnd
+     *
+     * @ORM\Column(name="dating_end", type="integer", length=4, nullable=true)
+     */
+    private $datingEnd;
+
+    /**
+     * @var boolean $approximative
+     *
+     * @ORM\Column(name="approximative", type="boolean")
+     */
+    private $approximative;
 
     /**
      * @ORM\OneToMany(targetEntity="Fiches", mappedBy="eponyme")
@@ -148,25 +162,71 @@ class Eponyme
     }
 
     /**
-     * Set date
+     * Set datingStart
      *
-     * @param integer $date
+     * @param integer $datingStart
      * @return Eponyme
      */
-    public function setDate($date)
+    public function setDatingStart($datingStart)
     {
-        $this->date = $date;
+        $this->datingStart = $datingStart;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get datingStart
      *
      * @return integer 
      */
-    public function getDate()
+    public function getDatingStart()
     {
-        return $this->date;
+        return $this->datingStart;
+    }
+
+    /**
+     * Set datingEnd
+     *
+     * @param integer $datingEnd
+     * @return Eponyme
+     */
+    public function setDatingEnd($datingEnd)
+    {
+        $this->datingEnd = $datingEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get datingEnd
+     *
+     * @return integer 
+     */
+    public function getDatingEnd()
+    {
+        return $this->datingEnd;
+    }
+
+    /**
+     * Set approximative
+     *
+     * @param boolean $approximative
+     * @return Eponyme
+     */
+    public function setApproximative($approximative)
+    {
+        $this->approximative = $approximative;
+
+        return $this;
+    }
+
+    /**
+     * Get approximative
+     *
+     * @return boolean 
+     */
+    public function getApproximative()
+    {
+        return $this->approximative;
     }
 }
