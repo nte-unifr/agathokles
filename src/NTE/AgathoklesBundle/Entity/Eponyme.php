@@ -177,11 +177,21 @@ class Eponyme
     /**
      * Get datingStart
      *
-     * @return integer 
+     * @return integer
      */
     public function getDatingStart()
     {
         return $this->datingStart;
+    }
+
+    /**
+     * Has datingStart
+     *
+     * @return boolean
+     */
+    public function hasDatingStart()
+    {
+        return $this->datingStart != null;
     }
 
     /**
@@ -200,11 +210,21 @@ class Eponyme
     /**
      * Get datingEnd
      *
-     * @return integer 
+     * @return integer
      */
     public function getDatingEnd()
     {
         return $this->datingEnd;
+    }
+
+    /**
+     * Has datingEnd
+     *
+     * @return boolean
+     */
+    public function hasDatingEnd()
+    {
+        return $this->datingEnd != null;
     }
 
     /**
@@ -223,7 +243,7 @@ class Eponyme
     /**
      * Get approximative
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getApproximative()
     {

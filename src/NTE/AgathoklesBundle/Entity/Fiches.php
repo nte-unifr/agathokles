@@ -959,6 +959,16 @@ class Fiches
     }
 
     /**
+     * Has fabricant
+     *
+     * @return boolean
+     */
+    public function hasFabricant()
+    {
+        return $this->fabricant != null;
+    }
+
+    /**
      * Set eponyme
      *
      * @param \NTE\AgathoklesBundle\Entity\Eponyme $eponyme
@@ -979,6 +989,16 @@ class Fiches
     public function getEponyme()
     {
         return $this->eponyme;
+    }
+
+    /**
+     * Has eponyme
+     *
+     * @return boolean
+     */
+    public function hasEponyme()
+    {
+        return $this->eponyme != null;
     }
 
     /**
