@@ -18,7 +18,10 @@ class FabricantAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Datation manuelle'))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -36,7 +39,10 @@ class FabricantAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Datation manuelle'))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
         ;
     }
 
@@ -48,7 +54,10 @@ class FabricantAdmin extends Admin
     {
         $formMapper
             ->add('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Empêcher la datation automatique', 'required' => false))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa', 'required' => false))
         ;
     }
 

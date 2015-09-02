@@ -29,11 +29,32 @@ class Fabricant
     private $nom;
 
     /**
-     * @var integer $date
+     * @var boolean $manualDating
      *
-     * @ORM\Column(name="date", type="integer", length=4, nullable=true)
+     * @ORM\Column(name="manual_dating", type="boolean")
      */
-    private $date;
+    private $manualDating;
+
+    /**
+     * @var integer $datingStart
+     *
+     * @ORM\Column(name="dating_start", type="integer", length=4, nullable=true)
+     */
+    private $datingStart;
+
+    /**
+     * @var integer $datingEnd
+     *
+     * @ORM\Column(name="dating_end", type="integer", length=4, nullable=true)
+     */
+    private $datingEnd;
+
+    /**
+     * @var boolean $approximative
+     *
+     * @ORM\Column(name="approximative", type="boolean")
+     */
+    private $approximative;
 
     /**
      * @ORM\OneToMany(targetEntity="Fiches", mappedBy="fabricant")
@@ -148,25 +169,114 @@ class Fabricant
     }
 
     /**
-     * Set date
+     * Set datingStart
      *
-     * @param integer $date
+     * @param integer $datingStart
      * @return Fabricant
      */
-    public function setDate($date)
+    public function setDatingStart($datingStart)
     {
-        $this->date = $date;
+        $this->datingStart = $datingStart;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get datingStart
      *
-     * @return integer 
+     * @return integer
      */
-    public function getDate()
+    public function getDatingStart()
     {
-        return $this->date;
+        return $this->datingStart;
+    }
+
+    /**
+     * Has datingStart
+     *
+     * @return boolean
+     */
+    public function hasDatingStart()
+    {
+        return $this->datingStart != null;
+    }
+
+    /**
+     * Set datingEnd
+     *
+     * @param integer $datingEnd
+     * @return Fabricant
+     */
+    public function setDatingEnd($datingEnd)
+    {
+        $this->datingEnd = $datingEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get datingEnd
+     *
+     * @return integer
+     */
+    public function getDatingEnd()
+    {
+        return $this->datingEnd;
+    }
+
+    /**
+     * Has datingEnd
+     *
+     * @return boolean
+     */
+    public function hasDatingEnd()
+    {
+        return $this->datingEnd != null;
+    }
+
+    /**
+     * Set approximative
+     *
+     * @param boolean $approximative
+     * @return Fabricant
+     */
+    public function setApproximative($approximative)
+    {
+        $this->approximative = $approximative;
+
+        return $this;
+    }
+
+    /**
+     * Get approximative
+     *
+     * @return boolean
+     */
+    public function getApproximative()
+    {
+        return $this->approximative;
+    }
+
+    /**
+     * Set manualDating
+     *
+     * @param boolean $manualDating
+     * @return Fabricant
+     */
+    public function setManualDating($manualDating)
+    {
+        $this->manualDating = $manualDating;
+
+        return $this;
+    }
+
+    /**
+     * Get manualDating
+     *
+     * @return boolean
+     */
+    public function getManualDating()
+    {
+        return $this->manualDating;
     }
 }
