@@ -83,4 +83,23 @@ class EponymesAdmin extends Admin
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
 
+    // PRE OPERATIONS
+
+    public function preUpdate($eponyme)
+    {
+        // Don't allow only one dating to be set
+        if (!$eponyme->hasDatingStart()) {
+            $eponyme->setDatingStart($eponyme->getDatingEnd());
+        }
+        if (!$eponyme->hasDatingEnd()) {
+            $eponyme->setDatingEnd($eponyme->getDatingStart());
+        }
+
+        // datingEnd can't be larger than datingStart, it's BC
+        if ($eponyme->getDatingEnd() > $eponyme->getDatingStart()) {
+            $eponyme->setDatingEnd($eponyme->getDatingStart());
+            $this->getRequest()->getSession()->getFlashBag()->add("warning", "Datation fin ne peut pas être supérieur à datation début.");
+        }
+    }
+
 }

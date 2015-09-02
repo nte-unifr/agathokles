@@ -73,4 +73,23 @@ class FabricantAdmin extends Admin
         '_sort_by' => 'nom'         // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
+
+    // PRE OPERATIONS
+
+    public function preUpdate($fabricant)
+    {
+        // Don't allow only one dating to be set
+        if (!$fabricant->hasDatingStart()) {
+            $fabricant->setDatingStart($fabricant->getDatingEnd());
+        }
+        if (!$fabricant->hasDatingEnd()) {
+            $fabricant->setDatingEnd($fabricant->getDatingStart());
+        }
+
+        // datingEnd can't be larger than datingStart, it's BC
+        if ($fabricant->getDatingEnd() > $fabricant->getDatingStart()) {
+            $fabricant->setDatingEnd($fabricant->getDatingStart());
+            $this->getRequest()->getSession()->getFlashBag()->add("warning", "Datation fin ne peut pas être supérieur à datation début.");
+        }
+    }
 }
