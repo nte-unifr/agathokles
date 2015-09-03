@@ -12,38 +12,34 @@
 /* -----------------------------------*/
 /* >>>>>>>>>>>>> Fiches entity
 /* -----------------------------------*/
-#fiche .btn-back {
-    margin-bottom: 20px;
-}
-#fiche legend {
-    margin-top: 20px;
-}
-
 @media screen and (max-width: 480px){
-	#fiches-grid[data-columns]::before {
-		content: '1 .column.size-1of1';
-	}
+    #fiches .masonry-grid-sizer, #fiches .masonry-grid-item {
+        width: 100%;
+    }
 }
 @media screen and (min-width: 481px) and (max-width: 768px) {
-	#fiches-grid[data-columns]::before {
-		content: '2 .column.size-1of2';
-	}
+    #fiches .masonry-grid-sizer, #fiches .masonry-grid-item {
+        width: 49%;
+    }
 }
 @media screen and (min-width: 769px) {
-	#fiches-grid[data-columns]::before {
-		content: '3 .column.size-1of3';
-	}
+    #fiches .masonry-grid-sizer, #fiches .masonry-grid-item {
+        width: 32%;
+    }
 }
-#fiches-grid .column {
-    float: left;
-    padding: 10px;
+@media screen and (max-width: 480px){
+    #fiche .masonry-grid-sizer, #fiche .masonry-grid-item {
+        width: 100%;
+    }
 }
-#fiches-grid .size-1of1 { width: 100%; }
-#fiches-grid .size-1of2 { width: 50%; }
-#fiches-grid .size-1of3 { width: 33.333%; }
+@media screen and (min-width: 481px) {
+    #fiche .masonry-grid-sizer, #fiche .masonry-grid-item {
+        width: 49%;
+    }
+}
 
 /* -----------------------------------*/
-/* >>>>>>>>>>>>> Timbres entity
+/* >>>>>>>>>>>>> Map
 /* -----------------------------------*/
 .leaflet-container .btn {
     color: #fff !important;

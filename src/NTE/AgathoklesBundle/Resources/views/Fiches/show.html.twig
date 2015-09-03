@@ -12,38 +12,31 @@
     <div class="container" id="fiche">
 
         <div class="page-header">
-          <h1 id="title">{% include "NTEAgathoklesBundle:Fiches:designation.html.twig" %}</h1>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                {% include "NTEAgathoklesBundle:Fiches:show/nav.html.twig" %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 id="title">{% include "NTEAgathoklesBundle:Fiches:designation.html.twig" %}</h1>
+                </div>
+                <div class="col-sm-6">
+                    {% include "NTEAgathoklesBundle:Fiches:show/nav.html.twig" %}
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                {% include "NTEAgathoklesBundle:Fiches:show/illustration.html.twig" %}
-            </div>
-            <div class="col-sm-5 col-sm-offset-1">
-                {% include "NTEAgathoklesBundle:Fiches:show/type.html.twig" %}
-                {% include "NTEAgathoklesBundle:Fiches:show/matrice.html.twig" %}
-                {% include "NTEAgathoklesBundle:Fiches:show/associations.html.twig" %}
-                {% include "NTEAgathoklesBundle:Fiches:show/date.html.twig" %}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                {% include "NTEAgathoklesBundle:Fiches:show/exemplaires.html.twig" %}
-            </div>
-        </div>
-
-        <div class="row bottom-spacer">
-            <div class="col-sm-12">
-                {% include "NTEAgathoklesBundle:Fiches:show/nav.html.twig" %}
-            </div>
+        <div class="masonry-grid row">
+            <div class="masonry-grid-sizer"></div>
+            {% include "NTEAgathoklesBundle:Fiches:show/illustration.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show/type.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show/matrice.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show/associations.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show/date.html.twig" %}
+            {% include "NTEAgathoklesBundle:Fiches:show/exemplaires.html.twig" %}
         </div>
     </div>
 
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
 {% endblock %}

@@ -1,84 +1,91 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/matrice.html.twig #}
 
-<legend>Matrice</legend>
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Matrice</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            {% if fiche.cadre %}
+                <tr>
+                    <td><strong>Cadre</strong></td>
+                    <td>
+                        {{ fiche.cadre.nom }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.cadre %}
-    <dl class="dl-horizontal">
-        <dt>Cadre</dt>
-        <dd>
-            {{ fiche.cadre.nom }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.bouton %}
+                <tr>
+                    <td><strong>Bouton</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.bouton %}
-    <dl class="dl-horizontal">
-        <dt>Bouton</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.grenetis %}
+                <tr>
+                    <td><strong>Grenetis</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.grenetis %}
-    <dl class="dl-horizontal">
-        <dt>Grenetis</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.ombilic %}
+                <tr>
+                    <td><strong>Ombilic</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.ombilic %}
-    <dl class="dl-horizontal">
-        <dt>Ombilic</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.legendeTournante %}
+                <tr>
+                    <td><strong>Légende tournante</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.legendeTournante %}
-    <dl class="dl-horizontal">
-        <dt>Légende tournante</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.legendeRetrograde %}
+                <tr>
+                    <td><strong>Légende rétrograde</strong></td>
+                    <td>
+                        {{ fiche.legendeRetrograde }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.legendeRetrograde %}
-    <dl class="dl-horizontal">
-        <dt>Légende rétrograde</dt>
-        <dd>
-            {{ fiche.legendeRetrograde }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.lettreLunaire %}
+                <tr>
+                    <td><strong>Lettre lunaire</strong></td>
+                    <td>
+                        {{ fiche.lettreLunaire|e }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.lettreLunaire %}
-    <dl class="dl-horizontal">
-        <dt>Lettre lunaire</dt>
-        <dd>
-            {{ fiche.lettreLunaire|e }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.particulariteOrthographique %}
+                <tr>
+                    <td><strong>Particularité<br>orthographique</strong></td>
+                    <td>
+                        {{ fiche.particulariteOrthographique }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.particulariteOrthographique %}
-    <dl class="dl-horizontal">
-        <dt>Particularité<br>orthographique</dt>
-        <dd>
-            {{ fiche.particulariteOrthographique }}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if fiche.retrogravure %}
-    <dl class="dl-horizontal">
-        <dt>Retrogravure</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.retrogravure %}
+                <tr>
+                    <td><strong>Retrogravure</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>

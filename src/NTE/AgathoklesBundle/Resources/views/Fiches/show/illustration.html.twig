@@ -1,28 +1,35 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/illustration.html.twig #}
 
-<legend>Illustration</legend>
-
-{% if fiche.images.0 is defined %}
-    {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
-    {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
-    <p>
-        {% if fiche.legende %}
-            <pre class="bg-primary"><strong>{{ fiche.legende|raw }}</strong></pre>
-        {% endif %}
-    </p>
-    <p>
-        <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PPT</a>
-        &nbsp;
-        <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Original</a>
-    </p>
-{% endif %}
-{% if fiche.images|length > 1 %}
-    <div id="gallery" style="width=500px;">
-        {% for annexe in fiche.images %}
-            <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
-        {% endfor %}
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Illustration</h3>
     </div>
-{% endif %}
+    <div class="panel-body">
+        <table class="table">
+            {% if fiche.images.0 is defined %}
+                {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
+                {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
+                <p>
+                    {% if fiche.legende %}
+                        <pre class="bg-primary"><strong>{{ fiche.legende|raw }}</strong></pre>
+                    {% endif %}
+                </p>
+                <p>
+                    <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PPT</a>
+                    &nbsp;
+                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Original</a>
+                </p>
+            {% endif %}
+            {% if fiche.images|length > 1 %}
+                <div id="gallery" style="width=500px;">
+                    {% for annexe in fiche.images %}
+                        <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </table>
+    </div>
+</div>
 
 <script>
     function popwindow(url, id) {

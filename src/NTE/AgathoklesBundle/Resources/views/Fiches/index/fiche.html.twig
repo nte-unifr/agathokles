@@ -1,17 +1,15 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/fiche.html.twig #}
 
-<div id="fiche_{{fiche.id}}" class="fiche">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <a href="{{ path('timbre', {'id': fiche.id}) }}">{% include "NTEAgathoklesBundle:Fiches:designation.html.twig" %}</a>
-            </h3>
-        </div>
-        {% if fiche.images.0 is defined %}
-            <a href="{{ path('timbre', {'id': fiche.id}) }}" class="thumbnail">
-                <img src="{% path fiche.images.0.media, 'ppt' %}" alt="{{ fiche.id }}">
-            </a>
-        {% endif %}
-        <div class="panel-footer"><pre><strong>{{ fiche.legende }}</strong></pre></div>
+<div id="fiche_{{fiche.id}}" class="masonry-grid-item panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a href="{{ path('timbre', {'id': fiche.id}) }}">{% include "NTEAgathoklesBundle:Fiches:designation.html.twig" %}</a>
+        </h3>
     </div>
+    {% if fiche.images.0 is defined %}
+        <a href="{{ path('timbre', {'id': fiche.id}) }}" class="thumbnail">
+            <img src="{% path fiche.images.0.media, 'ppt' %}" alt="{{ fiche.id }}">
+        </a>
+    {% endif %}
+    <div class="panel-footer"><pre><strong>{{ fiche.legende }}</strong></pre></div>
 </div>
