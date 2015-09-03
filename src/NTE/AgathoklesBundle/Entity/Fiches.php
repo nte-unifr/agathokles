@@ -273,13 +273,6 @@ class Fiches
     private $matriceComplementaire;
 
     /**
-     * @var string $date
-     *
-     * @ORM\Column(name="date", type="string", nullable=true)
-     */
-    private $date;
-
-    /**
      * @var boolean $public
      *
      * @ORM\Column(name="public", type="boolean", nullable=true)
@@ -864,29 +857,6 @@ class Fiches
     public function getRetrogravure()
     {
         return $this->retrogravure;
-    }
-
-    /**
-     * Set date
-     *
-     * @param string $date
-     * @return Fiches
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -1666,5 +1636,68 @@ class Fiches
     public function getTimbres()
     {
         return $this->timbres;
+    }
+
+    /**
+     * Get startDate
+     *
+     * @return integer
+     */
+    public function getDatingStart()
+    {
+        $fabDatingStart = $this->getFabricant()->getDatingStart();
+        $epoDatingStart = $this->getEponyme()->getDatingStart();
+
+        if ($fabDatingStart != null && $epoDatingStart == null) {
+            return $fabDatingStart;
+        }
+        else if ($fabDatingStart == null && $epoDatingStart != null) {
+            return $epoDatingStart;
+        }
+        else if ($fabDatingStart != null && $epoDatingStart != null) {
+            return ($fabDatingStart < $epoDatingStart) ? $fabDatingStart : $epoDatingStart;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return integer
+     */
+    public function getDatingEnd()
+    {
+        $fabDatingEnd = $this->getFabricant()->getDatingEnd();
+        $epoDatingEnd = $this->getEponyme()->getDatingEnd();
+
+        if ($fabDatingEnd != null && $epoDatingEnd == null) {
+            return $fabDatingEnd;
+        }
+        else if ($fabDatingEnd == null && $epoDatingEnd != null) {
+            return $epoDatingEnd;
+        }
+        else if ($fabDatingEnd != null && $epoDatingEnd != null) {
+            return ($fabDatingEnd < $epoDatingEnd) ? $fabDatingEnd : $epoDatingEnd;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Is Circa
+     *
+     * @return boolean
+     */
+    public function isCirca()
+    {
+        if ($this->getFabricant()->getApproximative() || $this->getEponyme()->getApproximative()) {
+            return "ca";
+        }
+        else {
+            return "";
+        }
     }
 }
