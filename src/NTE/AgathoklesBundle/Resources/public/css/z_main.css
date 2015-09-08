@@ -45,6 +45,11 @@
     color: #fff !important;
 }
 
+#map-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 #map {
     width: 100%;
 }
+#map-data { display: none; }

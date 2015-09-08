@@ -2,13 +2,6 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js"></script>
-    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
-    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_timbres.js') }}"></script>
-{% endblock %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link href='//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
@@ -16,84 +9,33 @@
     <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/leaflet-markercluster/MarkerCluster.Default.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
+{% block carte_active %}active{% endblock %}
+
 {% block agathokles_content %}
 
-    <div id='map'></div>
-    <script>
-        $(function() {
-            var POPUP_OFFSET = new L.Point(0, -15);
-            var markers = new L.MarkerClusterGroup({ singleMarkerMode: true, spiderfyOnMaxZoom: false, zoomToBoundsOnClick: false });
-
-            // Populate markers
-            {% for timbre in timbres %}
-                {% set lieu = timbre.getLieu() %}
-                var title = "{{ lieu.getNom() }}";
-                var marker = L.marker(new L.LatLng({{ lieu.getLat() }}, {{ lieu.getLng() }}));
-                {% set timbresCount = lieu.getTimbres() | length %}
-                marker.bindPopup('<h3>{{ lieu.getNom() }}</h3><p>{{ timbresCount }} {% if timbresCount > 1 %}Timbres{% else %}Timbre{% endif %}</p><a href="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}" class="btn btn-primary">Consulter</a>', {offset: POPUP_OFFSET});
-                markers.addLayer(marker);
-            {% endfor %}
-
-            // init map
-            var accessToken = 'pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw';
-            var mapId = 'nte.24c9e767';
-            var attribution = '<a href="https://www.mapbox.com/about/maps/">&copy; Mapbox &copy; OpenStreetMap</a>'+
-                ' | <a href="https://www.mapbox.com/map-feedback/">Improve this map</a> | &copy; Implementation :'+
-                ' N. Badoud &amp; <a href="http://www.unifr.ch/nte/">Centre NTE</a> - Université de Fribourg - Suisse'
-            var map = L.map('map', {maxZoom: 12}).setView([35.69, 18.52], 4);
-            L.tileLayer('http://{s}.tiles.mapbox.com/v4/'+mapId+'/{z}/{x}/{y}.png?access_token='+accessToken, {
-                attribution: attribution,
-                minZoom: 3,
-                maxZoom: 18
-            }).addTo(map);
-
-            // add markers to map
-            map.addLayer(markers);
-
-            // setview if asked else fitBounds
-            var lat = false;
-            var lng = false;
-            {% if app.request.query.get('lat') != "" %}
-                lat = {{ app.request.query.get('lat') }};
-            {% endif %}
-            {% if app.request.query.get('lng') != "" %}
-                lng = {{ app.request.query.get('lng') }};
-            {% endif %}
-            if (lat && lng) {
-                latLngAsked = L.latLng(lat, lng);
-                map.setView(latLngAsked, 10);
-            } else {
-                map.fitBounds(markers.getBounds());
-            }
-
-            // define the click on clusters
-            markers.on('clusterclick', function (a) {
-                // prepare vars
-                var children = a.layer.getAllChildMarkers();
-                var latLngRef = children[0].getLatLng();
-                var twins = true;
-
-                // iterate over each child to check if they have all the same latlng
-                $.each(children, function( index, child ) {
-                  if(!child.getLatLng().equals(latLngRef)) {
-                      twins = false;
-                  }
-                });
-
-                // if they have the same latlng, open popup of first, else zoomToBounds
-                if(twins) {
-                    customPopup = L.popup({offset: POPUP_OFFSET})
-                        .setLatLng(children[0].getLatLng())
-                        .setContent(children[0].getPopup().getContent())
-                        .openOn(map);
-                }
-                else {
-                    a.layer.zoomToBounds();
-                }
-            });
-        });
-    </script>
+    <ul id="map-data" data-lat="{{ app.request.query.get('lat') }}" data-lng="{{ app.request.query.get('lng') }}">
+        {% for timbre in timbres %}
+            {% set lieu = timbre.getLieu() %}
+            {% set timbresCount = lieu.getTimbres() | length %}
+            <li data-title="{{ lieu.getNom() }}" data-lat="{{ lieu.getLat() }}" data-lng="{{ lieu.getLng() }}" data-count="{{ timbresCount }}" data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}">{{ lieu.getNom() }}</li>
+        {% endfor %}
+    </ul>
+    <div id="map-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Time filter coming soon..</div>
+            <div class="panel-body">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block footer %}
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js"></script>
+    <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_timbres.js') }}"></script>
 {% endblock %}

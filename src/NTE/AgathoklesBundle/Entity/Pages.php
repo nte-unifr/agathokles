@@ -42,6 +42,13 @@ class Pages
      */
     private $text;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="handle", type="string")
+     */
+    private $handle;
+
 
     /**
      * Get id
@@ -120,5 +127,28 @@ class Pages
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set handle
+     *
+     * @param string $handle
+     * @return Pages
+     */
+    public function setHandle($handle)
+    {
+        $this->handle = $handle;
+
+        return $this;
+    }
+
+    /**
+     * Get handle
+     *
+     * @return string 
+     */
+    public function getHandle()
+    {
+        return $this->handle;
     }
 }

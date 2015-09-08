@@ -1645,8 +1645,17 @@ class Fiches
      */
     public function getDatingStart()
     {
-        $fabDatingStart = $this->getFabricant()->getDatingStart();
-        $epoDatingStart = $this->getEponyme()->getDatingStart();
+        $fabricant = $this->getFabricant();
+        $fabDatingStart = null;
+        $eponyme = $this->getEponyme();
+        $epoDatingStart = null;
+
+        if ($fabricant != null) {
+            $fabDatingStart = $this->getFabricant()->getDatingStart();
+        }
+        if ($eponyme != null) {
+            $epoDatingStart = $this->getEponyme()->getDatingStart();
+        }
 
         if ($fabDatingStart != null && $epoDatingStart == null) {
             return $fabDatingStart;
@@ -1669,8 +1678,17 @@ class Fiches
      */
     public function getDatingEnd()
     {
-        $fabDatingEnd = $this->getFabricant()->getDatingEnd();
-        $epoDatingEnd = $this->getEponyme()->getDatingEnd();
+        $fabricant = $this->getFabricant();
+        $fabDatingEnd = null;
+        $eponyme = $this->getEponyme();
+        $epoDatingEnd = null;
+
+        if($fabricant != null) {
+            $fabDatingEnd = $this->getFabricant()->getDatingEnd();
+        }
+        if($eponyme != null) {
+            $epoDatingEnd = $this->getEponyme()->getDatingEnd();
+        }
 
         if ($fabDatingEnd != null && $epoDatingEnd == null) {
             return $fabDatingEnd;
