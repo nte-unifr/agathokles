@@ -7,6 +7,7 @@
     <link href='//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/leaflet-markercluster/MarkerCluster.Default.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/nouislider.min.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block carte_active %}active{% endblock %}
@@ -16,13 +17,23 @@
     <ul id="map-data" data-lat="{{ app.request.query.get('lat') }}" data-lng="{{ app.request.query.get('lng') }}">
         {% for timbre in timbres %}
             {% set lieu = timbre.getLieu() %}
+            {% set fiche = timbre.getFiche() %}
             {% set timbresCount = lieu.getTimbres() | length %}
-            <li data-title="{{ lieu.getNom() }}" data-lat="{{ lieu.getLat() }}" data-lng="{{ lieu.getLng() }}" data-count="{{ timbresCount }}" data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}">{{ lieu.getNom() }}</li>
+            <li
+                data-title="{{ lieu.getNom() }}"
+                data-lat="{{ lieu.getLat() }}"
+                data-lng="{{ lieu.getLng() }}"
+                data-count="{{ timbresCount }}"
+                data-start="-{{ fiche.getDatingStart() }}"
+                data-end="-{{ fiche.getDatingEnd() }}"
+                data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}">
+                {{ lieu.getNom() }}
+            </li>
         {% endfor %}
     </ul>
     <div id="map-container">
         <div class="panel panel-default">
-            <div class="panel-heading">Time filter coming soon..</div>
+            <div class="panel-heading"><div id="map-slider"></div></div>
             <div class="panel-body">
                 <div id="map"></div>
             </div>
@@ -37,5 +48,6 @@
     {{ parent() }}
     <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js"></script>
     <script type="text/javascript" src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/nouislider.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_timbres.js') }}"></script>
 {% endblock %}

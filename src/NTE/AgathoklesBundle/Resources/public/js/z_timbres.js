@@ -5,77 +5,41 @@ var ATTRIBUTION = '<a href="https://www.mapbox.com/about/maps/">&copy; Mapbox &c
     ' N. Badoud &amp; <a href="http://www.unifr.ch/nte/">Centre NTE</a> - Université de Fribourg - Suisse';
 var POPUP_OFFSET = new L.Point(0, -15);
 var HEADERHEIGHT = 235;
+var MIN = -700;
+var MAX = 0;
+
+var map;
+var markerGroup;
 
 $( document ).ready(function() {
-    resizeMap();
-    var map = initMap();
-    var markers = populateMarkers(map);
-    setSettings(map, markers);
+    resizeContainer();
+    initMap();
+    initGroup();
+    populate(MIN, MAX);
+    postInit();
+    initSliders();
 });
 
 $( window ).resize(function() {
-    resizeMap();
+    resizeContainer();
 });
 
-function resizeMap() {
-    var map = $("#map");
-
-    var windowHeight = $(window).height();
-    var mapHeight = windowHeight-HEADERHEIGHT;
-    map.height(mapHeight);
-}
+// MAP FUNCS
 
 function initMap() {
-    var map = L.map('map', {maxZoom: 12}).setView([35.69, 18.52], 4);
+    map = L.map('map', {maxZoom: 12}).setView([35.69, 18.52], 4);
     L.tileLayer('http://{s}.tiles.mapbox.com/v4/'+MAP_ID+'/{z}/{x}/{y}.png?access_token='+PUBLIC_KEY, {
         attribution: ATTRIBUTION,
         minZoom: 3,
         maxZoom: 18
     }).addTo(map);
-    return map;
 }
 
-function populateMarkers(map) {
-    // init markercluster
-    var markers = new L.MarkerClusterGroup({ singleMarkerMode: true, spiderfyOnMaxZoom: false, zoomToBoundsOnClick: false });
-    setEvents(markers, map);
+function initGroup() {
+    markerGroup = new L.MarkerClusterGroup({ singleMarkerMode: true, spiderfyOnMaxZoom: false, zoomToBoundsOnClick: false });
 
-    // create a marker for each timbre
-    $("#map-data li").each(function( index ) {
-        var title = $(this).data("title");
-        var lat = $(this).data("lat");
-        var lng = $(this).data("lng");
-        var count = $(this).data("count");
-        var path = $(this).data("path");
-        var marker = L.marker(new L.LatLng(lat, lng));
-        var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
-        marker.bindPopup(content, {offset: POPUP_OFFSET});
-        markers.addLayer(marker);
-    });
-
-    // add markers to map
-    map.addLayer(markers);
-
-    return markers;
-}
-
-function setSettings(map, markers) {
-    // setview if asked else fitBounds
-    var mapData = $("#map-data");
-    var lat = mapData.data("lat");
-    var lng = mapData.data("lng");
-
-    if (lat && lng) {
-        latLngAsked = L.latLng(lat, lng);
-        map.setView(latLngAsked, 10);
-    } else {
-        map.fitBounds(markers.getBounds());
-    }
-}
-
-function setEvents(markers, map) {
     // define the click on clusters
-    markers.on('clusterclick', function (a) {
+    markerGroup.on('clusterclick', function (a) {
         // prepare vars
         var children = a.layer.getAllChildMarkers();
         var latLngRef = children[0].getLatLng();
@@ -99,8 +63,97 @@ function setEvents(markers, map) {
             a.layer.zoomToBounds();
         }
     });
+
+    map.addLayer(markerGroup);
 }
+
+function populate(min, max) {
+
+    // first clear the group, in case it's recalled
+    markerGroup.clearLayers();
+
+    // create a marker for each timbre
+    $("#map-data li").each(function( index ) {
+        var title = $(this).data("title");
+        var lat = $(this).data("lat");
+        var lng = $(this).data("lng");
+        var count = $(this).data("count");
+        var start = $(this).data("start");
+        var end = $(this).data("end");
+        var path = $(this).data("path");
+        if((start >= min && start <= max) || (end >= min && end <= max)) {
+            var marker = L.marker(new L.LatLng(lat, lng));
+            var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
+            marker.bindPopup(content, {offset: POPUP_OFFSET});
+            markerGroup.addLayer(marker);
+        }
+    });
+}
+
+function postInit() {
+    // setview if asked else fitBounds
+    var mapData = $("#map-data");
+    var lat = mapData.data("lat");
+    var lng = mapData.data("lng");
+
+    if (lat && lng) {
+        latLngAsked = L.latLng(lat, lng);
+        map.setView(latLngAsked, 10);
+    } else {
+        map.fitBounds(markerGroup.getBounds());
+    }
+}
+
+function initSliders() {
+    var mapSlider = document.getElementById('map-slider');
+
+    noUiSlider.create(mapSlider, {
+    	start: [MIN, MAX],
+        connect: true,
+        step: 1,
+    	range: {
+    		'min': MIN,
+    		'max': MAX
+    	}
+    });
+
+    var tipHandles = mapSlider.getElementsByClassName('noUi-handle'),
+	tooltips = [];
+
+    // Add divs to the slider handles.
+    for ( var i = 0; i < tipHandles.length; i++ ){
+    	tooltips[i] = document.createElement('div');
+    	tipHandles[i].appendChild(tooltips[i]);
+    }
+
+    // Add a class for styling
+    tooltips[0].className += 'map-slider-tooltip';
+    tooltips[1].className += 'map-slider-tooltip';
+
+    // When the slider changes, write the value to the tooltips.
+    mapSlider.noUiSlider.on('update', function( values, handle ) {
+    	tooltips[handle].innerHTML = Math.floor(values[handle]);
+    });
+
+    mapSlider.noUiSlider.on('set', function() {
+    	console.log("set");
+        var values = mapSlider.noUiSlider.get();
+        populate(values[0], values[1]);
+    });
+}
+
+// HELPERS
 
 function pluralize(word, count) {
     return count > 1 ? word+"s" : word;
+}
+
+// UTILITY
+
+function resizeContainer() {
+    var container = $("#map");
+
+    var windowHeight = $(window).height();
+    var mapHeight = windowHeight-HEADERHEIGHT;
+    container.height(mapHeight);
 }
