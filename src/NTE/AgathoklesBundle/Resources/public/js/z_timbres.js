@@ -5,17 +5,18 @@ var ATTRIBUTION = '<a href="https://www.mapbox.com/about/maps/">&copy; Mapbox &c
     ' N. Badoud &amp; <a href="http://www.unifr.ch/nte/">Centre NTE</a> - Université de Fribourg - Suisse';
 var POPUP_OFFSET = new L.Point(0, -15);
 var HEADERHEIGHT = 235;
-var MIN = -700;
-var MAX = 0;
 
 var map;
 var markerGroup;
+var min = 0;
+var max = -9999;
 
 $( document ).ready(function() {
     resizeContainer();
+    initMinMax();
     initMap();
     initGroup();
-    populate(MIN, MAX);
+    populate(min, max);
     postInit();
     initSliders();
 });
@@ -25,6 +26,15 @@ $( window ).resize(function() {
 });
 
 // MAP FUNCS
+
+function initMinMax() {
+    $("#map-data li").each(function( index ) {
+        var start = $(this).data("start");
+        var end = $(this).data("end");
+        min = (start < min) ? start : min;
+        max = (end > max) ? end : max;
+    });
+}
 
 function initMap() {
     map = L.map('map', {maxZoom: 12}).setView([35.69, 18.52], 4);
@@ -81,7 +91,7 @@ function populate(min, max) {
         var start = $(this).data("start");
         var end = $(this).data("end");
         var path = $(this).data("path");
-        if((start >= min && start <= max) || (end >= min && end <= max)) {
+        if((start >= min && start <= max) || (end >= min && end <= max) || start == "-") {
             var marker = L.marker(new L.LatLng(lat, lng));
             var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
             marker.bindPopup(content, {offset: POPUP_OFFSET});
@@ -108,12 +118,12 @@ function initSliders() {
     var mapSlider = document.getElementById('map-slider');
 
     noUiSlider.create(mapSlider, {
-    	start: [MIN, MAX],
+    	start: [min, max],
         connect: true,
         step: 1,
     	range: {
-    		'min': MIN,
-    		'max': MAX
+    		'min': min,
+    		'max': max
     	}
     });
 
@@ -136,7 +146,6 @@ function initSliders() {
     });
 
     mapSlider.noUiSlider.on('set', function() {
-    	console.log("set");
         var values = mapSlider.noUiSlider.get();
         populate(values[0], values[1]);
     });
