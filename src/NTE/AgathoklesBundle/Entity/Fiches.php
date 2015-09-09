@@ -1684,10 +1684,10 @@ class Fiches
         $epoDatingEnd = null;
 
         if($fabricant != null) {
-            $fabDatingEnd = $this->getFabricant()->getDatingEnd();
+            $fabDatingEnd = $fabricant->getDatingEnd();
         }
         if($eponyme != null) {
-            $epoDatingEnd = $this->getEponyme()->getDatingEnd();
+            $epoDatingEnd = $eponyme->getDatingEnd();
         }
 
         if ($fabDatingEnd != null && $epoDatingEnd == null) {
@@ -1711,11 +1711,17 @@ class Fiches
      */
     public function isCirca()
     {
-        if ($this->getFabricant()->getApproximative() || $this->getEponyme()->getApproximative()) {
-            return "ca";
+        $fabricant = $this->getFabricant();
+        $eponyme = $this->getEponyme();
+
+        if ($fabricant != null && $eponyme != null) {
+            return $fabricant->getApproximative() || $eponyme->getApproximative();
         }
-        else {
-            return "";
+        else if ($fabricant != null && $eponyme == null) {
+            return $fabricant->getApproximative();
+        }
+        else if ($fabricant == null && $eponyme != null) {
+            return $eponyme->getApproximative();
         }
     }
 }

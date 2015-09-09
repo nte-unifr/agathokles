@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body">
         {% if (fiche.getDatingStart() and fiche.getDatingEnd()) %}
-            <p><strong>{{ fiche.isCirca() }} {{ fiche.getDatingStart() }} - {{ fiche.getDatingEnd() }}</strong></p>
+            <p><strong>{% if fiche.isCirca() %}ca{% endif %} {{ fiche.getDatingStart() }} - {{ fiche.getDatingEnd() }}</strong></p>
         {% else %}
             <p>Aucune datation</p>
         {% endif %}
