@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
+RewriteCond %{DOCUMENT_ROOT}/maintenance.enable -f
+RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+RewriteRule ^.*$ /maintenance.html [R=503,L]
+ErrorDocument 503 /maintenance.html
+</IfModule>
