@@ -170,10 +170,6 @@ sonata_media:
                 ppt:   { width: 600 , quality: 70}
                 big:   { width: 1200 , quality: 70}
 
-    cdn:
-        server:
-            path: /uploads/media # http://media.sonata-project.org/
-
     filesystem:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
