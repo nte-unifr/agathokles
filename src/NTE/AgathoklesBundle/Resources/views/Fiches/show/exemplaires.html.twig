@@ -1,26 +1,31 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/exemplaires.html.twig #}
 
-<legend>Exemplaires</legend>
-
-{% if fiche.timbres|length > 0 %}
-    <ul>
-        {% set counter = 1 %}
-        {% for timbre in fiche.timbres %}
-            <li>
-                E{{ counter }}.&nbsp;
-                {% if timbre.reference %}
-                    {{ timbre.reference }}.&nbsp;
-                {% endif %}
-                {% if timbre.lieu %}
-                    <a href="/?lat={{ timbre.lieu.lat }}&lng={{ timbre.lieu.lng }}">
-                        {{ timbre.lieu }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    </a>.&nbsp;
-                {% endif %}
-                {{ timbre.remarques | striptags | raw }}
-                {% set counter = counter+1 %}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Aucun exemplaire</p>
-{% endif %}
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Exemplaires</h3>
+    </div>
+    <div class="panel-body">
+        {% if fiche.timbres|length > 0 %}
+            <ul>
+                {% set counter = 1 %}
+                {% for timbre in fiche.timbres %}
+                    <li>
+                        E{{ counter }}.&nbsp;
+                        {% if timbre.reference %}
+                            {{ timbre.reference }}.&nbsp;
+                        {% endif %}
+                        {% if timbre.lieu %}
+                            <a href="/?lat={{ timbre.lieu.lat }}&lng={{ timbre.lieu.lng }}">
+                                {{ timbre.lieu }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            </a>.&nbsp;
+                        {% endif %}
+                        {{ timbre.remarques | striptags | raw }}
+                        {% set counter = counter+1 %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun exemplaire</p>
+        {% endif %}
+    </div>
+</div>

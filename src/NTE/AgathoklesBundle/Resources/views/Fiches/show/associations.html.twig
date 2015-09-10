@@ -1,40 +1,47 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/associations.html.twig #}
 
-<legend>Associations</legend>
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Associations</h3>
+    </div>
+    <div class="panel-body">
+        {% if (fiche.matricePrincipale|length <= 0) and (fiche.matriceSecondaire|length <= 0) and (fiche.matriceComplementaire|length <= 0) %}
+            <p>Aucune association</p>
+        {% else %}
+            <table class="table">
+                {% if fiche.matricePrincipale|length > 0 %}
+                    <tr>
+                        <td><strong>Matrice<br> principale</strong></td>
+                        <td>
+                            {% for matrice in fiche.matricePrincipale %}
+                                <p><a href="{{ path('timbre', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }} - T{{ matrice.fichePrincipale.typeNumero }} - M{{ matrice.fichePrincipale.matriceNumero }}</a></p>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
 
-{% if fiche.matricePrincipale|length > 0 %}
-    <dl class="dl-horizontal">
-        <dt>Matrice<br> principale</dt>
-        <dd>
-            {% for matrice in fiche.matricePrincipale %}
-                <p><a href="{{ path('timbre', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }} - T{{ matrice.fichePrincipale.typeNumero }} - M{{ matrice.fichePrincipale.matriceNumero }}</a></p>
-            {% endfor %}
-        </dd>
-    </dl>
-{% endif %}
+                {% if fiche.matriceSecondaire|length > 0 %}
+                    <tr>
+                        <td><strong>Matrice<br> secondaire</strong></td>
+                        <td>
+                            {% for matrice in fiche.matriceSecondaire %}
+                                <p><a href="{{ path('timbre', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }} - T{{ matrice.ficheSecondaire.typeNumero }} - M{{ matrice.ficheSecondaire.matriceNumero }}</a></p>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
 
-{% if fiche.matriceSecondaire|length > 0 %}
-    <dl class="dl-horizontal">
-        <dt>Matrice<br> secondaire</dt>
-        <dd>
-            {% for matrice in fiche.matriceSecondaire %}
-                <p><a href="{{ path('timbre', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }} - T{{ matrice.ficheSecondaire.typeNumero }} - M{{ matrice.ficheSecondaire.matriceNumero }}</a></p>
-            {% endfor %}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if fiche.matriceComplementaire|length > 0 %}
-    <dl class="dl-horizontal">
-        <dt>Matrice<br> complémentaire</dt>
-        <dd>
-            {% for matrice in fiche.matriceComplementaire %}
-                <p><a href="{{ path('timbre', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }} - T{{ matrice.ficheComplementaire.typeNumero }} - M{{ matrice.ficheComplementaire.matriceNumero }}</a></p>
-            {% endfor %}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if (fiche.matricePrincipale|length <= 0) and (fiche.matriceSecondaire|length <= 0) and (fiche.matriceComplementaire|length <= 0) %}
-    <p>Aucune association</p>
-{% endif %}
+                {% if fiche.matriceComplementaire|length > 0 %}
+                    <tr>
+                        <td><strong>Matrice<br> complémentaire</strong></td>
+                        <td>
+                            {% for matrice in fiche.matriceComplementaire %}
+                                <p><a href="{{ path('timbre', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }} - T{{ matrice.ficheComplementaire.typeNumero }} - M{{ matrice.ficheComplementaire.matriceNumero }}</a></p>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+        {% endif %}
+    </div>
+</div>

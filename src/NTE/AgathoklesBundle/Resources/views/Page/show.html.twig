@@ -2,6 +2,17 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
+
+{% block faq_active %}
+    {% if page.handle == "faq" %}active{% endif %}
+{% endblock %}
+{% block credits_active %}
+    {% if page.handle == "credits" %}active{% endif %}
+{% endblock %}
+{% block contact_active %}
+    {% if page.handle == "contact" %}active{% endif %}
+{% endblock %}
+
 {% block agathokles_content %}
 
     <div class="container">

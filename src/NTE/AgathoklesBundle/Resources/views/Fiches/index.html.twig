@@ -2,11 +2,7 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
-{% endblock %}
+{% block timbres_active %}active{% endblock %}
 
 {% block agathokles_content %}
 
@@ -16,20 +12,15 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <ul class="nav nav-pills nav-stacked">
-                  <li role="presentation" {% if app.session.get('timbres_subset') == "all" %}class="active"{% endif %}><a href="{{ path('timbres') }}">Tous les timbres</a></li>
-                  <li role="presentation" {% if app.session.get('timbres_subset') == "epo" %}class="active"{% endif %}><a href="{{ path('timbres_eponymes') }}">Eponymes</a></li>
-                  <li role="presentation" {% if app.session.get('timbres_subset') == "fab" %}class="active"{% endif %}><a href="{{ path('timbres_fabricants') }}">Fabricants</a></li>
-                  <li role="presentation" {% if app.session.get('timbres_subset') == "bin" %}class="active"{% endif %}><a href="{{ path('timbres_binominaux') }}">Bi-nominaux</a></li>
-                  <li role="presentation" {% if app.session.get('timbres_subset') == "amp" %}class="active"{% endif %}><a href="{{ path('timbres_amphores') }}">Amphores</a></li>
-                </ul>
+                {% include 'NTEAgathoklesBundle:Fiches:index/subnav.html.twig' %}
             </div>
             <div class="col-md-10">
                 {% include 'NTEAgathoklesBundle:Fiches:index/filters.html.twig' %}
                 <p class="lead">
                     {{ pager|length }} timbres sur un total de {{ all }}.
                 </p>
-                <div id="fiches-grid" class="row" data-columns>
+                <div class="masonry-grid row">
+                    <div class="masonry-grid-sizer"></div>
                     {% for fiche in pager.currentPageResults %}
                         {% include 'NTEAgathoklesBundle:Fiches:index/fiche.html.twig' %}
                     {% endfor %}
@@ -47,5 +38,6 @@
 
 {% block body_javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/salvattore.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
 {% endblock %}

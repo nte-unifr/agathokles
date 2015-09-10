@@ -273,13 +273,6 @@ class Fiches
     private $matriceComplementaire;
 
     /**
-     * @var string $date
-     *
-     * @ORM\Column(name="date", type="string", nullable=true)
-     */
-    private $date;
-
-    /**
      * @var boolean $public
      *
      * @ORM\Column(name="public", type="boolean", nullable=true)
@@ -867,29 +860,6 @@ class Fiches
     }
 
     /**
-     * Set date
-     *
-     * @param string $date
-     * @return Fiches
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
      * Set public
      *
      * @param boolean $public
@@ -959,6 +929,16 @@ class Fiches
     }
 
     /**
+     * Has fabricant
+     *
+     * @return boolean
+     */
+    public function hasFabricant()
+    {
+        return $this->fabricant != null;
+    }
+
+    /**
      * Set eponyme
      *
      * @param \NTE\AgathoklesBundle\Entity\Eponyme $eponyme
@@ -979,6 +959,16 @@ class Fiches
     public function getEponyme()
     {
         return $this->eponyme;
+    }
+
+    /**
+     * Has eponyme
+     *
+     * @return boolean
+     */
+    public function hasEponyme()
+    {
+        return $this->eponyme != null;
     }
 
     /**
@@ -1646,5 +1636,92 @@ class Fiches
     public function getTimbres()
     {
         return $this->timbres;
+    }
+
+    /**
+     * Get startDate
+     *
+     * @return integer
+     */
+    public function getDatingStart()
+    {
+        $fabricant = $this->getFabricant();
+        $fabDatingStart = null;
+        $eponyme = $this->getEponyme();
+        $epoDatingStart = null;
+
+        if ($fabricant != null) {
+            $fabDatingStart = $this->getFabricant()->getDatingStart();
+        }
+        if ($eponyme != null) {
+            $epoDatingStart = $this->getEponyme()->getDatingStart();
+        }
+
+        if ($fabDatingStart != null && $epoDatingStart == null) {
+            return $fabDatingStart;
+        }
+        else if ($fabDatingStart == null && $epoDatingStart != null) {
+            return $epoDatingStart;
+        }
+        else if ($fabDatingStart != null && $epoDatingStart != null) {
+            return ($fabDatingStart < $epoDatingStart) ? $fabDatingStart : $epoDatingStart;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return integer
+     */
+    public function getDatingEnd()
+    {
+        $fabricant = $this->getFabricant();
+        $fabDatingEnd = null;
+        $eponyme = $this->getEponyme();
+        $epoDatingEnd = null;
+
+        if($fabricant != null) {
+            $fabDatingEnd = $fabricant->getDatingEnd();
+        }
+        if($eponyme != null) {
+            $epoDatingEnd = $eponyme->getDatingEnd();
+        }
+
+        if ($fabDatingEnd != null && $epoDatingEnd == null) {
+            return $fabDatingEnd;
+        }
+        else if ($fabDatingEnd == null && $epoDatingEnd != null) {
+            return $epoDatingEnd;
+        }
+        else if ($fabDatingEnd != null && $epoDatingEnd != null) {
+            return ($fabDatingEnd < $epoDatingEnd) ? $fabDatingEnd : $epoDatingEnd;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Is Circa
+     *
+     * @return boolean
+     */
+    public function isCirca()
+    {
+        $fabricant = $this->getFabricant();
+        $eponyme = $this->getEponyme();
+
+        if ($fabricant != null && $eponyme != null) {
+            return $fabricant->getApproximative() || $eponyme->getApproximative();
+        }
+        else if ($fabricant != null && $eponyme == null) {
+            return $fabricant->getApproximative();
+        }
+        else if ($fabricant == null && $eponyme != null) {
+            return $eponyme->getApproximative();
+        }
     }
 }

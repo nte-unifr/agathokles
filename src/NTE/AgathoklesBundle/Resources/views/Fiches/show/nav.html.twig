@@ -14,6 +14,8 @@
     {% set back_path = path('timbres_amphores', params) %}
 {% endif %}
 
-<a href="{{ back_path }}" class="btn btn-default btn-block btn-back">
-    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Retour à la liste
-</a>
+<div class="text-right">
+    <a href="{{ back_path }}" class="btn btn-primary btn-back">
+        <i class="fa fa-arrow-circle-left"></i> Liste
+    </a>
+</div>

@@ -178,6 +178,26 @@ class FichesAdmin extends Admin
 
     public function prePersist($fiche)
     {
+        $nextTypeNumero = $this->getNextTypeNumero($fiche);
+        $fiche->setTypeNumero($nextTypeNumero);
+
+        $this->linkTimbres($fiche);
+    }
+
+    public function preUpdate($fiche)
+    {
+        $rightFullname = $this->getRightFullname($fiche);
+        $fiche->setFullname($rightFullname);
+
+        $this->updateFabricantDating($fiche);
+
+        $this->linkTimbres($fiche);
+    }
+
+    // OTHER FUNCTIONS
+
+    public function getNextTypeNumero($fiche)
+    {
         // Count all occurences of the same eponyme, fabricant, forme, embleme and mois to update TypeNumero accordingly
         $qb = $this->em->createQueryBuilder()
             ->select('f')
@@ -195,17 +215,12 @@ class FichesAdmin extends Admin
             ->setParameter('moi', $fiche->getMois());
         $results = $qb->getQuery()->getResult();
         $resultCount = count($results);
-        $fiche->setTypeNumero($resultCount+1);
-
-        // Set the fiche in each timbre
-        foreach ($fiche->getTimbres() as $timbre) {
-            $timbre->setFiche($fiche);
-        }
+        return $resultCount+1;
     }
 
-    public function preUpdate($fiche)
+    // set a human readable name to fiches
+    public function getRightFullname($fiche)
     {
-        // Set fullname to sort fiches
         $spacer = "";
         $epo = "";
         $fab = "";
@@ -219,9 +234,37 @@ class FichesAdmin extends Admin
             $spacer = " / ";
         }
         $fullname = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
-        $fiche->setFullname($fullname);
+        return $fullname;
+    }
 
-        // set the fiche in each timbre
+    // update fabricant dating if both fabricant and eponyme set
+    public function updateFabricantDating($fiche)
+    {
+        if ($fiche->hasFabricant() && $fiche->hasEponyme()) {
+            $fabricant  = $fiche->getFabricant();
+            $eponyme    = $fiche->getEponyme();
+
+            // if Fabricant use manual dating, prevent update
+            if (!$fabricant->getManualDating()) {
+                $epoDatingStart = $eponyme->getDatingStart();
+                $epoDatingEnd = $eponyme->getDatingEnd();
+
+                if ($epoDatingStart > $fabricant->getDatingStart()) {
+                    $fabricant->setDatingStart($epoDatingStart);
+                    $fabricant->setApproximative($fabricant->getApproximative() ?: $eponyme->getApproximative()); // if getting an approx dating, it's an approx
+                }
+
+                if (!$fabricant->hasDatingEnd() || $epoDatingEnd < $fabricant->getDatingEnd()) {
+                    $fabricant->setDatingEnd($epoDatingEnd);
+                    $fabricant->setApproximative($fabricant->getApproximative() ?: $eponyme->getApproximative()); // if getting an approx dating, it's an approx
+                }
+            }
+        }
+    }
+
+    // update each timbres in order to associate to the fiche
+    public function linkTimbres($fiche)
+    {
         foreach ($fiche->getTimbres() as $timbre) {
             $timbre->setFiche($fiche);
         }

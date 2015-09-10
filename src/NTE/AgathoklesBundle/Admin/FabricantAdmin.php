@@ -18,7 +18,10 @@ class FabricantAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Datation manuelle'))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -36,7 +39,10 @@ class FabricantAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Datation manuelle'))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
         ;
     }
 
@@ -48,7 +54,10 @@ class FabricantAdmin extends Admin
     {
         $formMapper
             ->add('nom')
-            ->add('date')
+            ->add('manualDating', null, array('label' => 'Empêcher la datation automatique', 'required' => false))
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa', 'required' => false))
         ;
     }
 
@@ -64,4 +73,23 @@ class FabricantAdmin extends Admin
         '_sort_by' => 'nom'         // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
+
+    // PRE OPERATIONS
+
+    public function preUpdate($fabricant)
+    {
+        // Don't allow only one dating to be set
+        if (!$fabricant->hasDatingStart()) {
+            $fabricant->setDatingStart($fabricant->getDatingEnd());
+        }
+        if (!$fabricant->hasDatingEnd()) {
+            $fabricant->setDatingEnd($fabricant->getDatingStart());
+        }
+
+        // datingEnd can't be larger than datingStart, it's BC
+        if ($fabricant->getDatingEnd() > $fabricant->getDatingStart()) {
+            $fabricant->setDatingEnd($fabricant->getDatingStart());
+            $this->getRequest()->getSession()->getFlashBag()->add("warning", "Datation fin ne peut pas être supérieur à datation début.");
+        }
+    }
 }

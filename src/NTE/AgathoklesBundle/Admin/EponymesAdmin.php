@@ -24,7 +24,9 @@ class EponymesAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nom')
-            ->add('date')
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -44,7 +46,9 @@ class EponymesAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
-            ->add('date')
+            ->add('datingStart', null, array('label' => 'Datation début'))
+            ->add('datingEnd', null, array('label' => 'Datation fin'))
+            ->add('approximative', null, array('label' => 'Circa'))
         ;
     }
 
@@ -59,7 +63,9 @@ class EponymesAdmin extends Admin
         $formMapper
             ->with('Eponyme')
                 ->add('nom')
-                ->add('date')
+                ->add('datingStart', null, array('label' => 'Datation début'))
+                ->add('datingEnd', null, array('label' => 'Datation fin'))
+                ->add('approximative', null, array('label' => 'Circa', 'required' => false))
             ->end()
         ;
     }
@@ -76,5 +82,24 @@ class EponymesAdmin extends Admin
         '_sort_by' => 'nom'         // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
+
+    // PRE OPERATIONS
+
+    public function preUpdate($eponyme)
+    {
+        // Don't allow only one dating to be set
+        if (!$eponyme->hasDatingStart()) {
+            $eponyme->setDatingStart($eponyme->getDatingEnd());
+        }
+        if (!$eponyme->hasDatingEnd()) {
+            $eponyme->setDatingEnd($eponyme->getDatingStart());
+        }
+
+        // datingEnd can't be larger than datingStart, it's BC
+        if ($eponyme->getDatingEnd() > $eponyme->getDatingStart()) {
+            $eponyme->setDatingEnd($eponyme->getDatingStart());
+            $this->getRequest()->getSession()->getFlashBag()->add("warning", "Datation fin ne peut pas être supérieur à datation début.");
+        }
+    }
 
 }

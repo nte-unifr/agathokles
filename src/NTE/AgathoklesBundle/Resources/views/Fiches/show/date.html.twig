@@ -1,9 +1,14 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/date.html.twig #}
 
-<legend>Date</legend>
-
-{% if fiche.date %}
-    <p>{{ fiche.date }}</p>
-{% else %}
-    <p>Aucune datation</p>
-{% endif %}
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Datation</h3>
+    </div>
+    <div class="panel-body">
+        {% if (fiche.getDatingStart() and fiche.getDatingEnd()) %}
+            <p><strong>{% if fiche.isCirca() %}ca{% endif %} {{ fiche.getDatingStart() }} - {{ fiche.getDatingEnd() }}</strong></p>
+        {% else %}
+            <p>Aucune datation</p>
+        {% endif %}
+    </div>
+</div>

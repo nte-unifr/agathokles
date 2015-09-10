@@ -1,132 +1,135 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/type.html.twig #}
 
-<legend>Type</legend>
+<div class="panel panel-default masonry-grid-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">Type</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            {% if fiche.forme %}
+                <tr>
+                    <td><strong>Forme</strong></td>
+                    <td>{{ fiche.forme.nom }}</td>
+                </tr>
+            {% endif %}
+            {% if fiche.fabricant %}
+                <tr>
+                    <td><strong>Fabricant</strong></td>
+                    <td id="fabricant">
+                        {{ fiche.fabricant.nom }}
+                        {% if fiche.fabIdInc %}(?){% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if fiche.eponyme %}
+                <tr>
+                    <td><strong>Éponyme</strong></td>
+                    <td>
+                        {{ fiche.eponyme.nom }}
+                        {% if fiche.epoIdInc %}(?){% endif %}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.forme %}
-    <dl class="dl-horizontal">
-        <dt>Forme</dt>
-        <dd>
-            {{ fiche.forme.nom }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.mois %}
+                <tr>
+                    <td><strong>Mois</strong></td>
+                    <td>
+                        {{ fiche.mois.nom }}
+                        {% if fiche.moisIdInc %}(?){% endif %}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.fabricant %}
-    <dl class="dl-horizontal">
-        <dt>Fabricant</dt>
-        <dd id="fabricant">
-            {{ fiche.fabricant.nom }}
-            {% if fiche.fabIdInc %}(?){% endif %}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.embleme %}
+                <tr>
+                    <td><strong>Emblème</strong></td>
+                    <td>
+                        {{ fiche.embleme.nom }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.eponyme %}
-    <dl class="dl-horizontal">
-        <dt>Éponyme</dt>
-        <dd>
-            {{ fiche.eponyme.nom }}
-            {% if fiche.epoIdInc %}(?){% endif %}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.epi %}
+                <tr>
+                    <td><strong>&#7952;&#960;&#943; omis</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.mois %}
-    <dl class="dl-horizontal">
-        <dt>Mois</dt>
-        <dd>
-            {{ fiche.mois.nom }}
-            {% if fiche.moisIdInc %}(?){% endif %}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.para %}
+                <tr>
+                    <td><strong>&#960;&#945;&#961;&#8048;</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.embleme %}
-    <dl class="dl-horizontal">
-        <dt>Emblème</dt>
-        <dd>
-            {{ fiche.embleme.nom }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.iereus %}
+                <tr>
+                    <td><strong>titre (&#7984;&#949;&#961;&#949;&#973;&#962;/ΕΙ)</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.epi %}
-    <dl class="dl-horizontal">
-        <dt>&#7952;&#960;&#943; omis</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.metoikos %}
+                <tr>
+                    <td><strong>&#956;&#941;&#964;&#959;&#953;&#954;&#959;&#962;</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.para %}
-    <dl class="dl-horizontal">
-        <dt>&#960;&#945;&#961;&#8048;</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.meis %}
+                <tr>
+                    <td><strong>&#956;&#949;&#943;&#962;</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.iereus %}
-    <dl class="dl-horizontal">
-        <dt>titre (&#7984;&#949;&#961;&#949;&#973;&#962;/ΕΙ)</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.ete %}
+                <tr>
+                    <td><strong>&#7952;&#964;&#8134;</strong></td>
+                    <td>
+                        {{ fiche.ete }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.metoikos %}
-    <dl class="dl-horizontal">
-        <dt>&#956;&#941;&#964;&#959;&#953;&#954;&#959;&#962;</dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.ethniqueDemotique %}
+                <tr>
+                    <td><strong>Ethnique démotique</strong></td>
+                    <td>
+                        {{ fiche.ethniqueDemotique.nom }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.meis %}
-    <dl class="dl-horizontal">
-        <dt>&#956;&#949;&#943;&#962; </dt>
-        <dd>
-            <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.separation %}
+                <tr>
+                    <td><strong>Séparation</strong></td>
+                    <td>
+                        {{ fiche.separation }}
+                    </td>
+                </tr>
+            {% endif %}
 
-{% if fiche.ete %}
-    <dl class="dl-horizontal">
-        <dt>&#7952;&#964;&#8134;</dt>
-        <dd>
-            {{ fiche.ete }}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if fiche.ethniqueDemotique %}
-    <dl class="dl-horizontal">
-        <dt>Ethnique<br>démotique</dt>
-        <dd>
-            {{ fiche.ethniqueDemotique.nom }}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if fiche.separation %}
-    <dl class="dl-horizontal">
-        <dt>Séparation</dt>
-        <dd>
-            {{ fiche.separation }}
-        </dd>
-    </dl>
-{% endif %}
-
-{% if fiche.position %}
-    <dl class="dl-horizontal">
-        <dt>Position</dt>
-        <dd>
-            {{ fiche.position }}
-        </dd>
-    </dl>
-{% endif %}
+            {% if fiche.position %}
+                <tr>
+                    <td><strong>Position</strong></td>
+                    <td>
+                        {{ fiche.position }}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
