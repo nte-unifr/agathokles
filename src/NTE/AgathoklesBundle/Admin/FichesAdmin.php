@@ -176,7 +176,7 @@ class FichesAdmin extends Admin
     protected $datagridValues = array(
         '_page' => 1,               // display the first page (default = 1)
         '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
-        '_sort_by' => 'designation' // name of the ordered field
+        '_sort_by' => 'fullname' // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
 
@@ -229,17 +229,25 @@ class FichesAdmin extends Admin
     {
         $spacer = "";
         $epo = "";
+        $epoIdInc = "";
         $fab = "";
+        $fabIdInc = "";
         if ($fiche->getEponyme() != null) {
             $epo = $fiche->getEponyme()->getNom();
+        }
+        if ($fiche->getEpoIdInc() != null) {
+            $epoIdInc = " (?)";
         }
         if ($fiche->getFabricant() != null) {
             $fab = $fiche->getFabricant()->getNom();
         }
+        if ($fiche->getFabIdInc() != null) {
+            $fabIdInc = " (?)";
+        }
         if ($epo != "" && $fab != "") {
             $spacer = " / ";
         }
-        $fullname = $epo . $spacer . $fab . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
+        $fullname = $epo.$epoIdInc . $spacer . $fab.$fabIdInc . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
         return $fullname;
     }
 
