@@ -5,7 +5,7 @@
       <a href="{{ path('timbres') }}">Tous les timbres</a>
   </li>
   <li role="presentation" {% if app.session.get('timbres_subset') == "epo" %}class="active"{% endif %}>
-      <a href="{{ path('timbres_eponymes') }}">Eponymes</a>
+      <a href="{{ path('timbres_eponymes') }}">Éponymes</a>
   </li>
   <li role="presentation" {% if app.session.get('timbres_subset') == "fab" %}class="active"{% endif %}>
       <a href="{{ path('timbres_fabricants') }}">Fabricants</a>
