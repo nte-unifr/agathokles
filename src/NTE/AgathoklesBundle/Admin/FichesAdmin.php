@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
 class FichesAdmin extends Admin
@@ -63,31 +64,36 @@ class FichesAdmin extends Admin
     {
         $formMapper
             ->tab('Catégorie')
-                ->with('Catégorie', array('class' => 'col-md-12'))
+                ->with(' ', array('class' => 'col-md-12'))
                     ->add('categorie', null, array('required' => true, 'attr' => array('class' => 'categID fiche-categorie')))
                 ->end()
             ->end()
             ->tab('Type')
-                ->with('Type', array('class' => 'col-md-6'))
+                ->with(' ', array('class' => 'col-md-6'))
                     ->add('forme', 'sonata_type_model', array('required' => true, 'attr' => array('class' => 'formeID')))
-                    ->add('fabricant', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'fabricantID')))
-                    ->add('eponyme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'eponymeID')))
+                    ->add('fabricant', 'sonata_type_model', array(
+                        'required' => false,
+                        'empty_value' => 'Aucun',
+                        'attr' => array('class' => 'fabricantID')
+                    ))
+                    ->add('eponyme', 'sonata_type_model', array('label' => 'Éponyme', 'required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'eponymeID')))
                     ->add('mois', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'moisID')))
                     ->add('fabIdInc', null, array('label' => 'Fabricant (?)', 'attr' => array('class' => 'col-md-3 fabIdIncID')))
-                    ->add('epoIdInc', null, array('label' => 'Eponyme (?)', 'attr' => array('class' => 'col-md-3 epoIdIncID')))
+                    ->add('epoIdInc', null, array('label' => 'Éponyme (?)', 'attr' => array('class' => 'col-md-3 epoIdIncID')))
                     ->add('moisIdInc', null, array('label' => 'Mois (?)', 'attr' => array('class' => 'col-md-4 moisIdIncID')))
-                    ->add('autreLegende', null, array('attr' => array('class' => 'autreLegendeID')))
+                    ->add('autreLegende', null, array('label' => 'Autre légende','attr' => array('class' => 'autreLegendeID')))
                     ->add('embleme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'label' => 'Emblème', 'attr' => array('class' => 'emblemeID')))
                     ->add('designation', null, array('label' => 'Désignation', 'attr' => array('class' => 'designationID')))
                 ->end()
                 ->with('', array('class' => 'col-md-6'))
-                    ->add('legende', null, array('attr' => array('class' => 'legendeID', 'rows' => 7)))
+                    ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'legendeID', 'rows' => 7)))
                     ->add('images', 'sonata_type_collection', array('label' => 'Illustrations', 'attr' => array('class' => 'imagesID'), 'by_reference' => false, 'required' => false), array('edit' => 'inline', 'inline' => 'table',))
-                    ->add('epi', null, array('label' => 'ἐπί omis', 'attr' => array('class' => 'col-md-3 epiID')))
-                    ->add('para', null, array('label' => 'παρὰ', 'attr' => array('class' => 'col-md-3 paraID')))
-                    ->add('iereus', null, array('label' => 'titre (ἰερεύς/ΕΙ)', 'attr' => array('class' => 'col-md-6 iereusID')))
-                    ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-3 metoikosID')))
-                    ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-9 meisID')))
+                    ->add('epi', null, array('label' => 'ἐπί omis', 'attr' => array('class' => 'col-md-4 epiID')))
+                    ->add('para', null, array('label' => 'παρά', 'attr' => array('class' => 'col-md-4 paraID')))
+                    ->add('iereus', null, array('label' => 'titre (ἰερεύς/ΕΙ)', 'attr' => array('class' => 'col-md-4 iereusID')))
+                    ->add('ergastiriarchas', null, array('label' => 'ἐργαστηριάρχας', 'attr' => array('class' => 'col-md-4 ergastiriarchasID')))
+                    ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-4 metoikosID')))
+                    ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-4 meisID')))
                     ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'eteID')))
                     ->add('ethniqueDemotique', 'sonata_type_model', array('label' => 'Ethnique / démotique', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'ethniqueDemotiqueID')))
                     ->add('position', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'positionID')))
@@ -97,13 +103,13 @@ class FichesAdmin extends Admin
                 ))
             ->end()
             ->tab('Matrice')
-                ->with('Matrice', array('class' => 'col-md-6'))
-                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro (My)'))
+                ->with(' ', array('class' => 'col-md-6'))
+                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro'))
                     ->add('cadre', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'cadreID')))
                     ->add('bouton', null, array('attr' => array('class' => 'col-md-3 boutonID')))
-                    ->add('grenetis', null, array('attr' => array('class' => 'col-md-3 grenetisID')))
+                    ->add('grenetis', null, array('label' => 'Grènetis', 'attr' => array('class' => 'col-md-3 grenetisID')))
                     ->add('ombilic', null, array('attr' => array('class' => 'col-md-6 ombilicID')))
-                    ->add('separation', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'separationID')))
+                    ->add('separation', 'sonata_type_model', array('label' => 'Séparation', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'separationID')))
                 ->end()
                 ->with('', array('class' => 'col-md-6'))
                     ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'legendeTournanteID')))
@@ -114,7 +120,7 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Timbres')
-                ->with('Timbres', array('class' => 'col-md-12'))
+                ->with(' ', array('class' => 'col-md-12'))
                 ->add('timbres', 'sonata_type_collection',
                      array(
                          'required' => false,
@@ -129,7 +135,7 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Associations')
-                ->with('Associations', array('class' => 'col-md-12'))
+                ->with(' ', array('class' => 'col-md-12'))
                     ->add('matricePrincipale', 'sonata_type_collection', array('attr' => array('class' => 'matricePrincipaleID'),
                                                                                'by_reference' => false, 'required' => false),
                                                                                array(
@@ -154,7 +160,7 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Publication')
-                ->with('Publication', array('class' => 'col-md-12'))
+                ->with(' ', array('class' => 'col-md-12'))
                     ->add('public')
                 ->end()
             ->end()

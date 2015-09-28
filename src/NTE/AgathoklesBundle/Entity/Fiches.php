@@ -211,6 +211,13 @@ class Fiches
     private $iereus = false;
 
     /**
+     * @var boolean $ergastiriarchas
+     *
+     * @ORM\Column(name="ergastiriarchas", type="boolean", nullable = true)
+     */
+    private $ergastiriarchas = false;
+
+    /**
      * @var boolean $metoikos
      *
      * @ORM\Column(name="metoikos", type="boolean", nullable=true)
@@ -1723,5 +1730,28 @@ class Fiches
         else if ($fabricant == null && $eponyme != null) {
             return $eponyme->getApproximative();
         }
+    }
+
+    /**
+     * Set ergastiriarchas
+     *
+     * @param boolean $ergastiriarchas
+     * @return Fiches
+     */
+    public function setErgastiriarchas($ergastiriarchas)
+    {
+        $this->ergastiriarchas = $ergastiriarchas;
+
+        return $this;
+    }
+
+    /**
+     * Get ergastiriarchas
+     *
+     * @return boolean 
+     */
+    public function getErgastiriarchas()
+    {
+        return $this->ergastiriarchas;
     }
 }
