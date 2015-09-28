@@ -4,7 +4,7 @@ namespace NTE\AgathoklesBundle\Form\Filter;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -16,6 +16,9 @@ class TimbresFilterType extends AbstractType
     {
         $builder->add('lieu', 'filter_entity', array(
             "class"         => "NTEAgathoklesBundle:Lieu",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
             "empty_value"   => "Tous"
         ));
     }

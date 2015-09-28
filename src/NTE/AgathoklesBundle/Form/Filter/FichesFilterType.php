@@ -4,6 +4,7 @@ namespace NTE\AgathoklesBundle\Form\Filter;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityRepository;
 
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
 
@@ -15,13 +16,50 @@ class FichesFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fabricant', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Fabricant", "empty_value" => "Tous" ]);
-        $builder->add('eponyme', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Eponyme", "empty_value" => "Tous" ]);
-        $builder->add('forme', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Forme", "empty_value" => "Tous" ]);
-        $builder->add('mois', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Mois", "empty_value" => "Tous" ]);
-        $builder->add('embleme', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Embleme", "empty_value" => "Tous" ]);
-        $builder->add('categorie', 'filter_entity', [ "class" => "NTEAgathoklesBundle:Categorie", "empty_value" => "Tous" ]);
-
+        $builder->add("fabricant", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Fabricant",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous"
+        ));
+        $builder->add("eponyme", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Eponyme",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous",
+            "label" => "Éponyme"
+        ));
+        $builder->add("forme", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Forme",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous"
+        ));
+        $builder->add("mois", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Mois",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous"
+        ));
+        $builder->add("embleme", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Embleme",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous",
+            "label" => "Emblème"
+        ));
+        $builder->add("categorie", "filter_entity", array(
+            "class" => "NTEAgathoklesBundle:Categorie",
+            "query_builder" => function(EntityRepository $repository) {
+                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+            },
+            "empty_value" => "Tous"
+        ));
         $builder->add('timbres', 'filter_collection_adapter', array(
             'type'          => new TimbresFilterType(),
             'add_shared'    => function (FilterBuilderExecuterInterface $qbe) {
