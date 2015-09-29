@@ -15,9 +15,9 @@
                     {% endif %}
                 </p>
                 <p>
-                    <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PPT</a>
+                    <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><i class="fa fa-download"></i> PPT</a>
                     &nbsp;
-                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Original</a>
+                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><i class="fa fa-download"></i> Original</a>
                 </p>
             {% endif %}
             {% if fiche.images|length > 1 %}

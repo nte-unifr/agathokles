@@ -1,10 +1,8 @@
 var PUBLIC_KEY = "pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw";
 var MAP_ID = "nte.24c9e767";
-var ATTRIBUTION = '<a href="https://www.mapbox.com/about/maps/">&copy; Mapbox &copy; OpenStreetMap</a>'+
-    ' | <a href="https://www.mapbox.com/map-feedback/">Improve this map</a> | &copy; Implementation :'+
-    ' N. Badoud &amp; <a href="http://www.unifr.ch/nte/">Centre NTE</a> - Université de Fribourg - Suisse';
 var POPUP_OFFSET = new L.Point(0, -15);
 var HEADERHEIGHT = 235;
+var FOOTERHEIGHT = 80;
 
 var map;
 var markerGroup;
@@ -39,7 +37,6 @@ function initMinMax() {
 function initMap() {
     map = L.map('map', {maxZoom: 12}).setView([35.69, 18.52], 4);
     L.tileLayer('http://{s}.tiles.mapbox.com/v4/'+MAP_ID+'/{z}/{x}/{y}.png?access_token='+PUBLIC_KEY, {
-        attribution: ATTRIBUTION,
         minZoom: 3,
         maxZoom: 18
     }).addTo(map);
@@ -163,6 +160,7 @@ function resizeContainer() {
     var container = $("#map");
 
     var windowHeight = $(window).height();
-    var mapHeight = windowHeight-HEADERHEIGHT;
+    var mapHeight = windowHeight-HEADERHEIGHT-FOOTERHEIGHT;
     container.height(mapHeight);
+    $(".application-footer").css("margin-top", 0);
 }

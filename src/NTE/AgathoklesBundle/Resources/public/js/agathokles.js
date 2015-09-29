@@ -106,9 +106,9 @@ function displayList() {
                     <img src=\""+image+"\" id=\"image_principale"+i+"\" data-zoom-image=\""+image_originale+"\" with=\"100%\" class=\"img-thumbnail\" />\
                     <p>\
                         <br>\
-                        <a href=\""+image+"\" onclick=\"popwindow('"+image+"', 'image_principale');return false;\" class=\"btn btn-xs btn-primary\" id=\"img_ppt"+i+"\"><span class=\"glyphicon glyphicon-download-alt\" aria-hidden=\"true\"></span> PPT</a>\
+                        <a href=\""+image+"\" onclick=\"popwindow('"+image+"', 'image_principale');return false;\" class=\"btn btn-xs btn-primary\" id=\"img_ppt"+i+"\"><i class=\"fa fa-download\"></i> PPT</a>\
                         &nbsp;\
-                        <a href=\""+image_originale+"\" onclick=\"popwindow('"+image_originale+"', 'image_principale');return false;\" class=\"btn btn-xs btn-primary\" id=\"img_original"+i+"\"><span class=\"glyphicon glyphicon-download-alt\" aria-hidden=\"true\"></span> Original</a>\
+                        <a href=\""+image_originale+"\" onclick=\"popwindow('"+image_originale+"', 'image_principale');return false;\" class=\"btn btn-xs btn-primary\" id=\"img_original"+i+"\"><i class=\"fa fa-download\"></i> Original</a>\
                     </p>\
                 </div>\
                 <div class=\"col-md-5\">\

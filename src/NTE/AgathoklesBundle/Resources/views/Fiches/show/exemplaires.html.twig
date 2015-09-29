@@ -16,7 +16,7 @@
                         {% endif %}
                         {% if timbre.lieu %}
                             <a href="{{ path('home', {'lat': timbre.lieu.lat, 'lng': timbre.lieu.lng}) }}">
-                                {{ timbre.lieu }} <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                {{ timbre.lieu }} <i class="fa fa-map-marker"></i>
                             </a>.&nbsp;
                         {% endif %}
                         {{ timbre.remarques | striptags | raw }}
