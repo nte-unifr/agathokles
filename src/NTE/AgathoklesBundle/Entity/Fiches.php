@@ -176,11 +176,39 @@ class Fiches
     private $legendeTournante = false;
 
     /**
-     * @var string $legendeRetrograde
+     * @var boolean $legendeRetrograde
      *
-     * @ORM\Column(name="legendeRetrograde", type="string", nullable=true)
+     * @ORM\Column(name="legendeRetrograde", type="boolean", nullable=true)
      */
-    private $legendeRetrograde;
+    private $legendeRetrograde = false;
+
+    /**
+     * @var boolean $legendeCentrifuge
+     *
+     * @ORM\Column(name="legendeCentrifuge", type="boolean", nullable=true)
+     */
+    private $legendeCentrifuge = false;
+
+    /**
+     * @var boolean $legendeCentripete
+     *
+     * @ORM\Column(name="legendeCentripete", type="boolean", nullable=true)
+     */
+    private $legendeCentripete = false;
+
+    /**
+     * @var boolean $legendeBoustrophedon
+     *
+     * @ORM\Column(name="legendeBoustrophedon", type="boolean", nullable=true)
+     */
+    private $legendeBoustrophedon = false;
+
+    /**
+     * @var boolean $legendeMontante
+     *
+     * @ORM\Column(name="legendeMontante", type="boolean", nullable=true)
+     */
+    private $legendeMontante = false;
 
     /**
      * @var string $lettreLunaire
@@ -188,6 +216,13 @@ class Fiches
      * @ORM\Column(name="lettreLunaire", type="string", nullable=true)
      */
     private $lettreLunaire;
+
+    /**
+     * @var string $lettreRetrograde
+     *
+     * @ORM\Column(name="lettreRetrograde", type="string", nullable=true)
+     */
+    private $lettreRetrograde;
 
     /**
      * @var boolean $epi
@@ -254,13 +289,6 @@ class Fiches
      * @ORM\Column(name="particulariteOrthographique", type="string", nullable=true)
      */
     private $particulariteOrthographique;
-
-    /**
-     * @var boolean $retrogravure
-     *
-     * @ORM\Column(name="retrogravure", type="boolean", nullable=true)
-     */
-    private $retrogravure = false;
 
     /**
      * @ORM\OneToMany(targetEntity="FichesPrincipales", mappedBy="fiche", cascade={"persist"}, orphanRemoval=true)
@@ -829,29 +857,6 @@ class Fiches
     public function getParticulariteOrthographique()
     {
         return $this->particulariteOrthographique;
-    }
-
-    /**
-     * Set retrogravure
-     *
-     * @param boolean $retrogravure
-     * @return Fiches
-     */
-    public function setRetrogravure($retrogravure)
-    {
-        $this->retrogravure = $retrogravure;
-
-        return $this;
-    }
-
-    /**
-     * Get retrogravure
-     *
-     * @return boolean
-     */
-    public function getRetrogravure()
-    {
-        return $this->retrogravure;
     }
 
     /**
@@ -1741,5 +1746,120 @@ class Fiches
     public function getErgastiriarchas()
     {
         return $this->ergastiriarchas;
+    }
+
+    /**
+     * Set legendeCentrifuge
+     *
+     * @param boolean $legendeCentrifuge
+     * @return Fiches
+     */
+    public function setLegendeCentrifuge($legendeCentrifuge)
+    {
+        $this->legendeCentrifuge = $legendeCentrifuge;
+
+        return $this;
+    }
+
+    /**
+     * Get legendeCentrifuge
+     *
+     * @return boolean
+     */
+    public function getLegendeCentrifuge()
+    {
+        return $this->legendeCentrifuge;
+    }
+
+    /**
+     * Set legendeCentripete
+     *
+     * @param boolean $legendeCentripete
+     * @return Fiches
+     */
+    public function setLegendeCentripete($legendeCentripete)
+    {
+        $this->legendeCentripete = $legendeCentripete;
+
+        return $this;
+    }
+
+    /**
+     * Get legendeCentripete
+     *
+     * @return boolean
+     */
+    public function getLegendeCentripete()
+    {
+        return $this->legendeCentripete;
+    }
+
+    /**
+     * Set legendeBoustrophedon
+     *
+     * @param boolean $legendeBoustrophedon
+     * @return Fiches
+     */
+    public function setLegendeBoustrophedon($legendeBoustrophedon)
+    {
+        $this->legendeBoustrophedon = $legendeBoustrophedon;
+
+        return $this;
+    }
+
+    /**
+     * Get legendeBoustrophedon
+     *
+     * @return boolean
+     */
+    public function getLegendeBoustrophedon()
+    {
+        return $this->legendeBoustrophedon;
+    }
+
+    /**
+     * Set legendeMontante
+     *
+     * @param boolean $legendeMontante
+     * @return Fiches
+     */
+    public function setLegendeMontante($legendeMontante)
+    {
+        $this->legendeMontante = $legendeMontante;
+
+        return $this;
+    }
+
+    /**
+     * Get legendeMontante
+     *
+     * @return boolean
+     */
+    public function getLegendeMontante()
+    {
+        return $this->legendeMontante;
+    }
+
+    /**
+     * Set lettreRetrograde
+     *
+     * @param string $lettreRetrograde
+     * @return Fiches
+     */
+    public function setLettreRetrograde($lettreRetrograde)
+    {
+        $this->lettreRetrograde = $lettreRetrograde;
+
+        return $this;
+    }
+
+    /**
+     * Get lettreRetrograde
+     *
+     * @return string
+     */
+    public function getLettreRetrograde()
+    {
+        return $this->lettreRetrograde;
     }
 }

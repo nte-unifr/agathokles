@@ -64,103 +64,119 @@ class FichesAdmin extends Admin
     {
         $formMapper
             ->tab('Catégorie')
-                ->with(' ', array('class' => 'col-md-12'))
-                    ->add('categorie', null, array('required' => true, 'attr' => array('class' => 'categID fiche-categorie')))
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('categorie', null, array('required' => true, 'attr' => array('class' => 'col-md-10 categID fiche-categorie')))
                 ->end()
             ->end()
             ->tab('Type')
-                ->with(' ', array('class' => 'col-md-6'))
-                    ->add('forme', 'sonata_type_model', array('required' => true, 'attr' => array('class' => 'formeID')))
-                    ->add('fabricant', 'sonata_type_model', array(
-                        'required' => false,
-                        'empty_value' => 'Aucun',
-                        'attr' => array('class' => 'fabricantID')
-                    ))
-                    ->add('eponyme', 'sonata_type_model', array('label' => 'Éponyme', 'required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'eponymeID')))
-                    ->add('mois', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'moisID')))
-                    ->add('fabIdInc', null, array('label' => 'Fabricant (?)', 'attr' => array('class' => 'col-md-3 fabIdIncID')))
-                    ->add('epoIdInc', null, array('label' => 'Éponyme (?)', 'attr' => array('class' => 'col-md-3 epoIdIncID')))
-                    ->add('moisIdInc', null, array('label' => 'Mois (?)', 'attr' => array('class' => 'col-md-4 moisIdIncID')))
-                    ->add('autreLegende', null, array('label' => 'Autre légende','attr' => array('class' => 'autreLegendeID')))
-                    ->add('embleme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'label' => 'Emblème', 'attr' => array('class' => 'emblemeID')))
-                    ->add('designation', null, array('label' => 'Désignation', 'attr' => array('class' => 'designationID')))
-                ->end()
-                ->with('', array('class' => 'col-md-6'))
-                    ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'legendeID', 'rows' => 7)))
-                    ->add('images', 'sonata_type_collection', array('label' => 'Illustrations', 'attr' => array('class' => 'imagesID'), 'by_reference' => false, 'required' => false), array('edit' => 'inline', 'inline' => 'table',))
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('forme', 'sonata_type_model', array('required' => true, 'attr' => array('class' => 'col-md-10 formeID')))
+                    ->add('fabricant', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'col-md-10 fabricantID')))
+                    ->add('fabIdInc', null, array('label' => 'Fabricant (?)', 'attr' => array('class' => 'col-md-2 fabIdIncID')))
+                    ->add('eponyme', 'sonata_type_model', array('label' => 'Éponyme', 'required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'col-md-10 eponymeID')))
+                    ->add('epoIdInc', null, array('label' => 'Éponyme (?)', 'attr' => array('class' => 'col-md-2 epoIdIncID')))
+                    ->add('mois', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'attr' => array('class' => 'col-md-10 moisID')))
+                    ->add('moisIdInc', null, array('label' => 'Mois (?)', 'attr' => array('class' => 'col-md-2 moisIdIncID')))
+                    ->add('autreLegende', null, array('label' => 'Autre légende','attr' => array('class' => 'col-md-10 autreLegendeID')))
+                    ->add('embleme', 'sonata_type_model', array('required' => false, 'empty_value' => 'Aucun', 'label' => 'Emblème', 'attr' => array('class' => 'col-md-10 emblemeID')))
+                    ->add('designation', null, array('label' => 'Désignation', 'attr' => array('class' => 'col-md-10 designationID')))
+                    ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'col-md-10 legendeID', 'rows' => 7)))
+                    ->add('legendeCentrifuge', null, array('label' => 'Légende centrifuge', 'attr' => array('class' => 'col-md-4 legendeCentrifugeID')))
+                    ->add('legendeCentripete', null, array('label' => 'Légende centripète', 'attr' => array('class' => 'col-md-4 legendeCentripeteID')))
+                    ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'col-md-4 legendeRetrogradeID')))
+                    ->add('legendeBoustrophedon', null, array('label' => 'Légende boustrophédon', 'attr' => array('class' => 'col-md-4 legendeBoustrophedonID')))
+                    ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'col-md-4 legendeTournanteID')))
+                    ->add('legendeMontante', null, array('label' => 'Légende montante', 'attr' => array('class' => 'col-md-4 legendeMontanteID')))
+                    ->add('lettreRetrograde', null, array('label' => 'Lettre(s) rétrograde(s)', 'attr' => array('class' => 'col-md-5 lettreRetrogradeID')))
+                    ->add('lettreLunaire', null, array('label' => 'Lettre(s) lunaire(s)', 'attr' => array('class' => 'col-md-5 lettreLunaireID')))
+                    ->add('particulariteOrthographique', null, array('label' => 'Particularité(s) orthographique(s)', 'attr' => array('class' => 'col-md-10 particulariteOrthographiqueID')))
                     ->add('epi', null, array('label' => 'ἐπί omis', 'attr' => array('class' => 'col-md-4 epiID')))
                     ->add('para', null, array('label' => 'παρά', 'attr' => array('class' => 'col-md-4 paraID')))
                     ->add('iereus', null, array('label' => 'titre (ἰερεύς/ΕΙ)', 'attr' => array('class' => 'col-md-4 iereusID')))
                     ->add('ergastiriarchas', null, array('label' => 'ἐργαστηριάρχας', 'attr' => array('class' => 'col-md-4 ergastiriarchasID')))
                     ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-4 metoikosID')))
                     ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-4 meisID')))
-                    ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'eteID')))
-                    ->add('ethniqueDemotique', 'sonata_type_model', array('label' => 'Ethnique / démotique', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'ethniqueDemotiqueID')))
-                    ->add('position', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'positionID')))
+                    ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'col-md-10 eteID')))
+                    ->add('ethniqueDemotique', 'sonata_type_model', array('label' => 'Ethnique / démotique', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 ethniqueDemotiqueID')))
+                    ->add('position', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 positionID')))
                 ->end()
-                ->setHelps(array(
-                    'categorie' => 'Le choix de la catégorie va afficher ou masquer des champs.',
-                ))
             ->end()
             ->tab('Matrice')
-                ->with(' ', array('class' => 'col-md-6'))
-                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro'))
-                    ->add('cadre', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'cadreID')))
-                    ->add('bouton', null, array('attr' => array('class' => 'col-md-3 boutonID')))
-                    ->add('grenetis', null, array('label' => 'Grènetis', 'attr' => array('class' => 'col-md-3 grenetisID')))
-                    ->add('ombilic', null, array('attr' => array('class' => 'col-md-6 ombilicID')))
-                    ->add('separation', 'sonata_type_model', array('label' => 'Séparation', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'separationID')))
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro', 'attr' => array('class' => 'col-md-10 matriceNumeroID')))
+                    ->add('cadre', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 cadreID')))
+                    ->add('bouton', null, array('attr' => array('class' => 'col-md-4 boutonID')))
+                    ->add('grenetis', null, array('label' => 'Grènetis', 'attr' => array('class' => 'col-md-4 grenetisID')))
+                    ->add('ombilic', null, array('attr' => array('class' => 'col-md-4 ombilicID')))
+                    ->add('separation', 'sonata_type_model', array('label' => 'Séparation', 'empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 separationID')))
                 ->end()
-                ->with('', array('class' => 'col-md-6'))
-                    ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'legendeTournanteID')))
-                    ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'legendeRetrogradeID')))
-                    ->add('lettreLunaire', null, array('label' => 'Lettre lunaire', 'attr' => array('class' => 'lettreLunaireID')))
-                    ->add('particulariteOrthographique', null, array('label' => 'Particularités orthographiques', 'attr' => array('class' => 'particulariteOrthographiqueID')))
-                    ->add('retrogravure', null, array('label' => 'Rétrogravure', 'attr' => array('class' => 'retrogravureID')))
+            ->end()
+            ->tab('Illustrations')
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('images', 'sonata_type_collection',
+                        array(
+                            'label' => 'Illustrations',
+                            'attr' => array('class' => 'imagesID'),
+                            'by_reference' => false,
+                            'required' => false
+                        ),
+                        array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                        )
+                    )
                 ->end()
             ->end()
             ->tab('Timbres')
-                ->with(' ', array('class' => 'col-md-12'))
-                ->add('timbres', 'sonata_type_collection',
-                     array(
-                         'required' => false,
-                         'by_reference' => false
-                     ),
-                     array(
-                         'edit' => 'inline',
-                         'inline' => 'table',
-                         'allow_delete' => true
-                     )
-                )
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('timbres', 'sonata_type_collection',
+                         array(
+                             'required' => false,
+                             'by_reference' => false
+                         ),
+                         array(
+                             'edit' => 'inline',
+                             'inline' => 'table',
+                             'allow_delete' => true
+                         )
+                    )
                 ->end()
             ->end()
             ->tab('Associations')
-                ->with(' ', array('class' => 'col-md-12'))
-                    ->add('matricePrincipale', 'sonata_type_collection', array('attr' => array('class' => 'matricePrincipaleID'),
-                                                                               'by_reference' => false, 'required' => false),
-                                                                               array(
-                                                                                   'edit' => 'inline',
-                                                                                   'inline' => 'table',
-                                                                               )
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('matricePrincipale', 'sonata_type_collection',
+                        array(
+                            'attr' => array('class' => 'matricePrincipaleID'),
+                            'by_reference' => false, 'required' => false
+                        ),
+                        array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                        )
                     )
-                    ->add('matriceSecondaire', 'sonata_type_collection', array('attr' => array('class' => 'matriceSecondaireID'),
-                                                                               'by_reference' => false, 'required' => false),
-                                                                               array(
-                                                                                   'edit' => 'inline',
-                                                                                   'inline' => 'table',
-                                                                               )
+                    ->add('matriceSecondaire', 'sonata_type_collection',
+                        array(
+                            'attr' => array('class' => 'matriceSecondaireID'),
+                            'by_reference' => false, 'required' => false
+                        ),
+                        array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                        )
                     )
-                    ->add('matriceComplementaire', 'sonata_type_collection', array('attr' => array('class' => 'matriceComplementaireID'),
-                                                                               'by_reference' => false, 'required' => false),
-                                                                               array(
-                                                                                   'edit' => 'inline',
-                                                                                   'inline' => 'table',
-                                                                               )
+                    ->add('matriceComplementaire', 'sonata_type_collection',
+                        array(
+                            'attr' => array('class' => 'matriceComplementaireID'),
+                            'by_reference' => false, 'required' => false),
+                        array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                        )
                     )
                 ->end()
             ->end()
             ->tab('Publication')
-                ->with(' ', array('class' => 'col-md-12'))
+                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
                     ->add('public')
                 ->end()
             ->end()

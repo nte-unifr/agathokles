@@ -31,12 +31,17 @@ function changeCateg( categ ) {
         $(".ombilicID").parents(".form-group").show();
         $(".separationID").parents(".form-group").show();
 
-        $(".legendeTournanteID").parents(".form-group").show();
+        $(".legendeCentrifugeID").parents(".form-group").show();
+        $(".legendeCentripeteID").parents(".form-group").show();
         $(".legendeRetrogradeID").parents(".form-group").show();
+        $(".legendeBoustrophedonID").parents(".form-group").show();
+        $(".legendeTournanteID").parents(".form-group").show();
+        $(".legendeMontanteID").parents(".form-group").show();
+
+        $(".lettreRetrogradeID").parents(".form-group").show();
         $(".lettreLunaireID").parents(".form-group").show();
 
         $(".particulariteOrthographiqueID").parents(".form-group").show();
-        $(".retrogravureID").parents(".form-group").show();
 
         $(".epiID").parents(".form-group").show();
         $(".paraID").parents(".form-group").show();
@@ -65,12 +70,17 @@ function changeCateg( categ ) {
         $(".ombilicID").parents(".form-group").hide();
         $(".separationID").parents(".form-group").hide();
 
-        $(".legendeTournanteID").parents(".form-group").hide();
+        $(".legendeCentrifugeID").parents(".form-group").hide();
+        $(".legendeCentripeteID").parents(".form-group").hide();
         $(".legendeRetrogradeID").parents(".form-group").hide();
+        $(".legendeBoustrophedonID").parents(".form-group").hide();
+        $(".legendeTournanteID").parents(".form-group").hide();
+        $(".legendeMontanteID").parents(".form-group").hide();
+
+        $(".lettreRetrogradeID").parents(".form-group").hide();
         $(".lettreLunaireID").parents(".form-group").hide();
 
         $(".particulariteOrthographiqueID").parents(".form-group").hide();
-        $(".retrogravureID").parents(".form-group").hide();
 
         $(".epiID").parents(".form-group").hide();
         $(".paraID").parents(".form-group").hide();
