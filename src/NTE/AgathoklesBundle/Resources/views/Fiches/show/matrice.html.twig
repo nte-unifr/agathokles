@@ -42,50 +42,6 @@
                 </tr>
             {% endif %}
 
-            {% if fiche.legendeTournante %}
-                <tr>
-                    <td><strong>Légende tournante</strong></td>
-                    <td>
-                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if fiche.legendeRetrograde %}
-                <tr>
-                    <td><strong>Légende rétrograde</strong></td>
-                    <td>
-                        {{ fiche.legendeRetrograde }}
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if fiche.lettreLunaire %}
-                <tr>
-                    <td><strong>Lettre lunaire</strong></td>
-                    <td>
-                        {{ fiche.lettreLunaire|e }}
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if fiche.particulariteOrthographique %}
-                <tr>
-                    <td><strong>Particularité<br>orthographique</strong></td>
-                    <td>
-                        {{ fiche.particulariteOrthographique }}
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if fiche.retrogravure %}
-                <tr>
-                    <td><strong>Retrogravure</strong></td>
-                    <td>
-                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
-                    </td>
-                </tr>
-            {% endif %}
         </table>
     </div>
 </div>

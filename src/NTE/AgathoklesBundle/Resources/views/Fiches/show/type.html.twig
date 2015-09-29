@@ -50,6 +50,87 @@
                 </tr>
             {% endif %}
 
+            {% if fiche.legendeCentrifuge %}
+                <tr>
+                    <td><strong>Légende centrifuge</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.legendeCentripete %}
+                <tr>
+                    <td><strong>Légende centripète</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.legendeRetrograde %}
+                <tr>
+                    <td><strong>Légende rétrograde</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.legendeBoustrophedon %}
+                <tr>
+                    <td><strong>Légende boustrophédon</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.legendeTournante %}
+                <tr>
+                    <td><strong>Légende tournante</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.legendeMontante %}
+                <tr>
+                    <td><strong>Légende montante</strong></td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok text-success" title="oui" aria-hidden="true"></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.lettreRetrograde %}
+                <tr>
+                    <td><strong>Lettre(s) rétrograde(s)</strong></td>
+                    <td>
+                        {{ fiche.lettreRetrograde }}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.lettreLunaire %}
+                <tr>
+                    <td><strong>Lettre(s) lunaire(s)</strong></td>
+                    <td>
+                        {{ fiche.lettreLunaire }}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if fiche.particulariteOrthographique %}
+                <tr>
+                    <td><strong>Particularité(s) orthographique(s)</strong></td>
+                    <td>
+                        {{ fiche.particulariteOrthographique }}
+                    </td>
+                </tr>
+            {% endif %}
+
             {% if fiche.epi %}
                 <tr>
                     <td><strong>&#7952;&#960;&#943; omis</strong></td>
