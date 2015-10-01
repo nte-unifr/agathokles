@@ -33,6 +33,11 @@ class Cadre
      */
     protected $fiches;
 
+    /**
+     * @ORM\Column(name="rank", type="integer", nullable=false)
+     */
+    protected $rank;
+
 
 
     /**
@@ -138,5 +143,28 @@ class Cadre
     public function removeFich(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
         $this->fiches->removeElement($fiches);
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return Cadre
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer 
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

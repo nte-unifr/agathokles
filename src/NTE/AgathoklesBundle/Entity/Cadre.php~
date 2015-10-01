@@ -5,12 +5,12 @@ namespace NTE\AgathoklesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * NTE\AgathoklesBundle\Entity\Forme
+ * NTE\AgathoklesBundle\Entity\Cadre
  *
- * @ORM\Table(name="Forme")
+ * @ORM\Table(name="Cadre")
  * @ORM\Entity
  */
-class Forme
+class Cadre
 {
     /**
      * @var integer $id
@@ -29,7 +29,7 @@ class Forme
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="forme")
+     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="cadre")
      */
     protected $fiches;
 
@@ -37,6 +37,8 @@ class Forme
      * @ORM\Column(name="rank", type="integer", nullable=false)
      */
     protected $rank;
+
+
 
     /**
      * Get id
@@ -52,7 +54,7 @@ class Forme
      * Set nom
      *
      * @param string $nom
-     * @return Forme
+     * @return Cadre
      */
     public function setNom($nom)
     {
@@ -72,7 +74,7 @@ class Forme
     }
 
     /**
-    * Override toString() method to return the name of the Forme
+    * Override toString() method to return the name of the Cadre
     * @return string name
     */
     public function __toString()
@@ -91,7 +93,7 @@ class Forme
      * Add fiches
      *
      * @param \NTE\AgathoklesBundle\Entity\Fiches $fiches
-     * @return Forme
+     * @return Cadre
      */
     public function addFiche(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
@@ -124,7 +126,7 @@ class Forme
      * Add fiches
      *
      * @param \NTE\AgathoklesBundle\Entity\Fiches $fiches
-     * @return Forme
+     * @return Cadre
      */
     public function addFich(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
@@ -141,28 +143,5 @@ class Forme
     public function removeFich(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
         $this->fiches->removeElement($fiches);
-    }
-
-    /**
-     * Set rank
-     *
-     * @param integer $rank
-     * @return Forme
-     */
-    public function setRank($rank)
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
-    /**
-     * Get rank
-     *
-     * @return integer 
-     */
-    public function getRank()
-    {
-        return $this->rank;
     }
 }

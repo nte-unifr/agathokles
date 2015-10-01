@@ -24,6 +24,7 @@ class CadresAdmin extends Admin
     {
         $listMapper
             ->addidentifier('nom')
+            ->add('rank', null, array('label' => 'Ordre'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -57,6 +58,7 @@ class CadresAdmin extends Admin
         $formMapper
             ->with('Cadre', array('class' => 'col-md-6'))
                 ->add('nom')
+                ->add('rank', null, array('label' => 'Ordre'))
             ->end()
         ;
     }
@@ -70,7 +72,7 @@ class CadresAdmin extends Admin
     protected $datagridValues = array(
         '_page' => 1,               // display the first page (default = 1)
         '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
-        '_sort_by' => 'nom'         // name of the ordered field
+        '_sort_by' => 'rank'         // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
 

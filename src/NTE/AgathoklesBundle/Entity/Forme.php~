@@ -142,27 +142,4 @@ class Forme
     {
         $this->fiches->removeElement($fiches);
     }
-
-    /**
-     * Set rank
-     *
-     * @param integer $rank
-     * @return Forme
-     */
-    public function setRank($rank)
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
-    /**
-     * Get rank
-     *
-     * @return integer 
-     */
-    public function getRank()
-    {
-        return $this->rank;
-    }
 }

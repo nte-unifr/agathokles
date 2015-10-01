@@ -34,7 +34,7 @@ class FichesFilterType extends AbstractType
         $builder->add("forme", "filter_entity", array(
             "class" => "NTEAgathoklesBundle:Forme",
             "query_builder" => function(EntityRepository $repository) {
-                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+                return $repository->createQueryBuilder('u')->orderBy('u.rank', 'ASC');
             },
             "empty_value" => "Tous"
         ));

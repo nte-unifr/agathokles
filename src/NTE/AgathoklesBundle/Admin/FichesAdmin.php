@@ -74,7 +74,7 @@ class FichesAdmin extends Admin
                         array(
                             'required' => true,
                             'attr' => array('class' => 'col-md-10 formeID'),
-                            'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
+                            'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.rank', 'ASC'); }
                         )
                     )
                     ->add('fabricant', null,
@@ -153,7 +153,7 @@ class FichesAdmin extends Admin
                             'empty_value' => 'Aucun',
                             'required' => false,
                             'attr' => array('class' => 'col-md-10 cadreID'),
-                            'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
+                            'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.rank', 'ASC'); }
                         )
                     )
                     ->add('bouton', null, array('attr' => array('class' => 'col-md-4 boutonID')))
