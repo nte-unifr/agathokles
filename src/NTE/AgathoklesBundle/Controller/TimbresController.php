@@ -29,12 +29,25 @@ class TimbresController extends Controller
             ->select('t')
             ->from('NTEAgathoklesBundle:Timbre', 't')
             ->orderBy( 't.id', 'ASC' );
-
         $timbres = $qb->getQuery()->getResult();
 
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('f')
+            ->from('NTEAgathoklesBundle:Fabricant', 'f')
+            ->orderBy('f.nom', 'ASC');
+        $fabricants = $qb->getQuery()->getResult();
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select('e')
+            ->from('NTEAgathoklesBundle:Eponyme', 'e')
+            ->orderBy('e.nom', 'ASC');
+        $eponymes = $qb->getQuery()->getResult();
+
         return array(
-            'titre'     => 'Carte des timbres',
-            'timbres'   => $timbres,
+            'titre'         => 'Carte des timbres',
+            'timbres'       => $timbres,
+            'fabricants'    => $fabricants,
+            'eponymes'      => $eponymes
         );
     }
 

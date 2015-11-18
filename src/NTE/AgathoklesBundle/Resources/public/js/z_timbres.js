@@ -1,13 +1,15 @@
 var PUBLIC_KEY = "pk.eyJ1IjoibnRlIiwiYSI6IjNuaWc4XzQifQ.FV_ZIkwWG_gJKP7PIdLuJw";
 var MAP_ID = "nte.24c9e767";
 var POPUP_OFFSET = new L.Point(0, -15);
-var HEADERHEIGHT = 235;
+var HEADERHEIGHT = 239;
 var FOOTERHEIGHT = 80;
 
 var map;
 var markerGroup;
 var min = 0;
 var max = -9999;
+var currentFabricant = 0;
+var currentEponyme = 0;
 
 $( document ).ready(function() {
     resizeContainer();
@@ -17,6 +19,7 @@ $( document ).ready(function() {
     populate(min, max);
     postInit();
     initSliders();
+    initFilters();
 });
 
 $( window ).resize(function() {
@@ -74,25 +77,30 @@ function initGroup() {
     map.addLayer(markerGroup);
 }
 
-function populate(min, max) {
+function populate() {
 
     // first clear the group, in case it's recalled
     markerGroup.clearLayers();
 
     // create a marker for each timbre
     $("#map-data li").each(function( index ) {
-        var title = $(this).data("title");
-        var lat = $(this).data("lat");
-        var lng = $(this).data("lng");
-        var count = $(this).data("count");
-        var start = $(this).data("start");
-        var end = $(this).data("end");
-        var path = $(this).data("path");
+        var title       = $(this).data("title");
+        var lat         = $(this).data("lat");
+        var lng         = $(this).data("lng");
+        var count       = $(this).data("count");
+        var start       = $(this).data("start");
+        var end         = $(this).data("end");
+        var path        = $(this).data("path");
+        var fabricant   = $(this).data("fabricant");
+        var eponyme     = $(this).data("eponyme");
+        // check timbre is in the range of dates selected
         if((start >= min && start <= max) || (end >= min && end <= max) || start == "-") {
-            var marker = L.marker(new L.LatLng(lat, lng));
-            var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
-            marker.bindPopup(content, {offset: POPUP_OFFSET});
-            markerGroup.addLayer(marker);
+            if ((currentFabricant == 0 || currentFabricant == fabricant) && (currentEponyme == 0 || currentEponyme == eponyme)) {
+                var marker = L.marker(new L.LatLng(lat, lng));
+                var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
+                marker.bindPopup(content, {offset: POPUP_OFFSET});
+                markerGroup.addLayer(marker);
+            }
         }
     });
 }
@@ -144,7 +152,20 @@ function initSliders() {
 
     mapSlider.noUiSlider.on('set', function() {
         var values = mapSlider.noUiSlider.get();
-        populate(values[0], values[1]);
+        min = values[0];
+        max = values[1];
+        populate();
+    });
+}
+
+function initFilters() {
+    $( ".js-select-fabricant" ).change(function() {
+        currentFabricant = $(this).val();
+        populate();
+    });
+    $( ".js-select-eponyme" ).change(function() {
+        currentEponyme = $(this).val();
+        populate();
     });
 }
 

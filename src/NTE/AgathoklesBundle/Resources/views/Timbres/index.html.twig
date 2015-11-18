@@ -26,14 +26,39 @@
                 data-count="{{ timbresCount }}"
                 data-start="-{{ fiche.getDatingStart() }}"
                 data-end="-{{ fiche.getDatingEnd() }}"
-                data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}">
+                data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}"
+                data-fabricant="{{ fiche.getFabricantId() }}"
+                data-eponyme="{{ fiche.getEponymeId() }}"
+            >
                 {{ lieu.getNom() }}
             </li>
         {% endfor %}
     </ul>
     <div id="map-container">
         <div class="panel panel-default">
-            <div class="panel-heading"><div id="map-slider"></div></div>
+            <div class="panel-heading">
+                <div class="container-fluid">
+                    <div class="col-sm-6">
+                        <div id="map-slider"></div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <strong>Fabricant :</strong>
+                        <select class="map-select js-select-fabricant form-control">
+                            <option value="0">Tous</option>
+                            {% for fabricant in fabricants %}
+                                <option value="{{ fabricant.id }}">{{ fabricant.nom }}</option>
+                            {% endfor %}
+                        </select>
+                        <strong>Éponyme :</strong>
+                        <select class="map-select js-select-eponyme form-control">
+                            <option value="0">Tous</option>
+                            {% for eponyme in eponymes %}
+                                <option value="{{ eponyme.id }}">{{ eponyme.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="panel-body">
                 <div id="map"></div>
             </div>

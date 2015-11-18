@@ -72,3 +72,9 @@
 .noUi-connect {
     background: #00134a !important;
 }
+
+.map-select {
+    width: auto;
+    height: auto;
+    display: inline-block;
+}

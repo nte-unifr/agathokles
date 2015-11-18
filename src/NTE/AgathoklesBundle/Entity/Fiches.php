@@ -1862,4 +1862,36 @@ class Fiches
     {
         return $this->lettreRetrograde;
     }
+
+    /**
+     * Get Fabricant's id
+     * if null, return 0
+     * @return integer
+     */
+    public function getFabricantId()
+    {
+        $fabricant = $this->fabricant;
+        if ($fabricant != null) {
+            return $fabricant->getId();
+        }
+        else {
+            return 0;
+        }
+    }
+
+    /**
+     * Get Eponyme's id
+     * if null, return 0
+     * @return integer
+     */
+    public function getEponymeId()
+    {
+        $eponyme = $this->eponyme;
+        if ($eponyme != null) {
+            return $eponyme->getId();
+        }
+        else {
+            return 0;
+        }
+    }
 }
