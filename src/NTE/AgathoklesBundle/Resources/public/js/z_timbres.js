@@ -16,7 +16,7 @@ $( document ).ready(function() {
     initMinMax();
     initMap();
     initGroup();
-    populate(min, max);
+    populate();
     postInit();
     initSliders();
     initFilters();
