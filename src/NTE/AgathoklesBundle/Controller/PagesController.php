@@ -63,4 +63,20 @@ class PagesController extends Controller
             )
         );
     }
+
+    /**
+     * @Route("/sources", name="sources")
+     * @Template()
+     */
+    public function sourcesAction()
+    {
+        $page = $this->getDoctrine()
+                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '5' );
+        return $this->render('NTEAgathoklesBundle:Page:show.html.twig',
+            array(
+                'titre' => 'Sources',
+                'page'  => $page,
+            )
+        );
+    }
 }
