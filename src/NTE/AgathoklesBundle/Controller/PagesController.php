@@ -23,7 +23,7 @@ class PagesController extends Controller
     public function contactAction()
     {
         $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '3' );
+                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->findOneByHandle( 'contact' );
         return $this->render('NTEAgathoklesBundle:Page:show.html.twig',
             array(
                 'titre' => 'Contact',
@@ -39,7 +39,7 @@ class PagesController extends Controller
     public function faqAction()
     {
         $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '2' );
+                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->findOneByHandle( 'faq' );
         return $this->render('NTEAgathoklesBundle:Page:show.html.twig',
             array(
                 'titre' => 'FAQ',
@@ -55,7 +55,7 @@ class PagesController extends Controller
     public function creditsAction()
     {
         $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '4' );
+                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->findOneByHandle( 'credits' );
         return $this->render('NTEAgathoklesBundle:Page:show.html.twig',
             array(
                 'titre' => 'Crédits',
@@ -71,7 +71,7 @@ class PagesController extends Controller
     public function sourcesAction()
     {
         $page = $this->getDoctrine()
-                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->find( '5' );
+                        ->getManager()->getRepository( 'NTEAgathoklesBundle:Pages' )->findOneByHandle( 'sources' );
         return $this->render('NTEAgathoklesBundle:Page:show.html.twig',
             array(
                 'titre' => 'Sources',
