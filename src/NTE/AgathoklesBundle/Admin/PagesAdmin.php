@@ -53,10 +53,11 @@ class PagesAdmin extends Admin
 #            ->with('Titre / introduction', array('class' => 'col-md-6'))
                 ->add('title', null, array('label' => 'Titre'))
                 ->add('introduction', null, array('attr' => array('class' => 'ckeditor')))
-            ->end()
+#            ->end()
 #            ->with('Texte', array('class' => 'col-md-6'))
-                ->add('text', null, array('label' => 'Titre', 'attr' => array('class' => 'ckeditor')))
-            ->end()
+                ->add('text', null, array('label' => 'Texte', 'attr' => array('class' => 'ckeditor')))
+                ->add('handle', null, array('label' => 'URL'))
+#            ->end()
         ;
     }
 

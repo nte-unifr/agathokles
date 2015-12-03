@@ -2,7 +2,9 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
-
+{% block sources_active %}
+    {% if page.handle == "sources" %}active{% endif %}
+{% endblock %}
 {% block faq_active %}
     {% if page.handle == "faq" %}active{% endif %}
 {% endblock %}
