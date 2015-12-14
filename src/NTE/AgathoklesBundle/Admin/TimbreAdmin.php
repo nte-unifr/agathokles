@@ -26,6 +26,7 @@ class TimbreAdmin extends Admin
             ->with('Timbre', array('class' => 'col-md-12'))
                 ->add('reference', null, array('label' => 'Référence'))
                 ->add('lieu', null, array('required' => true))
+                ->add('contexte')
                 ->add('remarques')
             ->end()
         ;

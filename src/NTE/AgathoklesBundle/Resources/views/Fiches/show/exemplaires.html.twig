@@ -17,7 +17,9 @@
                         {% if timbre.lieu %}
                             <a href="{{ path('home', {'lat': timbre.lieu.lat, 'lng': timbre.lieu.lng}) }}">
                                 {{ timbre.lieu }} <i class="fa fa-map-marker"></i>
-                            </a>.&nbsp;
+                            </a>
+                            {% if timbre.contexte %}({{ timbre.contexte }}){% endif %}
+                            .&nbsp;
                         {% endif %}
                         {{ timbre.remarques | striptags | raw }}
                         {% set counter = counter+1 %}

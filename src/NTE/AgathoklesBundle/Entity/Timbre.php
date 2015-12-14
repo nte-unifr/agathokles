@@ -39,6 +39,13 @@ class Timbre
     private $lieu;
 
     /**
+     * @var string $contexte
+     *
+     * @ORM\Column(name="contexte", type="text", nullable=true)
+     */
+    private $contexte;
+
+    /**
      * @var string $remarques
      *
      * @ORM\Column(name="remarques", type="text", nullable=true)
@@ -60,7 +67,7 @@ class Timbre
     {
         return (string)$this->id;
     }
-    
+
     /**
      * Get id
      *
@@ -161,5 +168,28 @@ class Timbre
     public function getFiche()
     {
         return $this->fiche;
+    }
+
+    /**
+     * Set contexte
+     *
+     * @param string $contexte
+     * @return Timbre
+     */
+    public function setContexte($contexte)
+    {
+        $this->contexte = $contexte;
+
+        return $this;
+    }
+
+    /**
+     * Get contexte
+     *
+     * @return string 
+     */
+    public function getContexte()
+    {
+        return $this->contexte;
     }
 }

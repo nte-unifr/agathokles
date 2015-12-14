@@ -44,11 +44,6 @@ class Lieu
     private $lat;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="lieuDeDecouverte")
-     */
-    protected $fiches;
-
-    /**
      * @ORM\OneToMany(targetEntity="Timbre", mappedBy="lieu")
      */
     protected $timbres;
@@ -232,7 +227,7 @@ class Lieu
     /**
      * Get timbres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTimbres()
     {
