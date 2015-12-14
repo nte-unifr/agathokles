@@ -41,7 +41,7 @@ class FichesFilterType extends AbstractType
         $builder->add("mois", "filter_entity", array(
             "class" => "NTEAgathoklesBundle:Mois",
             "query_builder" => function(EntityRepository $repository) {
-                return $repository->createQueryBuilder('u')->orderBy('u.nom', 'ASC');
+                return $repository->createQueryBuilder('u')->orderBy('u.numero', 'ASC');
             },
             "empty_value" => "Tous"
         ));
