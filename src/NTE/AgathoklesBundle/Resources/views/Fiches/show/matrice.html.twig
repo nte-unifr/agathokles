@@ -6,6 +6,15 @@
     </div>
     <div class="panel-body">
         <table class="table">
+            {% if fiche.regravure %}
+                <tr>
+                    <td><strong>Regravure</strong></td>
+                    <td>
+                        <i class="fa fa-check"></i>
+                    </td>
+                </tr>
+            {% endif %}
+
             {% if fiche.cadre %}
                 <tr>
                     <td><strong>Cadre</strong></td>

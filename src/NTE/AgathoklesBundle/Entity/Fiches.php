@@ -274,6 +274,13 @@ class Fiches
     private $meis = false;
 
     /**
+     * @var boolean $regravure
+     *
+     * @ORM\Column(name="regravure", type="boolean")
+     */
+    private $regravure = false;
+
+    /**
      * @var string $ete
      *
      * @ORM\Column(name="ete", type="string", nullable=true)
@@ -1918,10 +1925,33 @@ class Fiches
     /**
      * Get lettreRenversee
      *
-     * @return string 
+     * @return string
      */
     public function getLettreRenversee()
     {
         return $this->lettreRenversee;
+    }
+
+    /**
+     * Set regravure
+     *
+     * @param boolean $regravure
+     * @return Fiches
+     */
+    public function setRegravure($regravure)
+    {
+        $this->regravure = $regravure;
+
+        return $this;
+    }
+
+    /**
+     * Get regravure
+     *
+     * @return boolean 
+     */
+    public function getRegravure()
+    {
+        return $this->regravure;
     }
 }

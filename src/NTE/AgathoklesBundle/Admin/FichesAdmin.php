@@ -148,7 +148,8 @@ class FichesAdmin extends Admin
             ->end()
             ->tab('Matrice')
                 ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
-                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro', 'attr' => array('class' => 'col-md-10 matriceNumeroID')))
+                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro', 'attr' => array('class' => 'col-md-5 matriceNumeroID')))
+                    ->add('regravure', null, array('required' => false, 'label' => 'Regravure', 'attr' => array('class' => 'col-md-5 regravureID')))
                     ->add('cadre', null,
                         array(
                             'empty_value' => 'Aucun',
