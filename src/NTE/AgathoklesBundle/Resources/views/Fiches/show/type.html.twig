@@ -122,6 +122,15 @@
                 </tr>
             {% endif %}
 
+            {% if fiche.lettreRenversee %}
+                <tr>
+                    <td><strong>Lettre(s) renversée(s)</strong></td>
+                    <td>
+                        {{ fiche.lettreRenversee }}
+                    </td>
+                </tr>
+            {% endif %}
+
             {% if fiche.particulariteOrthographique %}
                 <tr>
                     <td><strong>Particularité(s) orthographique(s)</strong></td>

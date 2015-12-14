@@ -225,6 +225,13 @@ class Fiches
     private $lettreRetrograde;
 
     /**
+     * @var string $lettreRenversee
+     *
+     * @ORM\Column(name="lettreRenversee", type="string", nullable=true)
+     */
+    private $lettreRenversee;
+
+    /**
      * @var boolean $epi
      *
      * @ORM\Column(name="epi", type="boolean", nullable=true)
@@ -1893,5 +1900,28 @@ class Fiches
         else {
             return 0;
         }
+    }
+
+    /**
+     * Set lettreRenversee
+     *
+     * @param string $lettreRenversee
+     * @return Fiches
+     */
+    public function setLettreRenversee($lettreRenversee)
+    {
+        $this->lettreRenversee = $lettreRenversee;
+
+        return $this;
+    }
+
+    /**
+     * Get lettreRenversee
+     *
+     * @return string 
+     */
+    public function getLettreRenversee()
+    {
+        return $this->lettreRenversee;
     }
 }
