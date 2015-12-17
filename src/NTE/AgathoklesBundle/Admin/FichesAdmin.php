@@ -132,6 +132,7 @@ class FichesAdmin extends Admin
                     ->add('iereus', null, array('label' => 'titre (ἰερεύς/ΕΙ)', 'attr' => array('class' => 'col-md-4 iereusID')))
                     ->add('ergastiriarchas', null, array('label' => 'ἐργαστηριάρχας', 'attr' => array('class' => 'col-md-4 ergastiriarchasID')))
                     ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-4 metoikosID')))
+                    ->add('engenis', null, array('label' => 'ἐγγενής', 'attr' => array('class' => 'col-md-4 engenisID')))
                     ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-4 meisID')))
                     ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'col-md-10 eteID')))
                     ->add('ethniqueDemotique', null,

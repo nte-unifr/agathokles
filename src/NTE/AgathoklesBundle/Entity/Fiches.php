@@ -267,6 +267,13 @@ class Fiches
     private $metoikos = false;
 
     /**
+     * @var boolean $engenis
+     *
+     * @ORM\Column(name="engenis", type="boolean", nullable=true)
+     */
+    private $engenis = false;
+
+    /**
      * @var boolean $meis
      *
      * @ORM\Column(name="meis", type="boolean", nullable=true)
@@ -1948,10 +1955,33 @@ class Fiches
     /**
      * Get regravure
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getRegravure()
     {
         return $this->regravure;
+    }
+
+    /**
+     * Set engenis
+     *
+     * @param boolean $engenis
+     * @return Fiches
+     */
+    public function setEngenis($engenis)
+    {
+        $this->engenis = $engenis;
+
+        return $this;
+    }
+
+    /**
+     * Get engenis
+     *
+     * @return boolean 
+     */
+    public function getEngenis()
+    {
+        return $this->engenis;
     }
 }
