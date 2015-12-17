@@ -10,20 +10,18 @@
                 {% set big_image %} {% path fiche.images.0.media, 'reference' %} {% endset %}
                 {% media fiche.images.0.media, 'ppt' with {'alt':  fiche.id, 'id': 'image_principale', 'data-zoom-image': big_image, 'with': '100%', 'class': 'img-thumbnail'} %}
                 <p>
-                    {% if fiche.legende %}
-                        <pre class="bg-primary"><strong>{{ fiche.legende|raw }}</strong></pre>
+                    {% if fiche.images.0.caption %}
+                        <pre class="bg-primary"><strong id="caption">{{ fiche.images.0.caption|raw }}</strong></pre>
                     {% endif %}
                 </p>
                 <p>
-                    <a href="{% path fiche.images.0.media, 'ppt' %}" onclick="popwindow('{% path fiche.images.0.media, 'ppt' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_ppt"><i class="fa fa-download"></i> PPT</a>
-                    &nbsp;
-                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><i class="fa fa-download"></i> Original</a>
+                    <a href="{% path fiche.images.0.media, 'reference' %}" onclick="popwindow('{% path fiche.images.0.media, 'reference' %}', 'image_principale');return false;" class="btn btn-xs btn-primary" id="img_original"><i class="fa fa-download"></i> Télécharger</a>
                 </p>
             {% endif %}
             {% if fiche.images|length > 1 %}
                 <div id="gallery" style="width=500px;">
                     {% for annexe in fiche.images %}
-                        <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
+                        <a class="elevatezoom-gallery active" data-zoom-image="{% path annexe.media, 'reference' %}" data-image="{% path annexe.media, 'ppt' %}" data-update="" href="#" onclick="change_img('{% path annexe.media, 'ppt' %}', '{% path annexe.media, 'reference' %}','{{ annexe.caption }}');" id="gallery_img_{{ loop.index }}"><img src="{% path annexe.media, 'small' %}" id="gallery_thumb_{{ loop.index }}"></a>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -43,10 +41,9 @@
         window.open(url,'Illustration','height='+height+',width='+width);
     }
 
-    function change_img(ppt, original) {
-        $('#img_ppt').attr('href', ppt);
+    function change_img(ppt, original, caption) {
+        $("#caption").html(caption);
         $('#img_original').attr('href', original);
-        $('#img_ppt').attr('onclick', "popwindow('" + ppt + "', 'image_principale');return false;");
         $('#img_original').attr('onclick', "popwindow('" + original + "', 'image_principale');return false;");
     }
 
@@ -59,26 +56,14 @@
         zoomWindowPosition: 1,
         responsive: true,
         scrollZoom : true,
-    });
-
-    $("#select").change(function(e){
-        var currentValue = $("#select").val();
-        if(currentValue == 0){
-            smallImage = "{% path fiche.image, 'small' %}";
-            largeImage = "{% path fiche.image, 'big' %}";
+        onImageSwapComplete: function() {
+            $('.masonry-grid').masonry({
+              // options
+              itemSelector: '.masonry-grid-item',
+              columnWidth: '.masonry-grid-sizer',
+              percentPosition: true,
+              gutter: 10
+            });
         }
-        {% for annexe in fiche.images %}
-        if(currentValue == {{ loop.index }}){
-            smallImage = "{% path annexe.media, 'small' %}";
-            largeImage = "{% path annexe.media, 'big' %}";
-        }
-        {% endfor %}
-        // Example of using Active Gallery
-        $('#gallery a').removeClass('active').eq(currentValue-1).addClass('active');
-
-        var ez =   $('#image_principale').data('elevateZoom');
-
-        ez.swaptheimage(smallImage, largeImage);
-
     });
 </script>

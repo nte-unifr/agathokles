@@ -41,7 +41,7 @@ class FichesImagesAdmin extends Admin
     {
         $formMapper
             ->add('media', 'sonata_type_model_list', array('required' => false), array('link_parameters' => array('context' => 'default', 'provider'=>'sonata.media.provider.image')))
-#            ->add('fiche')
+            ->add('caption')
             ->end()
         ;
     }

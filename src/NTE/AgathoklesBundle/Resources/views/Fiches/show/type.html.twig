@@ -50,6 +50,15 @@
                 </tr>
             {% endif %}
 
+            {% if fiche.legende %}
+                <tr>
+                    <td><strong>Légende</strong></td>
+                    <td>
+                        {{ fiche.legende }}
+                    </td>
+                </tr>
+            {% endif %}
+
             {% if fiche.legendeCentrifuge %}
                 <tr>
                     <td><strong>Légende centrifuge</strong></td>

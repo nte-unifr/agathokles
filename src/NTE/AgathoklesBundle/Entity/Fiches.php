@@ -344,13 +344,6 @@ class Fiches
     private $modification_date;
 
     /**
-     * @var Image
-     *
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-     */
-    private $image;
-
-    /**
      * @var Fichiers
      *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
@@ -611,42 +604,8 @@ class Fiches
     public function __construct()
     {
         $this->fichesassociees = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->timbres = new ArrayCollection();
-    }
-
-    /**
-     * Add images
-     *
-     * @param \NTE\AgathoklesBundle\Entity\FichesImages $images
-     * @return Fiches
-     */
-    public function addImage(\NTE\AgathoklesBundle\Entity\FichesImages $images)
-    {
-        $images->setFiche($this); # pour la collection dans le formulaire
-        $this->images[] = $images;
-
-        return $this;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param \NTE\AgathoklesBundle\Entity\FichesImages $images
-     */
-    public function removeImage(\NTE\AgathoklesBundle\Entity\FichesImages $images)
-    {
-        $this->images->removeElement($images);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages()
-    {
-        return $this->images;
     }
 
     /**
@@ -1149,29 +1108,6 @@ class Fiches
     public function getSeparation()
     {
         return $this->separation;
-    }
-
-    /**
-     * Set image
-     *
-     * @param \Application\Sonata\MediaBundle\Entity\Media $image
-     * @return Fiches
-     */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -2022,7 +1958,7 @@ class Fiches
     /**
      * Get remarquesType
      *
-     * @return string 
+     * @return string
      */
     public function getRemarquesType()
     {
@@ -2045,7 +1981,7 @@ class Fiches
     /**
      * Get remarquesMatrice
      *
-     * @return string 
+     * @return string
      */
     public function getRemarquesMatrice()
     {
@@ -2068,10 +2004,44 @@ class Fiches
     /**
      * Get remarquesAssociations
      *
-     * @return string 
+     * @return string
      */
     public function getRemarquesAssociations()
     {
         return $this->remarquesAssociations;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \NTE\AgathoklesBundle\Entity\FichesImages $images
+     * @return Fiches
+     */
+    public function addImage(\NTE\AgathoklesBundle\Entity\FichesImages $images)
+    {
+        $images->setFiche($this);
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \NTE\AgathoklesBundle\Entity\FichesImages $images
+     */
+    public function removeImage(\NTE\AgathoklesBundle\Entity\FichesImages $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

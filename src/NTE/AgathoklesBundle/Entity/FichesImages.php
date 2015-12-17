@@ -41,6 +41,13 @@ class FichesImages
      */
     private $media;
 
+    /**
+     * @var string $caption
+     *
+     * @ORM\Column(name="caption", type="text", nullable=true)
+     */
+    private $caption;
+
 
     public function __toString()
 	{
@@ -101,5 +108,28 @@ class FichesImages
     public function getFiche()
     {
         return $this->fiche;
+    }
+
+    /**
+     * Set caption
+     *
+     * @param string $caption
+     * @return FichesImages
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Get caption
+     *
+     * @return string 
+     */
+    public function getCaption()
+    {
+        return $this->caption;
     }
 }
