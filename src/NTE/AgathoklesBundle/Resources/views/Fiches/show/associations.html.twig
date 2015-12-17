@@ -41,6 +41,15 @@
                         </td>
                     </tr>
                 {% endif %}
+
+                {% if fiche.remarquesAssociations %}
+                    <tr>
+                        <td><strong>Remarques</strong></td>
+                        <td>
+                            {{ fiche.remarquesAssociations }}
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
         {% endif %}
     </div>

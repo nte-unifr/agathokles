@@ -418,6 +418,27 @@ class Fiches
     private $moisIdInc = false;
 
     /**
+     * @var string $remarquesType
+     *
+     * @ORM\Column(name="remarquesType", type="text", nullable=true)
+     */
+    private $remarquesType;
+
+    /**
+     * @var string $remarquesMatrice
+     *
+     * @ORM\Column(name="remarquesMatrice", type="text", nullable=true)
+     */
+    private $remarquesMatrice;
+
+    /**
+     * @var string $remarquesAssociations
+     *
+     * @ORM\Column(name="remarquesAssociations", type="text", nullable=true)
+     */
+    private $remarquesAssociations;
+
+    /**
      * @ORM\OneToMany(targetEntity="Timbre", mappedBy="fiche", cascade={"persist"}, orphanRemoval=true)
      */
     protected $timbres;
@@ -1978,10 +1999,79 @@ class Fiches
     /**
      * Get engenis
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEngenis()
     {
         return $this->engenis;
+    }
+
+    /**
+     * Set remarquesType
+     *
+     * @param string $remarquesType
+     * @return Fiches
+     */
+    public function setRemarquesType($remarquesType)
+    {
+        $this->remarquesType = $remarquesType;
+
+        return $this;
+    }
+
+    /**
+     * Get remarquesType
+     *
+     * @return string 
+     */
+    public function getRemarquesType()
+    {
+        return $this->remarquesType;
+    }
+
+    /**
+     * Set remarquesMatrice
+     *
+     * @param string $remarquesMatrice
+     * @return Fiches
+     */
+    public function setRemarquesMatrice($remarquesMatrice)
+    {
+        $this->remarquesMatrice = $remarquesMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get remarquesMatrice
+     *
+     * @return string 
+     */
+    public function getRemarquesMatrice()
+    {
+        return $this->remarquesMatrice;
+    }
+
+    /**
+     * Set remarquesAssociations
+     *
+     * @param string $remarquesAssociations
+     * @return Fiches
+     */
+    public function setRemarquesAssociations($remarquesAssociations)
+    {
+        $this->remarquesAssociations = $remarquesAssociations;
+
+        return $this;
+    }
+
+    /**
+     * Get remarquesAssociations
+     *
+     * @return string 
+     */
+    public function getRemarquesAssociations()
+    {
+        return $this->remarquesAssociations;
     }
 }

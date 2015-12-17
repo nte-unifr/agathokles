@@ -116,7 +116,7 @@ class FichesAdmin extends Admin
                         )
                     )
                     ->add('designation', null, array('label' => 'Désignation', 'attr' => array('class' => 'col-md-10 designationID')))
-                    ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'col-md-10 legendeID', 'rows' => 7)))
+                    ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'col-md-10 legendeID', 'rows' => 3)))
                     ->add('legendeCentrifuge', null, array('label' => 'Légende centrifuge', 'attr' => array('class' => 'col-md-4 legendeCentrifugeID')))
                     ->add('legendeCentripete', null, array('label' => 'Légende centripète', 'attr' => array('class' => 'col-md-4 legendeCentripeteID')))
                     ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'col-md-4 legendeRetrogradeID')))
@@ -145,6 +145,7 @@ class FichesAdmin extends Admin
                         )
                     )
                     ->add('position', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 positionID')))
+                    ->add('remarquesType', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesTypeID', 'rows' => 3)))
                 ->end()
             ->end()
             ->tab('Matrice')
@@ -171,6 +172,7 @@ class FichesAdmin extends Admin
                             'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
                         )
                     )
+                    ->add('remarquesMatrice', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesMatriceID', 'rows' => 3)))
                 ->end()
             ->end()
             ->tab('Illustrations')
@@ -235,6 +237,7 @@ class FichesAdmin extends Admin
                             'inline' => 'table',
                         )
                     )
+                    ->add('remarquesAssociations', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesAssociationsID', 'rows' => 3)))
                 ->end()
             ->end()
             ->tab('Publication')

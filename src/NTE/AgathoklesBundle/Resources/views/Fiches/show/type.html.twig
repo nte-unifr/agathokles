@@ -238,6 +238,15 @@
                     </td>
                 </tr>
             {% endif %}
+
+            {% if fiche.remarquesType %}
+                <tr>
+                    <td><strong>Remarques</strong></td>
+                    <td>
+                        {{ fiche.remarquesType }}
+                    </td>
+                </tr>
+            {% endif %}
         </table>
     </div>
 </div>
