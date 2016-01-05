@@ -93,14 +93,17 @@ function populate() {
         var path        = $(this).data("path");
         var fabricant   = $(this).data("fabricant");
         var eponyme     = $(this).data("eponyme");
-        // check timbre is in the range of dates selected
-        if((start >= min && start <= max) || (end >= min && end <= max) || start == "-") {
-            if ((currentFabricant == 0 || currentFabricant == fabricant) && (currentEponyme == 0 || currentEponyme == eponyme)) {
-                var marker = L.marker(new L.LatLng(lat, lng));
-                var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
-                marker.bindPopup(content, {offset: POPUP_OFFSET});
-                markerGroup.addLayer(marker);
-            }
+        // check lat AND lng are set
+        if (lat && lng) {
+          // check timbre is in the range of dates selected
+          if((start >= min && start <= max) || (end >= min && end <= max) || start == "-") {
+              if ((currentFabricant == 0 || currentFabricant == fabricant) && (currentEponyme == 0 || currentEponyme == eponyme)) {
+                  var marker = L.marker(new L.LatLng(lat, lng));
+                  var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
+                  marker.bindPopup(content, {offset: POPUP_OFFSET});
+                  markerGroup.addLayer(marker);
+              }
+          }
         }
     });
 }
