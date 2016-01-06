@@ -369,4 +369,13 @@ class FichesAdmin extends Admin
     {
         $this->em = $em;
     }
+
+    // default values when new instance is created via admin
+    public function getNewInstance()
+    {
+        $instance = parent::getNewInstance();
+        $instance->setPublic(true);
+
+        return $instance;
+    }
 }
