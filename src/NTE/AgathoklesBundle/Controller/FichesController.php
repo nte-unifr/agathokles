@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 /**
  * Fiches controller.
  *
- * @Route("/timbres")
+ * @Route("/matrices")
  */
 class FichesController extends Controller
 {
@@ -29,14 +29,14 @@ class FichesController extends Controller
     /**
      * Lists all Fiches entities.
      *
-     * @Route("/", name="timbres")
+     * @Route("/", name="matrices")
      * @Method("GET")
      * @Template()
      */
     public function indexAction(Request $request)
     {
         # Used to display the active left menu and back from fiche view
-        $request->getSession()->set('timbres_subset', "all");
+        $request->getSession()->set('matrices_subset', "all");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -57,11 +57,11 @@ class FichesController extends Controller
         }
 
         // set the params in session to use in fiche view
-        $request->getSession()->set('timbres_params', $request->query->all());
+        $request->getSession()->set('matrices_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres',
-            'subtitle'  => 'Tous les timbres amphoriques',
+            'titre'     => 'Matrices',
+            'subtitle'  => 'Toutes',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -71,14 +71,14 @@ class FichesController extends Controller
     /**
      * Lists all Fiches entities that have eponymes.
      *
-     * @Route("/eponymes", name="timbres_eponymes")
+     * @Route("/eponymes", name="matrices_eponymes")
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
     public function eponymesAction(Request $request)
     {
         # Used to display the active left menu and back from fiche view
-        $request->getSession()->set('timbres_subset', "epo");
+        $request->getSession()->set('matrices_subset', "epo");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -100,11 +100,11 @@ class FichesController extends Controller
         }
 
         // set the params in session to use in fiche view
-        $request->getSession()->set('timbres_params', $request->query->all());
+        $request->getSession()->set('matrices_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres',
-            'subtitle'  => 'Tous les timbres comportant un eponyme',
+            'titre'     => 'Matrices',
+            'subtitle'  => 'Toutes les matrices comportant un éponyme',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -114,14 +114,14 @@ class FichesController extends Controller
     /**
      * Lists all Fiches entities that have fabricants.
      *
-     * @Route("/fabricants", name="timbres_fabricants")
+     * @Route("/fabricants", name="matrices_fabricants")
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
     public function fabricantsAction(Request $request)
     {
         # Used to display the active left menu and back from fiche view
-        $request->getSession()->set('timbres_subset', "fab");
+        $request->getSession()->set('matrices_subset', "fab");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -143,11 +143,11 @@ class FichesController extends Controller
         }
 
         // set the params in session to use in fiche view
-        $request->getSession()->set('timbres_params', $request->query->all());
+        $request->getSession()->set('matrices_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres',
-            'subtitle'  => 'Tous les timbres comportant un fabricant',
+            'titre'     => 'Matrices',
+            'subtitle'  => 'Toutes les matrices comportant un fabricant',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -157,14 +157,14 @@ class FichesController extends Controller
     /**
      * Lists all Fiches entities that have eponymes and fabricants.
      *
-     * @Route("/binominaux", name="timbres_binominaux")
+     * @Route("/binominaux", name="matrices_binominaux")
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
     public function binominauxAction(Request $request)
     {
         # Used to display the active left menu and back from fiche view
-        $request->getSession()->set('timbres_subset', "bin");
+        $request->getSession()->set('matrices_subset', "bin");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
 
@@ -187,11 +187,11 @@ class FichesController extends Controller
         }
 
         // set the params in session to use in fiche view
-        $request->getSession()->set('timbres_params', $request->query->all());
+        $request->getSession()->set('matrices_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres',
-            'subtitle'  => 'Tous les timbres comportant un eponyme et un fabricant',
+            'titre'     => 'Matrices',
+            'subtitle'  => 'Toutes les matrices comportant un eponyme et un fabricant',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -201,14 +201,14 @@ class FichesController extends Controller
     /**
      * Lists all Fiches entities that are amphores.
      *
-     * @Route("/amphores", name="timbres_amphores")
+     * @Route("/amphores", name="matrices_amphores")
      * @Method("GET")
      * @Template("NTEAgathoklesBundle:Fiches:index.html.twig")
      */
     public function amphoresAction(Request $request)
     {
         # Used to display the active left menu and back from fiche view
-        $request->getSession()->set('timbres_subset', "amp");
+        $request->getSession()->set('matrices_subset', "amp");
         # Filter form
         $form = $this->get('form.factory')->create(new FichesFilterType());
         # Array to stock the ids of fiches to display
@@ -279,11 +279,11 @@ class FichesController extends Controller
         }
 
         // set the params in session to use in fiche view
-        $request->getSession()->set('timbres_params', $request->query->all());
+        $request->getSession()->set('matrices_params', $request->query->all());
 
         return array(
-            'titre'     => 'Liste des timbres',
-            'subtitle'  => 'Tous les timbres prenant part aux associations de deux timbres principaux',
+            'titre'     => 'Matrices',
+            'subtitle'  => 'Toutes les matrices prenant part aux associations de deux timbres principaux',
             'pager'     => $this->setPager($qb, self::MAX_ITEMS_PER_PAGE, $request),
             'all'       => $this->findAllCounted(),
             'form'      => $form->createView(),
@@ -293,7 +293,7 @@ class FichesController extends Controller
     /**
      * Finds and displays a Fiches entity.
      *
-     * @Route("/{id}", name="timbre")
+     * @Route("/{id}", name="matrice")
      * @Method("GET")
      * @Template()
      */

@@ -1,17 +1,17 @@
 {# src/NTE/AgathoklesBundle/Resources/views/Fiches/show/nav.html.twig #}
 
-{% set timbres_subset = app.session.get('timbres_subset') %}
-{% set params = app.session.get('timbres_params') %}
-{% set back_path = path('timbres', params) %}
+{% set matrices_subset = app.session.get('matrices_subset') %}
+{% set params = app.session.get('matrices_params') %}
+{% set back_path = path('matrices', params) %}
 
-{% if timbres_subset == "epo" %}
-    {% set back_path = path('timbres_eponymes', params) %}
-{% elseif timbres_subset == "fab" %}
-    {% set back_path = path('timbres_fabricants', params) %}
-{% elseif timbres_subset == "bin" %}
-    {% set back_path = path('timbres_binominaux', params) %}
-{% elseif timbres_subset == "amp" %}
-    {% set back_path = path('timbres_amphores', params) %}
+{% if matrices_subset == "epo" %}
+    {% set back_path = path('matrices_eponymes', params) %}
+{% elseif matrices_subset == "fab" %}
+    {% set back_path = path('matrices_fabricants', params) %}
+{% elseif matrices_subset == "bin" %}
+    {% set back_path = path('matrices_binominaux', params) %}
+{% elseif matrices_subset == "amp" %}
+    {% set back_path = path('matrices_amphores', params) %}
 {% endif %}
 
 <div class="text-right">

@@ -2,13 +2,13 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
-{% block timbres_active %}active{% endblock %}
+{% block matrices_active %}active{% endblock %}
 
 {% block agathokles_content %}
 
     <div id="fiches" class="container">
         <div class="page-header">
-          <h1>Timbres {% if subtitle is defined %}<small>{{ subtitle }}</small>{% endif %}</h1>
+          <h1>Matrices {% if subtitle is defined %}<small>{{ subtitle }}</small>{% endif %}</h1>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -17,7 +17,7 @@
             <div class="col-md-10">
                 {% include 'NTEAgathoklesBundle:Fiches:index/filters.html.twig' %}
                 <p class="lead">
-                    {{ pager|length }} timbres sur un total de {{ all }}.
+                    {{ pager|length }} matrices sur un total de {{ all }}.
                 </p>
                 <div class="masonry-grid row">
                     <div class="masonry-grid-sizer"></div>

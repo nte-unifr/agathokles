@@ -2,6 +2,8 @@
 
 {% extends "NTEAgathoklesBundle:Default:layout.html.twig" %}
 
+{% block matrices_active %}active{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script src='{{ asset('bundles/nteagathokles/js/jquery.elevateZoom-3.0.3.min.js') }}'></script>

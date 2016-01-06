@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('bundles/nteagathokles/css/nouislider.min.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
-{% block carte_active %}active{% endblock %}
+{% block timbres_active %}active{% endblock %}
 
 {% block agathokles_content %}
 
@@ -26,7 +26,7 @@
                 data-count="{{ timbresCount }}"
                 data-start="-{{ fiche.getDatingStart() }}"
                 data-end="-{{ fiche.getDatingEnd() }}"
-                data-path="{{ path('timbres', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}"
+                data-path="{{ path('matrices', {'filter_fiches[timbres][0][lieu]': lieu.getId()}) }}"
                 data-fabricant="{{ fiche.getFabricantId() }}"
                 data-eponyme="{{ fiche.getEponymeId() }}"
             >

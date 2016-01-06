@@ -99,7 +99,7 @@ function populate() {
           if((start >= min && start <= max) || (end >= min && end <= max) || start == "-") {
               if ((currentFabricant == 0 || currentFabricant == fabricant) && (currentEponyme == 0 || currentEponyme == eponyme)) {
                   var marker = L.marker(new L.LatLng(lat, lng));
-                  var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Consulter</a>';
+                  var content = '<h3>'+title+'</h3><p>'+count+' '+pluralize("Timbre", count)+'</p><a href="'+path+'" class="btn btn-info">Afficher '+pluralize("la", count)+' '+pluralize("matrice", count)+' '+pluralize("associée", count)+'</a>';
                   marker.bindPopup(content, {offset: POPUP_OFFSET});
                   markerGroup.addLayer(marker);
               }
@@ -175,6 +175,9 @@ function initFilters() {
 // HELPERS
 
 function pluralize(word, count) {
+    if (word == "la" || word == "le") {
+      return count > 1 ? "les" : word;
+    }
     return count > 1 ? word+"s" : word;
 }
 
