@@ -40,6 +40,13 @@ class Mois
      */
     protected $fiches;
 
+    /**
+     * @var string $abr
+     *
+     * @ORM\Column(name="abr", type="string", length=50, nullable=true)
+     */
+    private $abr;
+
 
 
     /**
@@ -163,10 +170,33 @@ class Mois
     /**
      * Get numero
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumero()
     {
         return $this->numero;
+    }
+
+    /**
+     * Set abr
+     *
+     * @param string $abr
+     * @return Mois
+     */
+    public function setAbr($abr)
+    {
+        $this->abr = $abr;
+
+        return $this;
+    }
+
+    /**
+     * Get abr
+     *
+     * @return string 
+     */
+    public function getAbr()
+    {
+        return $this->abr;
     }
 }

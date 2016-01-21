@@ -68,8 +68,8 @@ class FichesAdmin extends Admin
                     ->add('categorie', null, array('required' => true, 'attr' => array('class' => 'col-md-10 categID fiche-categorie')))
                 ->end()
             ->end()
-            ->tab('Type')
-                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+            ->tab('Analyse')
+                ->with('TYPE', array('class' => 'col-md-12 sonata-box-rewrite'))
                     ->add('forme', null,
                         array(
                             'required' => true,
@@ -105,7 +105,6 @@ class FichesAdmin extends Admin
                         )
                     )
                     ->add('moisIdInc', null, array('label' => 'Mois (?)', 'attr' => array('class' => 'col-md-2 moisIdIncID')))
-                    ->add('autreLegende', null, array('label' => 'Autre légende','attr' => array('class' => 'col-md-10 autreLegendeID')))
                     ->add('embleme', null,
                         array(
                             'required' => false,
@@ -115,41 +114,32 @@ class FichesAdmin extends Admin
                             'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
                         )
                     )
-                    ->add('designation', null, array('label' => 'Désignation', 'attr' => array('class' => 'col-md-10 designationID')))
                     ->add('legende', null, array('label' => 'Légende', 'attr' => array('class' => 'col-md-10 legendeID', 'rows' => 3)))
-                    ->add('legendeCentrifuge', null, array('label' => 'Légende centrifuge', 'attr' => array('class' => 'col-md-4 legendeCentrifugeID')))
-                    ->add('legendeCentripete', null, array('label' => 'Légende centripète', 'attr' => array('class' => 'col-md-4 legendeCentripeteID')))
-                    ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'col-md-4 legendeRetrogradeID')))
-                    ->add('legendeBoustrophedon', null, array('label' => 'Légende boustrophédon', 'attr' => array('class' => 'col-md-4 legendeBoustrophedonID')))
-                    ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'col-md-4 legendeTournanteID')))
-                    ->add('legendeMontante', null, array('label' => 'Légende montante', 'attr' => array('class' => 'col-md-4 legendeMontanteID')))
-                    ->add('lettreRetrograde', null, array('label' => 'Lettre(s) rétrograde(s)', 'attr' => array('class' => 'col-md-4 lettreRetrogradeID')))
-                    ->add('lettreLunaire', null, array('label' => 'Lettre(s) lunaire(s)', 'attr' => array('class' => 'col-md-4 lettreLunaireID')))
-                    ->add('lettreRenversee', null, array('label' => 'Lettre(s) renversée(s)', 'attr' => array('class' => 'col-md-4 lettreRenverseeID')))
-                    ->add('particulariteOrthographique', null, array('label' => 'Particularité(s) orthographique(s)', 'attr' => array('class' => 'col-md-10 particulariteOrthographiqueID')))
-                    ->add('epi', null, array('label' => 'ἐπί omis', 'attr' => array('class' => 'col-md-4 epiID')))
-                    ->add('para', null, array('label' => 'παρά', 'attr' => array('class' => 'col-md-4 paraID')))
-                    ->add('iereus', null, array('label' => 'titre (ἰερεύς/ΕΙ)', 'attr' => array('class' => 'col-md-4 iereusID')))
-                    ->add('ergastiriarchas', null, array('label' => 'ἐργαστηριάρχας', 'attr' => array('class' => 'col-md-4 ergastiriarchasID')))
-                    ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-4 metoikosID')))
-                    ->add('engenis', null, array('label' => 'ἐγγενής', 'attr' => array('class' => 'col-md-4 engenisID')))
-                    ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-4 meisID')))
-                    ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'col-md-10 eteID')))
                     ->add('ethniqueDemotique', null,
                         array(
                             'label' => 'Ethnique / démotique',
                             'empty_value' => 'Aucun',
                             'required' => false,
-                            'attr' => array('class' => 'col-md-10 ethniqueDemotiqueID'),
+                            'attr' => array('class' => 'col-md-3 ethniqueDemotiqueID'),
                             'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
                         )
                     )
-                    ->add('position', 'sonata_type_model', array('empty_value' => 'Aucun', 'required' => false, 'attr' => array('class' => 'col-md-10 positionID')))
+                    ->add('metoikos', null, array('label' => 'μέτοικος', 'attr' => array('class' => 'col-md-3 metoikosID')))
+                    ->add('engenis', null, array('label' => 'ἐγγενής', 'attr' => array('class' => 'col-md-3 engenisID')))
+                    ->add('ergastiriarchas', null, array('label' => 'ἐργαστηριάρχας', 'attr' => array('class' => 'col-md-10 ergastiriarchasID')))
+                    ->add('para', null, array('label' => 'παρά', 'attr' => array('class' => 'col-md-3 paraID')))
+                    ->add('nominatifFabricant', null, array('label' => 'Nominatif (F)', 'attr' => array('class' => 'col-md-3 nominatifFabricantID')))
+                    ->add('ei', null, array('label' => 'EI', 'attr' => array('class' => 'col-md-10 eiID')))
+                    ->add('epi', null, array('label' => 'ἐπί omis', 'attr' => array('class' => 'col-md-3 epiID')))
+                    ->add('iereus', null, array('label' => 'ἰερεύς', 'attr' => array('class' => 'col-md-3 iereusID')))
+                    ->add('nominatifEponyme', null, array('label' => 'Nominatif (É)', 'attr' => array('class' => 'col-md-3 nominatifEponymeID')))
+                    ->add('patronyme', null, array('label' => 'Patronyme', 'attr' => array('class' => 'col-md-3 patronymeID')))
+                    ->add('meis', null, array('label' => 'μείς', 'attr' => array('class' => 'col-md-10 meisID')))
+                    ->add('different', null, array('label' => 'Différent','attr' => array('class' => 'col-md-3 differentID')))
+                    ->add('ete', null, array('label' => 'ἐτῆ', 'attr' => array('class' => 'col-md-3 eteID')))
                     ->add('remarquesType', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesTypeID', 'rows' => 3)))
                 ->end()
-            ->end()
-            ->tab('Matrice')
-                ->with(' ', array('class' => 'col-md-12 sonata-box-rewrite'))
+                ->with('MATRICE', array('class' => 'col-md-12 sonata-box-rewrite'))
                     ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro', 'attr' => array('class' => 'col-md-5 matriceNumeroID')))
                     ->add('regravure', null, array('required' => false, 'label' => 'Regravure', 'attr' => array('class' => 'col-md-5 regravureID')))
                     ->add('cadre', null,
@@ -160,9 +150,9 @@ class FichesAdmin extends Admin
                             'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.rank', 'ASC'); }
                         )
                     )
-                    ->add('bouton', null, array('attr' => array('class' => 'col-md-4 boutonID')))
-                    ->add('grenetis', null, array('label' => 'Grènetis', 'attr' => array('class' => 'col-md-4 grenetisID')))
-                    ->add('ombilic', null, array('attr' => array('class' => 'col-md-4 ombilicID')))
+                    ->add('bouton', null, array('attr' => array('class' => 'col-md-3 boutonID')))
+                    ->add('ombilic', null, array('attr' => array('class' => 'col-md-3 ombilicID')))
+                    ->add('grenetis', null, array('label' => 'Grènetis', 'attr' => array('class' => 'col-md-3 grenetisID')))
                     ->add('separation', null,
                         array(
                             'label' => 'Séparation',
@@ -172,6 +162,16 @@ class FichesAdmin extends Admin
                             'query_builder' => function(\Doctrine\ORM\EntityRepository $rep) { return $rep->createQueryBuilder('u')->orderBy('u.nom', 'ASC'); }
                         )
                     )
+                    ->add('legendeCentrifuge', null, array('label' => 'Légende centrifuge', 'attr' => array('class' => 'col-md-3 legendeCentrifugeID')))
+                    ->add('legendeCentripete', null, array('label' => 'Légende centripète', 'attr' => array('class' => 'col-md-3 legendeCentripeteID')))
+                    ->add('legendeRetrograde', null, array('label' => 'Légende rétrograde', 'attr' => array('class' => 'col-md-4 legendeRetrogradeID')))
+                    ->add('legendeBoustrophedon', null, array('label' => 'Légende boustrophédon', 'attr' => array('class' => 'col-md-3 legendeBoustrophedonID')))
+                    ->add('legendeTournante', null, array('label' => 'Légende tournante', 'attr' => array('class' => 'col-md-3 legendeTournanteID')))
+                    ->add('legendeMontante', null, array('label' => 'Légende montante', 'attr' => array('class' => 'col-md-4 legendeMontanteID')))
+                    ->add('lettreRetrograde', null, array('label' => 'Lettre(s) rétrograde(s)', 'attr' => array('class' => 'col-md-3 lettreRetrogradeID')))
+                    ->add('lettreLunaire', null, array('label' => 'Lettre(s) lunaire(s)', 'attr' => array('class' => 'col-md-3 lettreLunaireID')))
+                    ->add('lettreRenversee', null, array('label' => 'Lettre(s) renversée(s)', 'attr' => array('class' => 'col-md-3 lettreRenverseeID')))
+                    ->add('particulariteOrthographique', null, array('label' => 'Particularité(s) orthographique(s)', 'attr' => array('class' => 'col-md-10 particulariteOrthographiqueID')))
                     ->add('remarquesMatrice', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesMatriceID', 'rows' => 3)))
                 ->end()
             ->end()

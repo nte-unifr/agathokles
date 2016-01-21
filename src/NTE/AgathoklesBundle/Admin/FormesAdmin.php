@@ -24,6 +24,7 @@ class FormesAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nom')
+            ->add('abr')
             ->add('rank', null, array('label' => 'Ordre'))
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -44,6 +45,7 @@ class FormesAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
+            ->add('abr')
         ;
     }
 
@@ -58,6 +60,7 @@ class FormesAdmin extends Admin
         $formMapper
             ->with('Forme')
                 ->add('nom')
+                ->add('abr')
                 ->add('rank', null, array('label' => 'Ordre'))
             ->end()
         ;

@@ -55,6 +55,13 @@
             <argument />
         </service>
 
+        <service id="nte.agathokles.admin.differents" class="NTE\AgathoklesBundle\Admin\DifferentsAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="Différents" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Different</argument>
+            <argument />
+        </service>
+
         <service id="nte.agathokles.admin.emblemes" class="NTE\AgathoklesBundle\Admin\EmblemesAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Critères" label="Emblèmes" />
             <argument />
@@ -66,6 +73,13 @@
             <tag name="sonata.admin" manager_type="orm" group="Critères" label="Eponymes" />
             <argument />
             <argument>NTE\AgathoklesBundle\Entity\Eponyme</argument>
+            <argument />
+        </service>
+
+        <service id="nte.agathokles.admin.etes" class="NTE\AgathoklesBundle\Admin\EtesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Critères" label="ἐτῆ" />
+            <argument />
+            <argument>NTE\AgathoklesBundle\Entity\Ete</argument>
             <argument />
         </service>
 

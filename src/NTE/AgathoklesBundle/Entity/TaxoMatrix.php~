@@ -1,0 +1,39 @@
+<?php
+
+namespace NTE\AgathoklesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TaxoMatrix
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class TaxoMatrix
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="TaxoSubtype")
+     */
+    private $taxoSubtype;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

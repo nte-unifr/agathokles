@@ -5,12 +5,12 @@ namespace NTE\AgathoklesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * NTE\AgathoklesBundle\Entity\Forme
+ * NTE\AgathoklesBundle\Entity\Mois
  *
- * @ORM\Table(name="Forme")
+ * @ORM\Table(name="Mois")
  * @ORM\Entity
  */
-class Forme
+class Mois
 {
     /**
      * @var integer $id
@@ -29,14 +29,16 @@ class Forme
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="forme")
+     * @var integer $numero
+     *
+     * @ORM\Column(name="numero", type="integer", nullable=true)
      */
-    protected $fiches;
+    private $numero;
 
     /**
-     * @ORM\Column(name="rank", type="integer", nullable=false)
+     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="mois")
      */
-    protected $rank;
+    protected $fiches;
 
     /**
      * @var string $abr
@@ -44,6 +46,8 @@ class Forme
      * @ORM\Column(name="abr", type="string", length=50, nullable=true)
      */
     private $abr;
+
+
 
     /**
      * Get id
@@ -59,7 +63,7 @@ class Forme
      * Set nom
      *
      * @param string $nom
-     * @return Forme
+     * @return Mois
      */
     public function setNom($nom)
     {
@@ -79,7 +83,7 @@ class Forme
     }
 
     /**
-    * Override toString() method to return the name of the Forme
+    * Override toString() method to return the name of the Mois
     * @return string name
     */
     public function __toString()
@@ -98,7 +102,7 @@ class Forme
      * Add fiches
      *
      * @param \NTE\AgathoklesBundle\Entity\Fiches $fiches
-     * @return Forme
+     * @return Mois
      */
     public function addFiche(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
@@ -131,7 +135,7 @@ class Forme
      * Add fiches
      *
      * @param \NTE\AgathoklesBundle\Entity\Fiches $fiches
-     * @return Forme
+     * @return Mois
      */
     public function addFich(\NTE\AgathoklesBundle\Entity\Fiches $fiches)
     {
@@ -151,48 +155,25 @@ class Forme
     }
 
     /**
-     * Set rank
+     * Set numero
      *
-     * @param integer $rank
-     * @return Forme
+     * @param integer $numero
+     * @return Mois
      */
-    public function setRank($rank)
+    public function setNumero($numero)
     {
-        $this->rank = $rank;
+        $this->numero = $numero;
 
         return $this;
     }
 
     /**
-     * Get rank
+     * Get numero
      *
      * @return integer
      */
-    public function getRank()
+    public function getNumero()
     {
-        return $this->rank;
-    }
-
-    /**
-     * Set abr
-     *
-     * @param string $abr
-     * @return Forme
-     */
-    public function setAbr($abr)
-    {
-        $this->abr = $abr;
-
-        return $this;
-    }
-
-    /**
-     * Get abr
-     *
-     * @return string 
-     */
-    public function getAbr()
-    {
-        return $this->abr;
+        return $this->numero;
     }
 }

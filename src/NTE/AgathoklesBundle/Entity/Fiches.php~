@@ -2179,27 +2179,4 @@ class Fiches
     {
         return $this->different;
     }
-
-    /**
-     * Set ete
-     *
-     * @param \NTE\AgathoklesBundle\Entity\ete $ete
-     * @return Fiches
-     */
-    public function setEte(\NTE\AgathoklesBundle\Entity\ete $ete = null)
-    {
-        $this->ete = $ete;
-
-        return $this;
-    }
-
-    /**
-     * Get ete
-     *
-     * @return \NTE\AgathoklesBundle\Entity\ete 
-     */
-    public function getEte()
-    {
-        return $this->ete;
-    }
 }

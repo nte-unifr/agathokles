@@ -172,27 +172,4 @@ class Forme
     {
         return $this->rank;
     }
-
-    /**
-     * Set abr
-     *
-     * @param string $abr
-     * @return Forme
-     */
-    public function setAbr($abr)
-    {
-        $this->abr = $abr;
-
-        return $this;
-    }
-
-    /**
-     * Get abr
-     *
-     * @return string 
-     */
-    public function getAbr()
-    {
-        return $this->abr;
-    }
 }
