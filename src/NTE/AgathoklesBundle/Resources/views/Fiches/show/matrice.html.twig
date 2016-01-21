@@ -5,61 +5,66 @@
         <h3 class="panel-title">Matrice</h3>
     </div>
     <div class="panel-body">
-        <table class="table">
-            {% if fiche.regravure %}
-                <tr>
-                    <td><strong>Regravure</strong></td>
-                    <td>
-                        <i class="fa fa-check"></i>
-                    </td>
-                </tr>
-            {% endif %}
+        {% if not fiche.regravure and not fiche.cadre and not fiche.bouton and not fiche.grenetis
+            and not fiche.ombilic and not fiche.remarquesMatrice %}
+            <p>Aucune particularité</p>
+        {% else %}
+            <table class="table">
+                {% if fiche.regravure %}
+                    <tr>
+                        <td><strong>Regravure</strong></td>
+                        <td>
+                            <i class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                {% endif %}
 
-            {% if fiche.cadre %}
-                <tr>
-                    <td><strong>Cadre</strong></td>
-                    <td>
-                        {{ fiche.cadre.nom }}
-                    </td>
-                </tr>
-            {% endif %}
+                {% if fiche.cadre %}
+                    <tr>
+                        <td><strong>Cadre</strong></td>
+                        <td>
+                            {{ fiche.cadre.nom }}
+                        </td>
+                    </tr>
+                {% endif %}
 
-            {% if fiche.bouton %}
-                <tr>
-                    <td><strong>Bouton</strong></td>
-                    <td>
-                        <i class="fa fa-check"></i>
-                    </td>
-                </tr>
-            {% endif %}
+                {% if fiche.bouton %}
+                    <tr>
+                        <td><strong>Bouton</strong></td>
+                        <td>
+                            <i class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                {% endif %}
 
-            {% if fiche.grenetis %}
-                <tr>
-                    <td><strong>Grenetis</strong></td>
-                    <td>
-                        <i class="fa fa-check"></i>
-                    </td>
-                </tr>
-            {% endif %}
+                {% if fiche.grenetis %}
+                    <tr>
+                        <td><strong>Grenetis</strong></td>
+                        <td>
+                            <i class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                {% endif %}
 
-            {% if fiche.ombilic %}
-                <tr>
-                    <td><strong>Ombilic</strong></td>
-                    <td>
-                        <i class="fa fa-check"></i>
-                    </td>
-                </tr>
-            {% endif %}
+                {% if fiche.ombilic %}
+                    <tr>
+                        <td><strong>Ombilic</strong></td>
+                        <td>
+                            <i class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                {% endif %}
 
-            {% if fiche.remarquesMatrice %}
-                <tr>
-                    <td><strong>Remarques</strong></td>
-                    <td>
-                        {{ fiche.remarquesMatrice }}
-                    </td>
-                </tr>
-            {% endif %}
+                {% if fiche.remarquesMatrice %}
+                    <tr>
+                        <td><strong>Remarques</strong></td>
+                        <td>
+                            {{ fiche.remarquesMatrice }}
+                        </td>
+                    </tr>
+                {% endif %}
 
-        </table>
+            </table>
+        {% endif %}
     </div>
 </div>
