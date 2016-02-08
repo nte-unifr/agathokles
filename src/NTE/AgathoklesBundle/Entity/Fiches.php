@@ -425,21 +425,21 @@ class Fiches
     private $nominatifFabricant;
 
     /**
-     * @var string $nominatifEponyme
+     * @var boolean $nominatifEponyme
      *
      * @ORM\Column(name="nominatifEponyme", type="boolean", nullable=true)
      */
     private $nominatifEponyme;
 
     /**
-     * @var string $ei
+     * @var boolean $ei
      *
      * @ORM\Column(name="ei", type="boolean", nullable=true)
      */
     private $ei;
 
     /**
-     * @var string $patronyme
+     * @var boolean $patronyme
      *
      * @ORM\Column(name="patronyme", type="boolean", nullable=true)
      */
