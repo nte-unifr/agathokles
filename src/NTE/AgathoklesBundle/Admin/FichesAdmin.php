@@ -10,6 +10,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
+use NTE\AgathoklesBundle\Entity\TaxoType;
+use NTE\AgathoklesBundle\Entity\TaxoSubtype;
+
 class FichesAdmin extends Admin
 {
     protected $em;
@@ -22,14 +25,8 @@ class FichesAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('eponyme')
-            ->add('fabricant')
-            ->add('typeNumero', null, array('label' => 'Tx'))
-            ->add('matriceNumero', null, array('label' => 'My'))
-            ->add('forme')
-            ->add('mois')
-            ->add('embleme')
-            ->add('categorie')
+            ->add('__toString', null, array('label' => 'Dénomination'))
+            ->add('categorie', null, array('label' => 'Catégorie'))
             ->add('public')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -47,12 +44,12 @@ class FichesAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('eponyme')
             ->add('fabricant')
-            ->add('forme')
+            ->add('eponyme', null, array('label' => 'Éponyme'))
             ->add('mois')
-            ->add('embleme')
-            ->add('categorie')
+            ->add('embleme', null, array('label' => 'Emblème'))
+            ->add('forme')
+            ->add('categorie', null, array('label' => 'Catégorie'))
         ;
     }
 
@@ -140,7 +137,6 @@ class FichesAdmin extends Admin
                     ->add('remarquesType', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesTypeID', 'rows' => 3)))
                 ->end()
                 ->with('MATRICE', array('class' => 'col-md-12 sonata-box-rewrite'))
-                    ->add('matriceNumero', null, array('required' => true, 'label' => 'Matrice numéro', 'attr' => array('class' => 'col-md-5 matriceNumeroID')))
                     ->add('regravure', null, array('required' => false, 'label' => 'Regravure', 'attr' => array('class' => 'col-md-5 regravureID')))
                     ->add('cadre', null,
                         array(
@@ -256,80 +252,124 @@ class FichesAdmin extends Admin
      */
     protected $datagridValues = array(
         '_page' => 1,               // display the first page (default = 1)
-        '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
-        '_sort_by' => 'fullname' // name of the ordered field
+        '_sort_order' => 'DESC',     // reverse order (default = 'ASC')
+        '_sort_by' => 'modification_date' // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
 
-    // PRE OPERATIONS
+    // PRE/POST OPERATIONS
 
-    public function prePersist($fiche)
+    public function postPersist($fiche)
     {
-        $nextTypeNumero = $this->getNextTypeNumero($fiche);
-        $fiche->setTypeNumero($nextTypeNumero);
-
-        $this->linkTimbres($fiche);
-    }
-
-    public function preUpdate($fiche)
-    {
-        $rightFullname = $this->getRightFullname($fiche);
-        $fiche->setFullname($rightFullname);
+        $this->updateTaxonomy($fiche);
+        $this->cleanTaxonomy($fiche);
 
         $this->updateFabricantDating($fiche);
+    }
 
-        $this->linkTimbres($fiche);
+    public function postUpdate($fiche)
+    {
+        $this->updateTaxonomy($fiche);
+        $this->cleanTaxonomy($fiche);
+
+        $this->updateFabricantDating($fiche);
+    }
+
+    public function postRemove($fiche)
+    {
+        $this->cleanTaxonomy($fiche);
     }
 
     // OTHER FUNCTIONS
 
-    public function getNextTypeNumero($fiche)
+    public function updateTaxonomy($fiche)
     {
-        // Count all occurences of the same eponyme, fabricant, forme, embleme and mois to update TypeNumero accordingly
-        $qb = $this->em->createQueryBuilder()
-            ->select('f')
-            ->from('NTEAgathoklesBundle:Fiches', 'f')
-            ->where('f.eponyme = :epo')
-            ->andWhere('f.fabricant = :fab')
-            ->andWhere('f.forme = :for')
-            ->andWhere('f.embleme = :emb')
-            ->andWhere('f.mois = :moi')
-            ->orderBy( 'f.id', 'ASC' )
-            ->setParameter('epo', $fiche->getEponyme())
-            ->setParameter('fab', $fiche->getFabricant())
-            ->setParameter('for', $fiche->getForme())
-            ->setParameter('emb', $fiche->getEmbleme())
-            ->setParameter('moi', $fiche->getMois());
-        $results = $qb->getQuery()->getResult();
-        $resultCount = count($results);
-        return $resultCount+1;
+        $em = $this->em;
+
+        // First, treat type
+        $typeHash = $fiche->calcTaxoTypeHash();
+        $tt = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoType')->findOneBy(array('hash' => $typeHash));
+        if (!$tt) {
+            $tt = new TaxoType;
+            $tt->setHash($typeHash);
+            $em->persist($tt);
+            $em->flush();
+        }
+
+        // Second, treat subtype
+        $subtypeHash = $fiche->calcTaxoSubtypeHash();
+        $ts = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoSubtype')->findOneBy(array('hash' => $subtypeHash, 'taxoType' => $tt));
+        if(!$ts) {
+            $ts = new TaxoSubtype;
+            $ts->setHash($subtypeHash);
+            $ts->setTaxoType($tt);
+            $em->persist($ts);
+            $em->flush();
+        }
+
+        $fiche->setTaxoSubtype($ts);
     }
 
-    // set a human readable name to fiches
-    public function getRightFullname($fiche)
+    public function cleanTaxonomy($fiche)
     {
-        $spacer = "";
-        $epo = "";
-        $epoIdInc = "";
-        $fab = "";
-        $fabIdInc = "";
-        if ($fiche->getEponyme() != null) {
-            $epo = $fiche->getEponyme()->getNom();
+        // Clean TaxoSubtypes
+        $em = $this->em;
+        $i = 1;
+        $q = $em->createQuery('select s from NTE\AgathoklesBundle\Entity\TaxoSubtype s');
+        $taxoSubtypes = $q->iterate();
+        foreach ($taxoSubtypes as $taxoSubtype) {
+            $taxoSubtype = $taxoSubtype[0];
+            if ($taxoSubtype->getFiches()->isEmpty()) {
+                $em->remove($taxoSubtype);
+            }
         }
-        if ($fiche->getEpoIdInc() != null) {
-            $epoIdInc = " (?)";
+        $em->flush();
+
+        // Clean TaxoTypes
+        $em = $this->em;
+        $i = 1;
+        $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t');
+        $taxoTypes = $q->iterate();
+        foreach ($taxoTypes as $taxoType) {
+            $taxoType = $taxoType[0];
+            if ($taxoType->getTaxoSubtypes()->isEmpty()) {
+                $em->remove($taxoType);
+            }
         }
-        if ($fiche->getFabricant() != null) {
-            $fab = $fiche->getFabricant()->getNom();
+        $em->flush();
+
+        $this->updateTaxoTypesRanking();
+        $em->flush();
+    }
+
+    public function updateTaxoTypesRanking()
+    {
+        $em = $this->em;
+        $i = 1;
+        $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t');
+        $taxoTypes = $q->iterate();
+        foreach ($taxoTypes as $taxoType) {
+            $taxoType = $taxoType[0];
+            $taxoType->setRank($i);
+            $em->persist($taxoType);
+            ++$i;
+            $this->updateTaxoSubtypesRanking($taxoType);
         }
-        if ($fiche->getFabIdInc() != null) {
-            $fabIdInc = " (?)";
+    }
+
+    public function updateTaxoSubtypesRanking($taxoType)
+    {
+        $em = $this->em;
+        $i = 1;
+        $q = $em->createQuery('select s from NTE\AgathoklesBundle\Entity\TaxoSubtype s where s.taxoType = ?1');
+        $q->setParameter(1, $taxoType);
+        $taxoSubtypes = $q->iterate();
+        foreach ($taxoSubtypes as $taxoSubtype) {
+            $taxoSubtype = $taxoSubtype[0];
+            $taxoSubtype->setRank($i);
+            $em->persist($taxoSubtype);
+            ++$i;
         }
-        if ($epo != "" && $fab != "") {
-            $spacer = " / ";
-        }
-        $fullname = $epo.$epoIdInc . $spacer . $fab.$fabIdInc . " - T" . $fiche->getTypeNumero() . " - M" . $fiche->getMatriceNumero();
-        return $fullname;
     }
 
     // update fabricant dating if both fabricant and eponyme set
@@ -354,14 +394,6 @@ class FichesAdmin extends Admin
                     $fabricant->setApproximative($fabricant->getApproximative() ?: $eponyme->getApproximative()); // if getting an approx dating, it's an approx
                 }
             }
-        }
-    }
-
-    // update each timbres in order to associate to the fiche
-    public function linkTimbres($fiche)
-    {
-        foreach ($fiche->getTimbres() as $timbre) {
-            $timbre->setFiche($fiche);
         }
     }
 

@@ -14,7 +14,7 @@
                         <td><strong>Matrice<br> principale</strong></td>
                         <td>
                             {% for matrice in fiche.matricePrincipale %}
-                                <p><a href="{{ path('matrice', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }} - T{{ matrice.fichePrincipale.typeNumero }} - M{{ matrice.fichePrincipale.matriceNumero }}</a></p>
+                                <p><a href="{{ path('matrice', { 'id': matrice.fichePrincipale.id }) }}">{{ matrice.fichePrincipale.eponyme }} / {{ matrice.fichePrincipale.fabricant }}</a></p>
                             {% endfor %}
                         </td>
                     </tr>
@@ -25,7 +25,7 @@
                         <td><strong>Matrice<br> secondaire</strong></td>
                         <td>
                             {% for matrice in fiche.matriceSecondaire %}
-                                <p><a href="{{ path('matrice', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }} - T{{ matrice.ficheSecondaire.typeNumero }} - M{{ matrice.ficheSecondaire.matriceNumero }}</a></p>
+                                <p><a href="{{ path('matrice', { 'id': matrice.ficheSecondaire.id }) }}">{{ matrice.ficheSecondaire.eponyme }} / {{ matrice.ficheSecondaire.fabricant }}</a></p>
                             {% endfor %}
                         </td>
                     </tr>
@@ -36,7 +36,7 @@
                         <td><strong>Matrice<br> complémentaire</strong></td>
                         <td>
                             {% for matrice in fiche.matriceComplementaire %}
-                                <p><a href="{{ path('matrice', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }} - T{{ matrice.ficheComplementaire.typeNumero }} - M{{ matrice.ficheComplementaire.matriceNumero }}</a></p>
+                                <p><a href="{{ path('matrice', { 'id': matrice.ficheComplementaire.id }) }}">{{ matrice.ficheComplementaire.eponyme }} / {{ matrice.ficheComplementaire.fabricant }}</a></p>
                             {% endfor %}
                         </td>
                     </tr>

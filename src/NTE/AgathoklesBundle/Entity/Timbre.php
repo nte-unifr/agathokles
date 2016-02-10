@@ -186,7 +186,7 @@ class Timbre
     /**
      * Get contexte
      *
-     * @return string 
+     * @return string
      */
     public function getContexte()
     {

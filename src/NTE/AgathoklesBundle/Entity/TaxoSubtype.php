@@ -3,6 +3,8 @@
 namespace NTE\AgathoklesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TaxoSubtype
@@ -22,9 +24,37 @@ class TaxoSubtype
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TaxoType")
+     * @var string
+     *
+     * @ORM\Column(name="thash", type="string", nullable=false)
+     */
+    private $hash;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer", nullable=false)
+     */
+    private $rank = 0;
+
+    /**
+     * @var TaxoType|null the taxoType this fiche belongs (if any)
+     * @ORM\ManyToOne(targetEntity="TaxoType", inversedBy="subtypes")
+     * @ORM\JoinColumn(name="taxoType_id", referencedColumnName="id")
      */
     private $taxoType;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Fiches", mappedBy="taxoSubtype")
+     */
+    private $fiches;
+
+
+    public function preRemove()
+    {
+        $this->setTaxoType(null);
+    }
 
 
     /**
@@ -38,25 +68,95 @@ class TaxoSubtype
     }
 
     /**
-     * Set taxoType
      *
-     * @param \NTE\AgathoklesBundle\Entity\TaxoType $taxoType
+     */
+    public function __construct() {
+        $this->fiches = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return "".$this->getRank();
+    }
+
+    /**
+     * Sets a new fiche taxoType and cleans the previous one if set
+     * @param null|TaxoType $taxoType
+     */
+    public function setTaxoType($taxoType) {
+        if($taxoType === null) {
+            if($this->taxoType !== null) {
+                $this->taxoType->getTaxoSubtypes()->removeElement($this);
+            }
+            $this->taxoType = null;
+        } else {
+            if(!$taxoType instanceof TaxoType) {
+                throw new InvalidArgumentException('$taxoType must be null or instance of TaxoType');
+            }
+            if($this->taxoType !== null) {
+                $this->taxoType->getTaxoSubtypes()->removeElement($this);
+            }
+            $this->taxoType = $taxoType;
+            $taxoType->getTaxoSubtypes()->add($this);
+        }
+    }
+
+    /**
+     * @return TaxoType|null
+     */
+    public function getTaxoType() {
+        return $this->taxoType;
+    }
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
      * @return TaxoSubtype
      */
-    public function setTaxoType(\NTE\AgathoklesBundle\Entity\TaxoType $taxoType = null)
+    public function setHash($hash)
     {
-        $this->taxoType = $taxoType;
+        $this->hash = $hash;
 
         return $this;
     }
 
     /**
-     * Get taxoType
+     * Get hash
      *
-     * @return \NTE\AgathoklesBundle\Entity\TaxoType 
+     * @return string
      */
-    public function getTaxoType()
+    public function getHash()
     {
-        return $this->taxoType;
+        return $this->hash;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return TaxoSubtype
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFiches() {
+        return $this->fiches;
     }
 }

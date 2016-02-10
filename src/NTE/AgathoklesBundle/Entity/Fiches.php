@@ -362,20 +362,6 @@ class Fiches
     private $editeur;
 
     /**
-     * @var integer $typeNumero
-     *
-     * @ORM\Column(name="typeNumero", type="integer")
-     */
-    private $typeNumero = 1;
-
-    /**
-     * @var integer $matriceNumero
-     *
-     * @ORM\Column(name="matriceNumero", type="integer")
-     */
-    private $matriceNumero = 1;
-
-    /**
      * @var boolean $fabIdInc
      *
      * @ORM\Column(name="fabIdInc", type="boolean", nullable=true)
@@ -460,9 +446,40 @@ class Fiches
      */
     private $ete;
 
+    /**
+     * @var TaxoSubtype|null the taxoSubtype this fiche belongs (if any)
+     * @ORM\ManyToOne(targetEntity="TaxoSubtype", inversedBy="fiches")
+     * @ORM\JoinColumn(name="taxoSubtype_id", referencedColumnName="id")
+     */
+    private $taxoSubtype;
+
     public function __toString()
     {
-        return $this->fullname;
+        $delimiter = " - ";
+        $fab = $epo = $mois = $taxoType = $taxoSubtype = "";
+
+        if ($this->fabricant) {
+            $fab = $this->fabricant.$delimiter;
+        }
+        if ($this->eponyme) {
+            $epo = $this->eponyme.$delimiter;
+        }
+        if ($this->mois) {
+            $mois = $this->mois.$delimiter;
+        }
+        if ($this->taxoSubtype) {
+            $taxoSubtype = "S".$this->taxoSubtype.$delimiter;
+            if ($this->taxoSubtype->getTaxoType()) {
+                $taxoType = "T".$this->taxoSubtype->getTaxoType().$delimiter;
+            }
+        }
+
+        $result = $fab.$epo.$mois.$taxoType.$taxoSubtype;
+        if (substr($result, -3) == " - ") {
+            $result = substr($result, 0, -3);
+        }
+
+        return $result;
     }
 
     /**
@@ -483,6 +500,10 @@ class Fiches
         //See also FichesListener.php
     }
 
+    public function preRemove()
+    {
+        $this->setTaxoSubtype(null);
+    }
 
 
     /**
@@ -1437,52 +1458,6 @@ class Fiches
     }
 
     /**
-     * Set typeNumero
-     *
-     * @param integer $typeNumero
-     * @return Fiches
-     */
-    public function setTypeNumero($typeNumero)
-    {
-        $this->typeNumero = $typeNumero;
-
-        return $this;
-    }
-
-    /**
-     * Get typeNumero
-     *
-     * @return integer
-     */
-    public function getTypeNumero()
-    {
-        return $this->typeNumero;
-    }
-
-    /**
-     * Set matriceNumero
-     *
-     * @param integer $matriceNumero
-     * @return Fiches
-     */
-    public function setMatriceNumero($matriceNumero)
-    {
-        $this->matriceNumero = $matriceNumero;
-
-        return $this;
-    }
-
-    /**
-     * Get matriceNumero
-     *
-     * @return integer
-     */
-    public function getMatriceNumero()
-    {
-        return $this->matriceNumero;
-    }
-
-    /**
      * Set fabIdInc
      *
      * @param boolean $fabIdInc
@@ -1567,9 +1542,10 @@ class Fiches
      * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
      * @return Fiches
      */
-    public function addTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    public function addTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbre)
     {
-        $this->timbres[] = $timbres;
+        $this->timbres[] = $timbre;
+        $timbre->setFiche($this);
 
         return $this;
     }
@@ -1579,9 +1555,9 @@ class Fiches
      *
      * @param \NTE\AgathoklesBundle\Entity\Timbre $timbres
      */
-    public function removeTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbres)
+    public function removeTimbre(\NTE\AgathoklesBundle\Entity\Timbre $timbre)
     {
-        $this->timbres->removeElement($timbres);
+        $this->timbres->removeElement($timbre);
     }
 
     /**
@@ -2115,46 +2091,18 @@ class Fiches
         return $this->patronyme;
     }
 
-    public function getTaxoTypeKey()
+    public function getTaxoSubtypeKey()
     {
-        $fab = $mois = $embleme = $eponyme = $forme = $ethniqueDemotique = 0;
-        if ($this->getFabricant() instanceof Fabricant) {
-            $fab = $this->getFabricant()->getId();
-        }
-        if ($this->getEponyme() instanceof Eponyme) {
-            $eponyme = $this->getEponyme()->getId();
-        }
-        if ($this->getMois() instanceof Mois) {
-            $mois = $this->getMois()->getId();
-        }
-        if ($this->getEmbleme() instanceof Embleme) {
-            $embleme = $this->getEmbleme()->getId();
-        }
-        if ($this->getForme() instanceof Forme) {
-            $forme = $this->getForme()->getId();
-        }
-        if ($this->getEthniqueDemotique() instanceof EthniqueDemotique) {
-            $ethniqueDemotique = $this->getEthniqueDemotique()->getId();
-        }
-        $key = "".$fab."|".
-            $ethniqueDemotique."|".
-            $this->trueFalseToOneZero($this->metoikos)."|".
-            $this->trueFalseToOneZero($this->engenis)."|".
-            $this->trueFalseToOneZero($this->ergastiriarchas)."|".
-            $eponyme."|".
-            $this->trueFalseToOneZero($this->ei)."|".
-            $mois."|".
-            $this->different."|".
-            $this->ete."|".
-            $embleme."|".
-            $forme;
-        return $key;
-        #   return md5($key);
-    }
-
-    public function trueFalseToOneZero($value)
-    {
-        return $value ? "1" : "0";
+        $separator = "";
+        $key = "".
+        $this->boolVal($this->para).$separator.
+        $this->boolVal($this->nominatifFabricant).$separator.
+        $this->boolVal($this->epi).$separator.
+        $this->boolVal($this->iereus).$separator.
+        $this->boolVal($this->nominatifEponyme).$separator.
+        $this->boolVal($this->patronyme).$separator.
+        $this->boolVal($this->meis);
+        return md5($key);
     }
 
     /**
@@ -2196,10 +2144,106 @@ class Fiches
     /**
      * Get ete
      *
-     * @return \NTE\AgathoklesBundle\Entity\ete 
+     * @return \NTE\AgathoklesBundle\Entity\ete
      */
     public function getEte()
     {
         return $this->ete;
+    }
+
+    /**
+     * Sets a new fiche taxoSubtype and cleans the previous one if set
+     * @param null|TaxoSubtype $taxoSubtype
+     */
+    public function setTaxoSubtype($taxoSubtype) {
+        if($taxoSubtype === null) {
+            if($this->taxoSubtype !== null) {
+                $this->taxoSubtype->getFiches()->removeElement($this);
+            }
+            $this->taxoSubtype = null;
+        } else {
+            if(!$taxoSubtype instanceof TaxoSubtype) {
+                throw new InvalidArgumentException('$taxoSubtype must be null or instance of TaxoSubtype');
+            }
+            if($this->taxoSubtype !== null) {
+                $this->taxoSubtype->getFiches()->removeElement($this);
+            }
+            $this->taxoSubtype = $taxoSubtype;
+            $taxoSubtype->getFiches()->add($this);
+        }
+    }
+
+    /**
+     * @return TaxoSubtype|null
+     */
+    public function getTaxoSubtype() {
+        return $this->taxoSubtype;
+    }
+
+    /**
+     * HELPERS
+     */
+
+    public function boolVal($value)
+    {
+        return $value ? "1" : "0";
+    }
+
+    public function calcTaxoTypeHash()
+    {
+        $separator = "";
+        $fab = $mois = $embleme = $eponyme = $forme = $ethniqueDemotique = $different = $ete = 0;
+        if ($this->getFabricant() instanceof Fabricant) {
+            $fab = $this->getFabricant()->getId();
+        }
+        if ($this->getEponyme() instanceof Eponyme) {
+            $eponyme = $this->getEponyme()->getId();
+        }
+        if ($this->getMois() instanceof Mois) {
+            $mois = $this->getMois()->getId();
+        }
+        if ($this->getEmbleme() instanceof Embleme) {
+            $embleme = $this->getEmbleme()->getId();
+        }
+        if ($this->getForme() instanceof Forme) {
+            $forme = $this->getForme()->getId();
+        }
+        if ($this->getEthniqueDemotique() instanceof EthniqueDemotique) {
+            $ethniqueDemotique = $this->getEthniqueDemotique()->getId();
+        }
+        if ($this->getDifferent() instanceof Different) {
+            $different = $this->getDifferent()->getId();
+        }
+        if ($this->getEte() instanceof Ete) {
+            $ete = $this->getEte()->getId();
+        }
+        $hash = "".
+            $fab.$separator.
+            $ethniqueDemotique.$separator.
+            $this->boolVal($this->metoikos).$separator.
+            $this->boolVal($this->engenis).$separator.
+            $this->boolVal($this->ergastiriarchas).$separator.
+            $eponyme.$separator.
+            $this->boolVal($this->ei).$separator.
+            $mois.$separator.
+            $different.$separator.
+            $ete.$separator.
+            $embleme.$separator.
+            $forme;
+        return md5($hash);
+    }
+
+    public function calcTaxoSubtypeHash()
+    {
+        $separator = "";
+        $hash = "".
+            $this->boolVal($this->para).$separator.
+            $this->boolVal($this->nominatifFabricant).$separator.
+            $this->boolVal($this->epi).$separator.
+            $this->boolVal($this->iereus).$separator.
+            $this->boolVal($this->nominatifEponyme).$separator.
+            $this->boolVal($this->patronyme).$separator.
+            $this->boolVal($this->meis);
+        return md5($hash);
     }
 }
