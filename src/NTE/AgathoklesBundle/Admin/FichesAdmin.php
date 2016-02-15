@@ -314,7 +314,6 @@ class FichesAdmin extends Admin
     {
         // Clean TaxoSubtypes
         $em = $this->em;
-        $i = 1;
         $q = $em->createQuery('select s from NTE\AgathoklesBundle\Entity\TaxoSubtype s');
         $taxoSubtypes = $q->iterate();
         foreach ($taxoSubtypes as $taxoSubtype) {
@@ -327,7 +326,6 @@ class FichesAdmin extends Admin
 
         // Clean TaxoTypes
         $em = $this->em;
-        $i = 1;
         $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t');
         $taxoTypes = $q->iterate();
         foreach ($taxoTypes as $taxoType) {
