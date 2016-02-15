@@ -3,7 +3,7 @@
 <div id="fiche_{{fiche.id}}" class="masonry-grid-item panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">
-            <a href="{{ path('matrice', {'id': fiche.id}) }}">{{ fiche.fullname }}</a>
+            <a href="{{ path('matrice', {'id': fiche.id}) }}">{{ fiche.__toString }}</a>
         </h3>
     </div>
     {% if fiche.images.0 is defined %}

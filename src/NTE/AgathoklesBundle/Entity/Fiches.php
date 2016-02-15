@@ -25,11 +25,11 @@ class Fiches
     private $id;
 
     /**
-     * @var string $fullname
+     * @var string $sortName
      *
-     * @ORM\Column(name="fullname", type="string", nullable=true)
+     * @ORM\Column(name="sortName", type="string", nullable=true)
      */
-    private $fullname;
+    private $sortName;
 
     /**
      * @var Categorie
@@ -684,26 +684,26 @@ class Fiches
     }
 
     /**
-     * Set fullname
+     * Set sortName
      *
-     * @param string $fullname
+     * @param string $sortName
      * @return Fiches
      */
-    public function setFullname($fullname)
+    public function setSortName($sortName)
     {
-        $this->fullname = $fullname;
+        $this->sortName = $sortName;
 
         return $this;
     }
 
     /**
-     * Get fullname
+     * Get sortName
      *
      * @return string
      */
-    public function getFullname()
+    public function getSortName()
     {
-        return $this->fullname;
+        return $this->sortName;
     }
 
     /**

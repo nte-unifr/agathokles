@@ -25,7 +25,7 @@ class FichesAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('__toString', null, array('label' => 'Dénomination'))
+            ->add('sortName', null, array('label' => 'Dénomination'))
             ->add('categorie', null, array('label' => 'Catégorie'))
             ->add('public')
             ->add('_action', 'actions', array(
@@ -252,8 +252,8 @@ class FichesAdmin extends Admin
      */
     protected $datagridValues = array(
         '_page' => 1,               // display the first page (default = 1)
-        '_sort_order' => 'DESC',     // reverse order (default = 'ASC')
-        '_sort_by' => 'modification_date' // name of the ordered field
+        '_sort_order' => 'ASC',     // reverse order (default = 'ASC')
+        '_sort_by' => 'sortName' // name of the ordered field
         // the '_sort_by' key can be of the form 'mySubModel.mySubSubModel.myField'.
     );
 
@@ -308,6 +308,7 @@ class FichesAdmin extends Admin
         }
 
         $fiche->setTaxoSubtype($ts);
+        $fiche->setSortName($fiche->__toString());
     }
 
     public function cleanTaxonomy($fiche)
