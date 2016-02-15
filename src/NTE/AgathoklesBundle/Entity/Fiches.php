@@ -32,6 +32,13 @@ class Fiches
     private $sortName;
 
     /**
+     * @var string $fullName
+     *
+     * @ORM\Column(name="fullName", type="string", nullable=true)
+     */
+    private $fullName;
+
+    /**
      * @var Categorie
      *
      * @ORM\ManyToOne(targetEntity="Categorie")
@@ -463,26 +470,25 @@ class Fiches
     public function __toString()
     {
         $delimiter = " - ";
-        $fab = $epo = $mois = $taxoType = $taxoSubtype = "";
+        $result = "";
 
         if ($this->fabricant) {
-            $fab = $this->fabricant.$delimiter;
+            $result = $result.$this->fabricant.$delimiter;
         }
         if ($this->eponyme) {
-            $epo = $this->eponyme.$delimiter;
+            $result = $result.$this->eponyme.$delimiter;
         }
         if ($this->mois) {
-            $mois = $this->mois.$delimiter;
+            $result = $result.$this->mois->getAbr().$delimiter;
         }
         if ($this->taxoSubtype) {
-            $taxoSubtype = "S".$this->taxoSubtype.$delimiter;
+            $result = $result."S".$this->taxoSubtype.$delimiter;
             if ($this->taxoSubtype->getTaxoType()) {
-                $taxoType = "T".$this->taxoSubtype->getTaxoType().$delimiter;
+                $result = $result."T".$this->taxoSubtype->getTaxoType().$delimiter;
             }
         }
-        $rank = "M".$this->rank.$delimiter;
+        $result = $result."M".$this->rank.$delimiter;
 
-        $result = $fab.$epo.$mois.$taxoType.$taxoSubtype.$rank;
         if (substr($result, -3) == " - ") {
             $result = substr($result, 0, -3);
         }
@@ -704,6 +710,29 @@ class Fiches
     public function getSortName()
     {
         return $this->sortName;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @return Fiches
+     */
+    public function setFullName($fullName)
+    {
+
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 
     /**
@@ -2276,5 +2305,83 @@ class Fiches
             $this->boolVal($this->patronyme).$separator.
             $this->boolVal($this->meis);
         return md5($hash);
+    }
+
+    public function generateFullName()
+    {
+        $delimiter = " - ";
+        $result = "";
+
+        if ($this->getFabricant() instanceof Fabricant) {
+            $result .= $this->getFabricant()->getNom().$delimiter;
+        }
+        if ($this->getEthniqueDemotique() instanceof EthniqueDemotique) {
+            $result .= $this->getEthniqueDemotique()->getNom().$delimiter;
+        }
+        if ($this->metoikos) {
+            $result .= "μέτοικος".$delimiter;
+        }
+        if ($this->engenis) {
+            $result .= "ἐγγενής".$delimiter;
+        }
+        if ($this->ergastiriarchas) {
+            $result .= "ἐργαστηριάρχας".$delimiter;
+        }
+        if ($this->para) {
+            $result .= "παρά".$delimiter;
+        }
+        if ($this->nominatifFabricant) {
+            $result .= "nominatif (F)".$delimiter;
+        }
+        if ($this->getEponyme() instanceof Eponyme) {
+            $result .= $this->getEponyme()->getNom().$delimiter;
+        }
+        if ($this->ei) {
+            $result .= "EI".$delimiter;
+        }
+        if ($this->epi) {
+            $result .= "ἐπί omis".$delimiter;
+        }
+        if ($this->iereus) {
+            $result .= "ἰερεύς".$delimiter;
+        }
+        if ($this->nominatifEponyme) {
+            $result .= "nominatif (É)".$delimiter;
+        }
+        if ($this->patronyme) {
+            $result .= "patronyme".$delimiter;
+        }
+        if ($this->getMois() instanceof Mois) {
+            $result .= $this->getMois()->getAbr().$delimiter;
+        }
+        if ($this->meis) {
+            $result .= "μείς".$delimiter;
+        }
+        if ($this->getDifferent() instanceof Different) {
+            $result .= $this->getDifferent()->getNom().$delimiter;
+        }
+        if ($this->getEte() instanceof Ete) {
+            $result .= $this->getEte()->getNom().$delimiter;
+        }
+        if ($this->getEmbleme() instanceof Embleme) {
+            $result .= $this->getEmbleme()->getNom().$delimiter;
+        }
+        if ($this->getForme() instanceof Forme) {
+            $result .= $this->getForme()->getAbr().$delimiter;
+        }
+
+        if ($this->taxoSubtype) {
+            $result .= "S".$this->taxoSubtype.$delimiter;
+            if ($this->taxoSubtype->getTaxoType()) {
+                $result .= "T".$this->taxoSubtype->getTaxoType().$delimiter;
+            }
+        }
+        $result .= "M".$this->rank.$delimiter;
+
+        if (substr($result, -3) == " - ") {
+            $result = substr($result, 0, -3);
+        }
+
+        return $result;
     }
 }

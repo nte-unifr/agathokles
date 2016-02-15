@@ -66,6 +66,22 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Analyse')
+                ->with('DÉNOMINATION', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('sortName', null,
+                        array(
+                            'label' => 'Dénomination abrégée',
+                            'disabled' => true,
+                            'attr' => array('class' => 'col-md-10')
+                        )
+                    )
+                    ->add('fullName', null,
+                        array(
+                            'label' => 'Dénomination complète',
+                            'disabled' => true,
+                            'attr' => array('class' => 'col-md-10')
+                        )
+                    )
+                ->end()
                 ->with('TYPE', array('class' => 'col-md-12 sonata-box-rewrite'))
                     ->add('forme', null,
                         array(
@@ -259,20 +275,28 @@ class FichesAdmin extends Admin
 
     // PRE/POST OPERATIONS
 
+    public function prePersist($fiche)
+    {
+        $fiche->setSortName($fiche->__toString());
+        $fiche->setFullName($fiche->generateFullName());
+        $this->updateFabricantDating($fiche);
+    }
     public function postPersist($fiche)
     {
         $this->updateTaxonomy($fiche);
         $this->cleanTaxonomy($fiche);
-
-        $this->updateFabricantDating($fiche);
     }
 
+    public function preUpdate($fiche)
+    {
+        $fiche->setSortName($fiche->__toString());
+        $fiche->setFullName($fiche->generateFullName());
+        $this->updateFabricantDating($fiche);
+    }
     public function postUpdate($fiche)
     {
         $this->updateTaxonomy($fiche);
         $this->cleanTaxonomy($fiche);
-
-        $this->updateFabricantDating($fiche);
     }
 
     public function postRemove($fiche)
@@ -308,7 +332,6 @@ class FichesAdmin extends Admin
         }
 
         $fiche->setTaxoSubtype($ts);
-        $fiche->setSortName($fiche->__toString());
     }
 
     public function cleanTaxonomy($fiche)
@@ -390,6 +413,8 @@ class FichesAdmin extends Admin
     // update fabricant dating if both fabricant and eponyme set
     public function updateFabricantDating($fiche)
     {
+        $em = $this->em;
+
         if ($fiche->hasFabricant() && $fiche->hasEponyme()) {
             $fabricant  = $fiche->getFabricant();
             $eponyme    = $fiche->getEponyme();

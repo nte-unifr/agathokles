@@ -193,7 +193,7 @@ class Mois
     /**
      * Get abr
      *
-     * @return string 
+     * @return string
      */
     public function getAbr()
     {
