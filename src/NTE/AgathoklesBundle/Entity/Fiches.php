@@ -453,6 +453,13 @@ class Fiches
      */
     private $taxoSubtype;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer", nullable=false)
+     */
+    private $rank = 0;
+
     public function __toString()
     {
         $delimiter = " - ";
@@ -473,8 +480,9 @@ class Fiches
                 $taxoType = "T".$this->taxoSubtype->getTaxoType().$delimiter;
             }
         }
+        $rank = "M".$this->rank.$delimiter;
 
-        $result = $fab.$epo.$mois.$taxoType.$taxoSubtype;
+        $result = $fab.$epo.$mois.$taxoType.$taxoSubtype.$rank;
         if (substr($result, -3) == " - ") {
             $result = substr($result, 0, -3);
         }
@@ -2178,6 +2186,29 @@ class Fiches
      */
     public function getTaxoSubtype() {
         return $this->taxoSubtype;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return Fiches
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 
     /**

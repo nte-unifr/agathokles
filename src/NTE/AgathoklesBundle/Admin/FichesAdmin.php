@@ -367,6 +367,22 @@ class FichesAdmin extends Admin
             $taxoSubtype->setRank($i);
             $em->persist($taxoSubtype);
             ++$i;
+            $this->updateFichesRanking($taxoSubtype);
+        }
+    }
+
+    public function updateFichesRanking($taxoSubtype)
+    {
+        $em = $this->em;
+        $i = 1;
+        $q = $em->createQuery('select f from NTE\AgathoklesBundle\Entity\Fiches f where f.taxoSubtype = ?1');
+        $q->setParameter(1, $taxoSubtype);
+        $fiches = $q->iterate();
+        foreach ($fiches as $fiche) {
+            $fiche = $fiche[0];
+            $fiche->setRank($i);
+            $em->persist($fiche);
+            ++$i;
         }
     }
 
