@@ -5,9 +5,9 @@ namespace NTE\AgathoklesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Different
+ * NTE\AgathoklesBundle\Entity\Different
  *
- * @ORM\Table()
+ * @ORM\Table(name="Different")
  * @ORM\Entity
  */
 class Different
@@ -15,9 +15,9 @@ class Different
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
