@@ -471,21 +471,36 @@ class Fiches
     {
         $delimiter = " - ";
         $result = "";
+        $trigger = true;
 
-        if ($this->fabricant) {
-            $result = $result.$this->fabricant.$delimiter;
+        if ($this->fabricant instanceof Fabricant) {
+            $result = $result.$this->fabricant." (F)".$delimiter;
+            $trigger = false;
         }
-        if ($this->eponyme) {
-            $result = $result.$this->eponyme.$delimiter;
+        if ($this->eponyme instanceof Eponyme) {
+            $result = $result.$this->eponyme." (É)".$delimiter;
+            $trigger = false;
         }
-        if ($this->mois) {
+        if ($this->mois instanceof Mois) {
             $result = $result.$this->mois->getAbr().$delimiter;
+            $trigger = false;
         }
-        if ($this->taxoSubtype) {
-            $result = $result."S".$this->taxoSubtype.$delimiter;
-            if ($this->taxoSubtype->getTaxoType()) {
+        if ($trigger) {
+            if ($this->embleme instanceof Embleme) {
+                $result = $result.$this->embleme->getNom().$delimiter;
+            }
+            if ($this->different instanceof Different) {
+                $result .= $this->getDifferent()->getNom().$delimiter;
+            }
+            if ($this->ete instanceof Ete) {
+                $result .= $this->getEte()->getNom().$delimiter;
+            }
+        }
+        if ($this->taxoSubtype instanceof TaxoSubtype) {
+            if ($this->taxoSubtype->getTaxoType() instanceof TaxoType) {
                 $result = $result."T".$this->taxoSubtype->getTaxoType().$delimiter;
             }
+            $result = $result."S".$this->taxoSubtype.$delimiter;
         }
         $result = $result."M".$this->rank.$delimiter;
 
@@ -2313,7 +2328,7 @@ class Fiches
         $result = "";
 
         if ($this->getFabricant() instanceof Fabricant) {
-            $result .= $this->getFabricant()->getNom().$delimiter;
+            $result .= $this->getFabricant()->getNom()." (F)".$delimiter;
         }
         if ($this->getEthniqueDemotique() instanceof EthniqueDemotique) {
             $result .= $this->getEthniqueDemotique()->getNom().$delimiter;
@@ -2334,7 +2349,7 @@ class Fiches
             $result .= "nominatif (F)".$delimiter;
         }
         if ($this->getEponyme() instanceof Eponyme) {
-            $result .= $this->getEponyme()->getNom().$delimiter;
+            $result .= $this->getEponyme()->getNom()." (É)".$delimiter;
         }
         if ($this->ei) {
             $result .= "EI".$delimiter;
@@ -2370,11 +2385,11 @@ class Fiches
             $result .= $this->getForme()->getAbr().$delimiter;
         }
 
-        if ($this->taxoSubtype) {
-            $result .= "S".$this->taxoSubtype.$delimiter;
-            if ($this->taxoSubtype->getTaxoType()) {
+        if ($this->taxoSubtype instanceof TaxoSubtype) {
+            if ($this->taxoSubtype->getTaxoType() instanceof TaxoType) {
                 $result .= "T".$this->taxoSubtype->getTaxoType().$delimiter;
             }
+            $result .= "S".$this->taxoSubtype.$delimiter;
         }
         $result .= "M".$this->rank.$delimiter;
 
