@@ -275,25 +275,25 @@ class FichesAdmin extends Admin
 
     public function prePersist($fiche)
     {
-        $fiche->setSortName($fiche->__toString());
-        $fiche->setFullName($fiche->generateFullName());
         $this->updateFabricantDating($fiche);
     }
     public function postPersist($fiche)
     {
         $this->updateTaxonomy($fiche);
+        $fiche->setSortName($fiche->__toString());
+        $fiche->setFullName($fiche->generateFullName());
         $this->cleanTaxonomy($fiche);
     }
 
     public function preUpdate($fiche)
     {
-        $fiche->setSortName($fiche->__toString());
-        $fiche->setFullName($fiche->generateFullName());
         $this->updateFabricantDating($fiche);
     }
     public function postUpdate($fiche)
     {
         $this->updateTaxonomy($fiche);
+        $fiche->setSortName($fiche->__toString());
+        $fiche->setFullName($fiche->generateFullName());
         $this->cleanTaxonomy($fiche);
     }
 
