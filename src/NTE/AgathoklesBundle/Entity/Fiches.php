@@ -444,12 +444,12 @@ class Fiches
     protected $timbres;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Different")
+     * @ORM\ManyToOne(targetEntity="NTE\AgathoklesBundle\Entity\Different")
      */
     private $different;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ete")
+     * @ORM\ManyToOne(targetEntity="NTE\AgathoklesBundle\Entity\Ete")
      */
     private $ete;
 
