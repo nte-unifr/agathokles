@@ -66,22 +66,6 @@ class FichesAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Analyse')
-                ->with('DÉNOMINATION', array('class' => 'col-md-12 sonata-box-rewrite'))
-                    ->add('sortName', null,
-                        array(
-                            'label' => 'Dénomination abrégée',
-                            'disabled' => true,
-                            'attr' => array('class' => 'col-md-10')
-                        )
-                    )
-                    ->add('fullName', null,
-                        array(
-                            'label' => 'Dénomination complète',
-                            'disabled' => true,
-                            'attr' => array('class' => 'col-md-10')
-                        )
-                    )
-                ->end()
                 ->with('TYPE', array('class' => 'col-md-12 sonata-box-rewrite'))
                     ->add('forme', null,
                         array(
@@ -153,6 +137,20 @@ class FichesAdmin extends Admin
                     ->add('remarquesType', null, array('label' => 'Remarques', 'attr' => array('class' => 'col-md-10 remarquesTypeID', 'rows' => 3)))
                 ->end()
                 ->with('MATRICE', array('class' => 'col-md-12 sonata-box-rewrite'))
+                    ->add('sortName', null,
+                        array(
+                            'label' => 'Dénomination abrégée',
+                            'disabled' => true,
+                            'attr' => array('class' => 'col-md-10')
+                        )
+                    )
+                    ->add('fullName', null,
+                        array(
+                            'label' => 'Dénomination complète',
+                            'disabled' => true,
+                            'attr' => array('class' => 'col-md-10')
+                        )
+                    )
                     ->add('regravure', null, array('required' => false, 'label' => 'Regravure', 'attr' => array('class' => 'col-md-5 regravureID')))
                     ->add('cadre', null,
                         array(
