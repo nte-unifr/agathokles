@@ -272,29 +272,23 @@ class FichesAdmin extends Admin
     );
 
     // PRE/POST OPERATIONS
-
-    public function prePersist($fiche)
-    {
-        $this->updateFabricantDating($fiche);
-    }
     public function postPersist($fiche)
     {
-        $this->updateTaxonomy($fiche);
-        $fiche->setSortName($fiche->__toString());
-        $fiche->setFullName($fiche->generateFullName());
-        $this->cleanTaxonomy($fiche);
-    }
-
-    public function preUpdate($fiche)
-    {
-        $this->updateFabricantDating($fiche);
+        $this->postActions($fiche);
     }
     public function postUpdate($fiche)
     {
+        $this->postActions($fiche);
+    }
+    public function postActions($fiche) {
+        $em = $this->em;
         $this->updateTaxonomy($fiche);
+        $this->cleanTaxonomy($fiche);
         $fiche->setSortName($fiche->__toString());
         $fiche->setFullName($fiche->generateFullName());
-        $this->cleanTaxonomy($fiche);
+        $em->persist($fiche);
+        $em->flush();
+        $this->updateFabricantDating($fiche);
     }
 
     public function postRemove($fiche)
@@ -330,6 +324,8 @@ class FichesAdmin extends Admin
         }
 
         $fiche->setTaxoSubtype($ts);
+        $em->persist($fiche);
+        $em->flush();
     }
 
     public function cleanTaxonomy($fiche)
@@ -432,6 +428,8 @@ class FichesAdmin extends Admin
                     $fabricant->setApproximative($fabricant->getApproximative() ?: $eponyme->getApproximative()); // if getting an approx dating, it's an approx
                 }
             }
+            $em->persist($fabricant);
+            $em->flush();
         }
     }
 
