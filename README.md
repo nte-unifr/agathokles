@@ -1,7 +1,7 @@
 # Agathokles
 
 ## Personne de contact
-Nathan Badoud : nathan.badoud@unifr.ch
+Nathan Badoud : <nathan.badoud@unifr.ch>
 
 ## Particularités
 ### Classe FicheAdmin
