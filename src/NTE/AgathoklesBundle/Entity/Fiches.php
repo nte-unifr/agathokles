@@ -1688,6 +1688,26 @@ class Fiches
         }
     }
 
+    public function getDating()
+    {
+        $start = $this->getDatingStart();
+        $end = $this->getDatingEnd();
+        $dating = '';
+
+        if ($this->isCirca()) {
+            $dating .= 'ca ';
+        }
+
+        if ($start === $end) {
+            $dating .= $start;
+        }
+        else {
+            $dating .= $start.' - '.$end;
+        }
+
+        return $dating;
+    }
+
     /**
      * Is Circa
      *
