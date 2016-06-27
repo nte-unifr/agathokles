@@ -5,41 +5,36 @@
 {% block matrices_active %}active{% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script src='{{ asset('bundles/nteagathokles/js/jquery.elevateZoom-3.0.3.min.js') }}'></script>
+  {{ parent() }}
+  <script src='{{ asset('bundles/nteagathokles/js/jquery.elevateZoom-3.0.3.min.js') }}'></script>
 {% endblock %}
 
 {% block agathokles_content %}
 
-    <div class="container" id="fiche">
-
-        <div class="page-header">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1 id="title">{{ fiche.__toString }}</h1>
-                </div>
-                <div class="col-sm-6">
-                    {% include "NTEAgathoklesBundle:Fiches:show/nav.html.twig" %}
-                </div>
-            </div>
-        </div>
-
-        <div class="masonry-grid row">
-            <div class="masonry-grid-sizer"></div>
-            {% include "NTEAgathoklesBundle:Fiches:show/illustration.html.twig" %}
-            {% include "NTEAgathoklesBundle:Fiches:show/type.html.twig" %}
-            {% include "NTEAgathoklesBundle:Fiches:show/matrice.html.twig" %}
-            {% include "NTEAgathoklesBundle:Fiches:show/associations.html.twig" %}
-            {% include "NTEAgathoklesBundle:Fiches:show/date.html.twig" %}
-            {% include "NTEAgathoklesBundle:Fiches:show/exemplaires.html.twig" %}
-        </div>
+  <div class="container" id="fiche">
+    <div class="row">
+      <ol class="breadcrumb">
+        <li><a href="{{ path('matrices') }}">Matrices</a></li>
+        <li class="active">Fiche n° {{ fiche.id }}</li>
+      </ol>
     </div>
+    <div class="masonry-grid row">
+      <div class="masonry-grid-sizer"></div>
+      {% include "NTEAgathoklesBundle:Fiches:show/denominations.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/illustration.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/type.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/matrice.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/associations.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/date.html.twig" %}
+      {% include "NTEAgathoklesBundle:Fiches:show/exemplaires.html.twig" %}
+    </div>
+  </div>
 
 {% endblock %}
 
 {% block body_javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/imagesloaded.pkgd.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
-    <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/imagesloaded.pkgd.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+  <script type="text/javascript" src="{{ asset('bundles/nteagathokles/js/z_fiches.js') }}"></script>
 {% endblock %}
