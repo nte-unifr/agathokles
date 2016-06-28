@@ -46,6 +46,9 @@
   height: 3.0em;
   line-height: 1.5em;
 }
+#fiches .thumbnail a {
+  text-decoration: none;
+}
 
 /* -----------------------------------*/
 /* >>>>>>>>>>>>> Map
