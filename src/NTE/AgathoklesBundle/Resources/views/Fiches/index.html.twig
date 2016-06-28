@@ -19,11 +19,12 @@
                 <p class="lead">
                     {{ pager|length }} matrices sur un total de {{ all }}.
                 </p>
-                <div class="masonry-grid row">
-                    <div class="masonry-grid-sizer"></div>
-                    {% for fiche in pager.currentPageResults %}
-                        {% include 'NTEAgathoklesBundle:Fiches:index/fiche.html.twig' %}
-                    {% endfor %}
+                <div class="row">
+                  {% for fiche in pager.currentPageResults %}
+                    <div class="col-sm-6 col-md-4">
+                      {% include 'NTEAgathoklesBundle:Fiches:index/fiche.html.twig' %}
+                    </div>
+                  {% endfor %}
                 </div>
                 {% if pager and pager.haveToPaginate %}
                     <div class="pagerfanta text-center">

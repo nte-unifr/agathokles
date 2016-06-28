@@ -38,6 +38,15 @@
     }
 }
 
+#fiches .max-lines {
+  display: inline-block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  height: 3.0em;
+  line-height: 1.5em;
+}
+
 /* -----------------------------------*/
 /* >>>>>>>>>>>>> Map
 /* -----------------------------------*/
