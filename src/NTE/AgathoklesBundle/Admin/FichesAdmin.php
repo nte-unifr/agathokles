@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
+use NTE\AgathoklesBundle\Entity\TaxoRoot;
 use NTE\AgathoklesBundle\Entity\TaxoType;
 use NTE\AgathoklesBundle\Entity\TaxoSubtype;
 
@@ -302,17 +303,28 @@ class FichesAdmin extends Admin
     {
         $em = $this->em;
 
-        // First, treat type
+        // First, treat root
+        $rootHash = $fiche->calcTaxoRootHash();
+        $tr = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoRoot')->findOneBy(array('hash' => $rootHash));
+        if (!$tr) {
+            $tr = new TaxoRoot;
+            $tr->setHash($rootHash);
+            $em->persist($tr);
+            $em->flush();
+        }
+
+        // Then, treat type
         $typeHash = $fiche->calcTaxoTypeHash();
-        $tt = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoType')->findOneBy(array('hash' => $typeHash));
+        $tt = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoType')->findOneBy(array('hash' => $typeHash, 'taxoRoot' => $tr));
         if (!$tt) {
             $tt = new TaxoType;
             $tt->setHash($typeHash);
+            $tt->setTaxoRoot($tr);
             $em->persist($tt);
             $em->flush();
         }
 
-        // Second, treat subtype
+        // Then, treat subtype
         $subtypeHash = $fiche->calcTaxoSubtypeHash();
         $ts = $em->getRepository('NTE\AgathoklesBundle\Entity\TaxoSubtype')->findOneBy(array('hash' => $subtypeHash, 'taxoType' => $tt));
         if(!$ts) {
@@ -330,8 +342,9 @@ class FichesAdmin extends Admin
 
     public function cleanTaxonomy($fiche)
     {
-        // Clean TaxoSubtypes
         $em = $this->em;
+
+        // Clean TaxoSubtypes
         $q = $em->createQuery('select s from NTE\AgathoklesBundle\Entity\TaxoSubtype s');
         $taxoSubtypes = $q->iterate();
         foreach ($taxoSubtypes as $taxoSubtype) {
@@ -343,7 +356,6 @@ class FichesAdmin extends Admin
         $em->flush();
 
         // Clean TaxoTypes
-        $em = $this->em;
         $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t');
         $taxoTypes = $q->iterate();
         foreach ($taxoTypes as $taxoType) {
@@ -354,15 +366,37 @@ class FichesAdmin extends Admin
         }
         $em->flush();
 
-        $this->updateTaxoTypesRanking();
+        // Clean TaxoRoots
+        $q = $em->createQuery('select r from NTE\AgathoklesBundle\Entity\TaxoRoot r');
+        $taxoRoots = $q->iterate();
+        foreach ($taxoRoots as $taxoRoot) {
+            $taxoRoot = $taxoRoot[0];
+            if ($taxoRoot->getTaxoTypes()->isEmpty()) {
+                $em->remove($taxoRoot);
+            }
+        }
+
+        $this->updateTaxoRootsRanking();
         $em->flush();
     }
 
-    public function updateTaxoTypesRanking()
+    public function updateTaxoRootsRanking()
+    {
+        $em = $this->em;
+        $q = $em->createQuery('select r from NTE\AgathoklesBundle\Entity\TaxoRoot r');
+        $taxoRoots = $q->iterate();
+        foreach ($taxoRoots as $taxoRoot) {
+            $taxoRoot = $taxoRoot[0];
+            $this->updateTaxoTypesRanking($taxoRoot);
+        }
+    }
+
+    public function updateTaxoTypesRanking($taxoRoot)
     {
         $em = $this->em;
         $i = 1;
-        $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t');
+        $q = $em->createQuery('select t from NTE\AgathoklesBundle\Entity\TaxoType t where t.taxoRoot = ?1');
+        $q->setParameter(1, $taxoRoot);
         $taxoTypes = $q->iterate();
         foreach ($taxoTypes as $taxoType) {
             $taxoType = $taxoType[0];

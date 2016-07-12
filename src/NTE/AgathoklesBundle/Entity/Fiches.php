@@ -2284,12 +2284,13 @@ class Fiches
         return $value ? "1" : "0";
     }
 
-    public function calcTaxoTypeHash()
+    public function calcTaxoRootHash()
     {
         $separator = "";
-        $fab = $mois = $embleme = $eponyme = $forme = $ethniqueDemotique = $different = $ete = 0;
+        $fabricant = $eponyme = $mois = 0;
+
         if ($this->getFabricant() instanceof Fabricant) {
-            $fab = $this->getFabricant()->getId();
+            $fabricant = $this->getFabricant()->getId();
         }
         if ($this->getEponyme() instanceof Eponyme) {
             $eponyme = $this->getEponyme()->getId();
@@ -2297,6 +2298,16 @@ class Fiches
         if ($this->getMois() instanceof Mois) {
             $mois = $this->getMois()->getId();
         }
+
+        $hash = "".$fabricant.$separator.$eponyme.$separator.$mois.$separator;
+        return md5($hash);
+    }
+
+    public function calcTaxoTypeHash()
+    {
+        $separator = "";
+        $embleme = $forme = $ethniqueDemotique = $different = $ete = 0;
+
         if ($this->getEmbleme() instanceof Embleme) {
             $embleme = $this->getEmbleme()->getId();
         }
@@ -2312,15 +2323,13 @@ class Fiches
         if ($this->getEte() instanceof Ete) {
             $ete = $this->getEte()->getId();
         }
+
         $hash = "".
-            $fab.$separator.
             $ethniqueDemotique.$separator.
             $this->boolVal($this->metoikos).$separator.
             $this->boolVal($this->engenis).$separator.
             $this->boolVal($this->ergastiriarchas).$separator.
-            $eponyme.$separator.
             $this->boolVal($this->ei).$separator.
-            $mois.$separator.
             $different.$separator.
             $ete.$separator.
             $embleme.$separator.
