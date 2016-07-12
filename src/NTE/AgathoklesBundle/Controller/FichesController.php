@@ -42,10 +42,15 @@ class FichesController extends Controller
 
         // initialize a query builder
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
-            ->select('f')
+            ->select('f', 'fab')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->leftJoin('f.fabricant', 'fab')
+            ->leftJoin('f.eponyme', 'epo')
+            ->leftJoin('f.mois', 'mois')
+            ->leftJoin('f.forme', 'forme')
+            ->leftJoin('f.embleme', 'embleme')
             ->where('f.public = true')
-            ->orderBy( 'f.sortName', 'ASC' );
+            ->orderBy('fab.nom, epo.nom, mois.nom, forme.nom, embleme.nom');
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -86,9 +91,14 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->leftJoin('f.fabricant', 'fab')
+            ->leftJoin('f.eponyme', 'epo')
+            ->leftJoin('f.mois', 'mois')
+            ->leftJoin('f.forme', 'forme')
+            ->leftJoin('f.embleme', 'embleme')
             ->where('f.public = true')
             ->andWhere('f.eponyme is not NULL')
-            ->orderBy( 'f.sortName', 'ASC' );
+            ->orderBy('fab.nom, epo.nom, mois.nom, forme.nom, embleme.nom');
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -129,9 +139,14 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->leftJoin('f.fabricant', 'fab')
+            ->leftJoin('f.eponyme', 'epo')
+            ->leftJoin('f.mois', 'mois')
+            ->leftJoin('f.forme', 'forme')
+            ->leftJoin('f.embleme', 'embleme')
             ->where('f.public = true')
             ->andWhere('f.fabricant is not NULL')
-            ->orderBy( 'f.sortName', 'ASC' );
+            ->orderBy('fab.nom, epo.nom, mois.nom, forme.nom, embleme.nom');
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -172,10 +187,15 @@ class FichesController extends Controller
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->leftJoin('f.fabricant', 'fab')
+            ->leftJoin('f.eponyme', 'epo')
+            ->leftJoin('f.mois', 'mois')
+            ->leftJoin('f.forme', 'forme')
+            ->leftJoin('f.embleme', 'embleme')
             ->where('f.public = true')
             ->andWhere('f.eponyme is not NULL')
             ->andWhere('f.fabricant is not NULL')
-            ->orderBy( 'f.sortName', 'ASC' );
+            ->orderBy('fab.nom, epo.nom, mois.nom, forme.nom, embleme.nom');
 
         // if filters have been set
         if ($this->get('request')->query->has($form->getName())) {
@@ -264,9 +284,14 @@ class FichesController extends Controller
         $qb = $em->createQueryBuilder()
             ->select('f')
             ->from('NTEAgathoklesBundle:Fiches', 'f')
+            ->leftJoin('f.fabricant', 'fab')
+            ->leftJoin('f.eponyme', 'epo')
+            ->leftJoin('f.mois', 'mois')
+            ->leftJoin('f.forme', 'forme')
+            ->leftJoin('f.embleme', 'embleme')
             ->where('f.public = true')
             ->andWhere('f.id IN (:ids)')
-            ->orderBy( 'f.sortName', 'ASC' )
+            ->orderBy('fab.nom, epo.nom, mois.nom, forme.nom, embleme.nom')
             ->setParameter('ids', $uniqIds);
 
         // if filters have been set
