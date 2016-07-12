@@ -39,7 +39,7 @@ class TaxoSubtype
 
     /**
      * @var TaxoType|null the taxoType this fiche belongs (if any)
-     * @ORM\ManyToOne(targetEntity="TaxoType", inversedBy="subtypes")
+     * @ORM\ManyToOne(targetEntity="TaxoType", inversedBy="taxoSubtypes")
      * @ORM\JoinColumn(name="taxoType_id", referencedColumnName="id")
      */
     private $taxoType;
