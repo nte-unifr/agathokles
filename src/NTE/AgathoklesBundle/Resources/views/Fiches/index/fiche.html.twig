@@ -3,7 +3,7 @@
     {% if fiche.images.0 is defined %}
       <img src="{% path fiche.images.0.media, 'index' %}" alt="{{ fiche.id }}" data-toggle="tooltip" data-placement="bottom" title="{{ fiche.legende }}">
     {% else %}
-      <div class="img-placeholder"></div>
+      <img src="{{ asset('bundles/nteagathokles/images/no-image.png') }}" alt="no image">
     {% endif %}
     <div class="caption">
       <h3 class="max-lines">{{ fiche.__toString }}</h3>
