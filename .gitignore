@@ -45,3 +45,4 @@
 /config/deploy/*
 /config/deploy.rb
 /lib/capistrano/*
+/log
